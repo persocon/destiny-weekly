@@ -1,0 +1,21 @@
+{
+  "name": "destiny-weekly",
+  "description": "Opensource App done in ReactJS to show weekly reset updates from Destiny the game.",
+  "main": "bundle.js",
+  "authors": [
+    "Pedro Costa Neves <neo.nyow@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ""
+  }
+}

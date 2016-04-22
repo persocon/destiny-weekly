@@ -1,0 +1,13 @@
+@import "reset";
+
+body {
+	background: #2f2f2f;
+	color: #c6c6c6;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#{headings()} {
+  font-weight: 700; 
+}
+
+img { max-width: 100%; }
