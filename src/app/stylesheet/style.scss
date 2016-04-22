@@ -1,4 +1,11 @@
 @import "reset";
+@import "modernscale";
+@import "mixins";
+@import "box";
+
+* {
+	box-sizing: border-box;
+}
 
 body {
 	background: #2f2f2f;
@@ -6,7 +13,7 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-#{headings()} {
+h1, h2, h3, h4, h5, h6{
   font-weight: 700; 
 }
 

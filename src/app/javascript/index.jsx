@@ -4,6 +4,7 @@ import $ from 'jquery';
 
 /* Import all Components */
 import NightFallBox from './NightfallBox.jsx';
+import XurBox from './XurBox.jsx';
 
 
 /* Import all CSS */
@@ -13,6 +14,7 @@ class App extends React.Component {
   render () {
     return (
     	<div className='cardsBox'>
+    		<XurBox />
 			<NightFallBox />
     	</div>
     );
