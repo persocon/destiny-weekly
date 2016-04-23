@@ -2,7 +2,6 @@
 	float: left;
 	max-width: 320px;
 	min-width: 320px;
-	padding: 0 10px;
 	margin-bottom: 20px;
 	.boxSubtitle {
 		text-decoration: underline;
@@ -20,7 +19,7 @@
 		background-position: center center;
 	}
 	.boxText {
-		padding: 5px;
+		padding: 5px 10px;
 	}
 }
 .box .boxItems {
@@ -30,6 +29,7 @@
 
 		img, .boxItemText {
 			float: left;
+			margin-top: 10px;
 		}
 		img {
 			max-width: 30px;
