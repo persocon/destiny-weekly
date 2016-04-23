@@ -164,11 +164,11 @@ blockquote {
   .box .boxItems .boxItem:after {
     clear: both; }
   .box .boxItems .boxItem img, .box .boxItems .boxItem .boxItemText {
-    float: left;
-    margin-top: 10px; }
+    float: left; }
   .box .boxItems .boxItem img {
     max-width: 30px;
-    margin-right: 15px; }
+    margin-right: 15px;
+    margin-top: 5px; }
   .box .boxItems .boxItem .boxItemText {
     display: inline;
     max-width: 245px; }

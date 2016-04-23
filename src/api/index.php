@@ -168,6 +168,11 @@ $app->get('/dailychapter', function ($request, $response, $args) {
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
 		if($identifier == "dailychapter"){
 			if($active == 1) {
+				$hash = $activity->display->activityHash;
+				$json = getActivity($hash);
+				
+				$activity->details = $json->Response->data->activity;
+
 				$result->dailychapter = $activity;
 			}else {
 				$result->dailychapter = 0;
@@ -197,6 +202,10 @@ $app->get('/dailycrucible', function ($request, $response, $args) {
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
 		if($identifier == "dailycrucible"){
 			if($active == 1) {
+				$hash = $activity->display->activityHash;
+				$json = getActivity($hash);
+				
+				$activity->details = $json->Response->data->activity;
 				$result->dailycrucible = $activity;
 			}else{
 				$result->dailycrucible = 0;
@@ -226,6 +235,10 @@ $app->get('/weeklycrucible', function ($request, $response, $args) {
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
 		if($identifier == "weeklycrucible"){
 			if($active == 1){
+				$hash = $activity->display->activityHash;
+				$json = getActivity($hash);
+				
+				$activity->details = $json->Response->data->activity;
 				$result->weeklycrucible = $activity;
 			}else{
 				$result->weeklycrucible = 0;
@@ -255,6 +268,10 @@ $app->get('/elderchallenge', function ($request, $response, $args) {
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
 		if($identifier == "elderchallenge"){
 			if($active == 1){
+				$hash = $activity->display->activityHash;
+				$json = getActivity($hash);
+				
+				$activity->details = $json->Response->data->activity;
 				$result->elderchallenge = $activity;
 			}else{
 				$result->elderchallenge = 0;

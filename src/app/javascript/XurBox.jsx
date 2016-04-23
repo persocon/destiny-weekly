@@ -1,20 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 
-class XurListItem extends React.Component {
-	render() {
-		return (
-			<li className="modifierListItem boxItem">
-				<img src={'http://bungie.net' + this.props.data.icon} /> 
-				<div className="boxItemText">
-					<p><strong>{this.props.data.itemName}</strong></p> 
-					<p><small>{this.props.data.itemDescription}</small></p>
-				</div>
-			</li>	
-		);
-	}
-};
-
+import ListItem from './ListItem.jsx'
 
 class XurBox extends React.Component {
 	constructor(props) {
@@ -63,7 +50,7 @@ class XurBox extends React.Component {
 						<h4 className="boxSubtitle">Itens a venda</h4>
 						<ul className="boxItems">
 							{this.state.items.map((item, index) => { 
-								return <XurListItem key={index} data={item} />
+								return <ListItem key={index} icon={item.icon} title={item.itemName} description={item.itemDescription} />
 							})}
 						</ul>
 					</div>

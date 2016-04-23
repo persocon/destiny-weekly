@@ -1,19 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 
-class ModifierListItem extends React.Component {
-	render() {
-		return (
-			<li className="modifierListItem boxItem">
-				<img src={'http://bungie.net' + this.props.data.icon} /> 
-				<div className="boxItemText">
-					<p><strong>{this.props.data.displayName}</strong></p> 
-					<p><small>{this.props.data.description}</small></p>
-				</div>
-			</li>	
-		);
-	}
-};
+import ListItem from './ListItem.jsx'
 
 class NightFallBox extends React.Component {
 	constructor(props) {
@@ -64,7 +52,7 @@ class NightFallBox extends React.Component {
 						<h4 className="boxSubtitle">{this.state.modifiersTitle}</h4>
 						<ul className="boxItems">
 							{this.state.modifiers.map((modifier, index) => { 
-								return <ModifierListItem key={index} data={modifier} />
+								return <ListItem key={index} title={modifier.displayName} description={modifier.description} icon={modifier.icon} />
 							})}
 						</ul>
 					</div>
