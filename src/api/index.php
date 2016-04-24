@@ -270,6 +270,13 @@ $app->get('/elderchallenge', function ($request, $response, $args) {
 			if($active == 1){
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
+				// $bosses = $activity->activityTiers[0]->extended->rounds;
+				// $bossInfo = [];
+				// for($i = 0, $c = count($bosses); $i < $c; $i++) { 
+				// 	$boss = $bosses[$i];
+				// 	$binfo = getItemDetail($boss->bossCombatantHash);
+				// 	array_push($bossInfo, $binfo);
+				// }
 				
 				$activity->details = $json->Response->data->activity;
 				$result->elderchallenge = $activity;
@@ -306,6 +313,22 @@ function getItemDetail($hash){
 
 	$json = json_decode(curl_exec($ch));
 	return $json->Response->data->inventoryItem;
+}
+
+function getBoss($boss){
+	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
+	$nf = curl_init();
+				
+	$url = 'http://www.bungie.net/platform/Destiny/CombatantDefinitions/'.$boss.'/?lc=pt-br&definitions=true';
+
+	curl_setopt($nf, CURLOPT_URL, $url);
+	curl_setopt($nf, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($nf, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
+
+	$json = json_decode(curl_exec($nf));
+	print_r($json);
+	break;
+	return $json;
 }
 
 // Run app

@@ -18,13 +18,14 @@ class XurBox extends React.Component {
 		this.serverRequest = $.get('/api/xur', function (result) {
 			var lastGist = result[0];
 			var xur = result.xur;
-			console.log(xur);
-			this.setState({
-				title: xur.display.advisorTypeCategory,
-				active: xur.status.active,
-				backgroundImg: 'http://bungie.net/img/theme/bungienet/bgs/bg_xuravailable.jpg',
-				items: xur.items
-			});
+			if (xur.hasOwnProperty('status') && xur.status.hasOwnProperty('active')) {
+				this.setState({
+					title: xur.display.advisorTypeCategory,
+					active: xur.status.active,
+					backgroundImg: 'http://bungie.net/img/theme/bungienet/bgs/bg_xuravailable.jpg',
+					items: xur.items
+				});
+			}
 		}.bind(this));
 	}
 
