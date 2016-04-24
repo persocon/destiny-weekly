@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 
 import ListItem from './ListItem.jsx'
+import HeaderBox from './HeaderBox.jsx'
 
 class NightFallBox extends React.Component {
 	constructor(props) {
@@ -43,11 +44,7 @@ class NightFallBox extends React.Component {
 		return (	
 			<div className="nightFallBox box"> 
 				<div className="boxContent">
-					<div className="boxImage" style={divStyle} >
-						<h2 className="boxTitle">{this.state.title}</h2>
-						<h3 className="boxSubtitle">{this.state.name}</h3>
-						<p>{this.state.desc}</p>
-					</div>
+					<HeaderBox style={divStyle} title={this.state.title} subtitle={this.state.name} description={this.state.description} />
 					<div className="boxText">
 						<h4 className="boxSubtitle">{this.state.modifiersTitle}</h4>
 						<ul className="boxItems">

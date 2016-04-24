@@ -41,12 +41,7 @@ class XurBox extends React.Component {
 			};
 			return (
 				<div className="xurBox box"> 
-					<div className="boxContent">
-						<div className="boxImage" style={divStyle} >
-							<h2 className="boxTitle">{this.state.title}</h2>
-							<h3 className="boxSubtitle">{this.state.name}</h3>
-						</div>
-					</div>
+					<HeaderBox style={divStyle} title={this.state.title} subtitle={this.state.name} description="" />
 					<div className="boxText">
 						<h4 className="boxSubtitle">Itens a venda</h4>
 						<ul className="boxItems">
