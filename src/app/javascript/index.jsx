@@ -13,9 +13,9 @@ import Style from '../stylesheet/style.scss';
 class App extends React.Component {
   render () {
     return (
-    	<div className='cardsBox'>
+    	<div className='cardsComponents'>
     		<XurComponent />
-			<ActivityComponent url="/api/weeklycrucible" />
+			<ActivityComponent url="/api/elderchallenge" />
     	</div>
     );
   }

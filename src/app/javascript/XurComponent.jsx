@@ -46,7 +46,7 @@ class XurBox extends React.Component {
 						<h4 className="boxSubtitle">Itens a venda</h4>
 						<ul className="boxItems">
 							{this.state.items.map((item, index) => { 
-								return <ListItem key={index} icon={item.icon} title={item.itemName} description={item.itemDescription} />
+								return <ListItemComponent key={index} icon={item.icon} title={item.itemName} description={item.itemDescription} />
 							})}
 						</ul>
 					</div>

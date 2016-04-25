@@ -40,7 +40,7 @@ class ActivityComponent extends React.Component {
 			backgroundImage: 'url(' + this.state.backgroundImg + ')'
 		};
 		return (	
-			<div className="nightFallBox box"> 
+			<div className="activityComponent box"> 
 				<div className="boxContent">
 					<HeaderComponent style={divStyle} title={this.state.title} subtitle={this.state.name} description={this.state.desc} />
 					
