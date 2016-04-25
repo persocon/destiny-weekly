@@ -14,6 +14,11 @@ $container['view'] = function ($container) {
     return new \Slim\Views\PhpRenderer('templates/');
 };
 
+$container['db'] = function($container){
+ return new \PDO('sqlite:./cache/db.content');
+};
+
+
 // Define app routes
 $app->get('/nightfall', function ($request, $response, $args) {
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
@@ -270,13 +275,14 @@ $app->get('/elderchallenge', function ($request, $response, $args) {
 			if($active == 1){
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
-				// $bosses = $activity->activityTiers[0]->extended->rounds;
-				// $bossInfo = [];
-				// for($i = 0, $c = count($bosses); $i < $c; $i++) { 
-				// 	$boss = $bosses[$i];
-				// 	$binfo = getItemDetail($boss->bossCombatantHash);
-				// 	array_push($bossInfo, $binfo);
-				// }
+				$bosses = $activity->activityTiers[0]->extended->rounds;
+				$bossInfo = [];
+				for($i = 0, $c = count($bosses); $i < $c; $i++) { 
+					$boss = $bosses[$i];
+					$binfo = getBoss($boss->bossCombatantHash);
+					array_push($bossInfo, $binfo);
+				}
+				$activity->bosses = $bossInfo;
 				
 				$activity->details = $json->Response->data->activity;
 				$result->elderchallenge = $activity;
@@ -287,6 +293,33 @@ $app->get('/elderchallenge', function ($request, $response, $args) {
 
 	}
 	return $response->withJson($result);
+});
+
+$app->get('/manifest', function ($request, $response, $args) {
+	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, 'http://www.bungie.net/platform/Destiny/Manifest/?lc=pt-br&definitions=true');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
+
+	$json = json_decode(curl_exec($ch));
+	$url = 'http://bungie.net'.$json->Response->mobileWorldContentPaths->{"pt-br"};
+	$file = file_get_contents($url);
+	file_put_contents('./cache/file.zip', $file);
+	$zip = new ZipArchive;
+	$res = $zip->open('./cache/file.zip');
+	if ($res === TRUE) {
+		$name = $zip->statIndex(0)['name'];
+		$zip->extractTo('./cache');
+		$zip->close();
+		rename('./cache/'.$name, './cache/db.content');
+		return "foi";
+	}else {
+		print_r($res);
+		return "erro";
+	}
+	// return $response->withJson($json);
 });
 
 function getActivity($hash) {
@@ -315,20 +348,12 @@ function getItemDetail($hash){
 	return $json->Response->data->inventoryItem;
 }
 
-function getBoss($boss){
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
-	$nf = curl_init();
-				
-	$url = 'http://www.bungie.net/platform/Destiny/CombatantDefinitions/'.$boss.'/?lc=pt-br&definitions=true';
-
-	curl_setopt($nf, CURLOPT_URL, $url);
-	curl_setopt($nf, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($nf, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($nf));
-	print_r($json);
-	break;
-	return $json;
+function getBoss($id){
+	global $container;
+	$id = sprintf('%u', $id & 0xFFFFFFFF);
+	$stmt = $container->db->query('SELECT * from DestinyCombatantDefinition WHERE id='.$id);
+	$all = $stmt->fetchAll();
+	return json_decode($all[0]['json']);
 }
 
 // Run app

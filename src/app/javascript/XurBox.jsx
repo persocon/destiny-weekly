@@ -16,8 +16,8 @@ class XurBox extends React.Component {
 
 	componentDidMount() {
 		this.serverRequest = $.get('/api/xur', function (result) {
-			var lastGist = result[0];
-			var xur = result.xur;
+			let lastGist = result[0];
+			let xur = result.xur;
 			if (xur.hasOwnProperty('status') && xur.status.hasOwnProperty('active')) {
 				this.setState({
 					title: xur.display.advisorTypeCategory,
@@ -35,7 +35,7 @@ class XurBox extends React.Component {
 
 	render() {
 		if(this.state.active){
-			var divStyle = {
+			let divStyle = {
 				backgroundImage: 'url(' + this.state.backgroundImg + ')',
 				backgroundPosition: '25% 0'
 			};

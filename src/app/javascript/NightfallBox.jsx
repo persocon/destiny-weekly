@@ -19,8 +19,8 @@ class NightFallBox extends React.Component {
 
 	componentDidMount() {
 		this.serverRequest = $.get('/api/nightfall', function (result) {
-			var lastGist = result[0];
-			var nightfall = result.nightfall;
+			let lastGist = result[0];
+			let nightfall = result.nightfall;
 			console.log(nightfall)
 			this.setState({
 				title: nightfall.display.advisorTypeCategory,
@@ -38,7 +38,7 @@ class NightFallBox extends React.Component {
 	}
 
 	render(){
-		var divStyle = {
+		let divStyle = {
 			backgroundImage: 'url(' + this.state.backgroundImg + ')'
 		};
 		return (	
