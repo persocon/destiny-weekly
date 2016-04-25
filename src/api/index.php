@@ -52,7 +52,7 @@ $app->get('/nightfall', function ($request, $response, $args) {
 		}
 
 	}
-	return $response->withJson($result);
+	return $response->withJson($result->nightfall);
 });
 
 $app->get('/xur', function ($request, $response, $args) {
@@ -89,7 +89,7 @@ $app->get('/xur', function ($request, $response, $args) {
 		}
 
 	}
-	return $response->withJson($result);
+	return $response->withJson($result->xur);
 });
 
 $app->get('/trials', function ($request, $response, $args) {
@@ -122,7 +122,7 @@ $app->get('/trials', function ($request, $response, $args) {
 		}
 
 	}
-	return $response->withJson($result);
+	return $response->withJson($result->trials);
 });
 
 $app->get('/heroicstrike', function ($request, $response, $args) {
@@ -151,7 +151,7 @@ $app->get('/heroicstrike', function ($request, $response, $args) {
 		}
 
 	}
-	return $response->withJson($result);
+	return $response->withJson($result->heroicstrike);
 });
 
 $app->get('/dailychapter', function ($request, $response, $args) {
@@ -185,7 +185,7 @@ $app->get('/dailychapter', function ($request, $response, $args) {
 		}
 
 	}
-	return $response->withJson($result);
+	return $response->withJson($result->dailychapter);
 });
 
 $app->get('/dailycrucible', function ($request, $response, $args) {
@@ -218,7 +218,7 @@ $app->get('/dailycrucible', function ($request, $response, $args) {
 		}
 
 	}
-	return $response->withJson($result);
+	return $response->withJson($result->dailycrucible);
 });
 
 $app->get('/weeklycrucible', function ($request, $response, $args) {
@@ -251,7 +251,7 @@ $app->get('/weeklycrucible', function ($request, $response, $args) {
 		}
 
 	}
-	return $response->withJson($result);
+	return $response->withJson($result->weeklycrucible);
 });
 
 $app->get('/elderchallenge', function ($request, $response, $args) {
@@ -292,7 +292,7 @@ $app->get('/elderchallenge', function ($request, $response, $args) {
 		}
 
 	}
-	return $response->withJson($result);
+	return $response->withJson($result->elderchallenge);
 });
 
 $app->get('/manifest', function ($request, $response, $args) {

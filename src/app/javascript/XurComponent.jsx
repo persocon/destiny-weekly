@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 
-import ListItem from './ListItem.jsx'
+import ListItemComponent from './ListItemComponent.jsx'
 
 class XurBox extends React.Component {
 	constructor(props) {
@@ -17,7 +17,7 @@ class XurBox extends React.Component {
 	componentDidMount() {
 		this.serverRequest = $.get('/api/xur', function (result) {
 			let lastGist = result[0];
-			let xur = result.xur;
+			let xur = result;
 			if (xur.hasOwnProperty('status') && xur.status.hasOwnProperty('active')) {
 				this.setState({
 					title: xur.display.advisorTypeCategory,

@@ -3,8 +3,8 @@ import {render} from 'react-dom';
 import $ from 'jquery';
 
 /* Import all Components */
-import NightFallBox from './NightfallBox.jsx';
-import XurBox from './XurBox.jsx';
+import ActivityComponent from './ActivityComponent.jsx';
+import XurComponent from './XurComponent.jsx';
 
 
 /* Import all CSS */
@@ -14,8 +14,8 @@ class App extends React.Component {
   render () {
     return (
     	<div className='cardsBox'>
-    		<XurBox />
-			<NightFallBox />
+    		<XurComponent />
+			<ActivityComponent url="/api/weeklycrucible" />
     	</div>
     );
   }
