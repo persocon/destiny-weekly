@@ -8,6 +8,7 @@ $config = [
 ];
 
 $app = new \Slim\App($config);
+$app->add(new \Slim\HttpCache\Cache('public', 86400));
 
 $container = $app->getContainer();
 $container['view'] = function ($container) {
@@ -17,6 +18,11 @@ $container['view'] = function ($container) {
 $container['db'] = function($container){
  return new \PDO('sqlite:./cache/db.content');
 };
+
+$container['cache'] = function () {
+    return new \Slim\HttpCache\CacheProvider();
+};
+
 
 
 // Define app routes
@@ -255,6 +261,8 @@ $app->get('/weeklycrucible', function ($request, $response, $args) {
 });
 
 $app->get('/elderchallenge', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+	
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
 	$ch = curl_init();
@@ -292,7 +300,8 @@ $app->get('/elderchallenge', function ($request, $response, $args) {
 		}
 
 	}
-	return $response->withJson($result->elderchallenge);
+
+	return $resWithExpires->withJson($result->elderchallenge);
 });
 
 $app->get('/manifest', function ($request, $response, $args) {
