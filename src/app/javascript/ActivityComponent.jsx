@@ -13,6 +13,7 @@ class ActivityComponent extends React.Component {
 			desc: '',
 			backgroundImg: '',
 			modifiers: [],
+			bosses: [],
 			apiUrl: this.props.url
 		};
 	}
@@ -26,7 +27,8 @@ class ActivityComponent extends React.Component {
 				name: result.details.activityName,
 				desc: result.details.activityDescription,
 				backgroundImg: 'http://bungie.net' + result.display.image,
-				modifiers: (result.hasOwnProperty('extended') && result.extended.hasOwnProperty('skullCategories')) ? result.extended.skullCategories : []
+				modifiers: (result.hasOwnProperty('extended') && result.extended.hasOwnProperty('skullCategories')) ? result.extended.skullCategories : [],
+				bosses: (result.hasOwnProperty('bosses')) ? result.bosses : []
 			});
 		}.bind(this));
 	}
@@ -46,6 +48,13 @@ class ActivityComponent extends React.Component {
 					
 					{this.state.modifiers.map((modifier, index) => {
 						return <ModifierComponent key={index} title={modifier.title} details={modifier.skulls} />
+					})}
+
+					{this.state.bosses.map((boss, index)=>{
+						let style = {
+							backgroundImage: 'url(http://bungie.net'+boss.image+')'
+						};
+						return <HeaderComponent key={index} style={style} title={boss.combatantName} subtitle="" description={boss.description} />
 					})}
 				</div>
 			</div>

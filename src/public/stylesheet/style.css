@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -140,6 +141,9 @@ blockquote {
   margin-bottom: 20px; }
   .box .boxSubtitle {
     text-decoration: underline; }
+  .box h4.boxSubtitle {
+    text-decoration: none;
+    color: #f2c161; }
   .box .boxImage {
     border-top: 3px solid #ffce1f;
     position: relative;
@@ -180,16 +184,42 @@ blockquote {
       font-size: 14px;
       line-height: 16px; }
 
+.selectComponent {
+  color: #f5f5f5; }
+  .selectComponent .selectWrap {
+    position: relative;
+    width: 100%; }
+    .selectComponent .selectWrap:after {
+      color: whitesmoke;
+      content: "\25BE";
+      position: absolute;
+      pointer-events: none;
+      right: 14px;
+      top: 18px; }
+    .selectComponent .selectWrap select {
+      background: transparent;
+      border: 1px solid rgba(97, 119, 147, 0.5);
+      color: #f5f5f5;
+      font-size: 12px;
+      padding: 5px 35px 5px 5px;
+      margin: 5px;
+      width: 310px;
+      height: 45px;
+      border-radius: 0;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      outline: medium none; }
+      .selectComponent .selectWrap select:focus {
+        outline: medium none; }
+
 * {
   box-sizing: border-box; }
 
 body {
   background: #2f2f2f;
   color: #c6c6c6;
-  font-family: 'Open Sans', sans-serif; }
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700; }
+  font-family: 'Roboto', sans-serif; }
 
 img {
   max-width: 100%; }

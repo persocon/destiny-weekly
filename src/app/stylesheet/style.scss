@@ -2,6 +2,7 @@
 @import "modernscale";
 @import "mixins";
 @import "box";
+@import "select";
 
 * {
 	box-sizing: border-box;
@@ -10,11 +11,7 @@
 body {
 	background: #2f2f2f;
 	color: #c6c6c6;
-	font-family: 'Open Sans', sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6{
-  font-weight: 700; 
+	font-family: 'Roboto', sans-serif;
 }
 
 img { max-width: 100%; }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItemComponent from './ListItemComponent.jsx';
 
-class ModifierBox extends React.Component {
+class ModifierComponent extends React.Component {
 	render() {
 		return (
 			<div className="boxText">
@@ -16,4 +16,4 @@ class ModifierBox extends React.Component {
 	}
 };
 
-export default ModifierBox;
+export default ModifierComponent;
