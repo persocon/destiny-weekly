@@ -15,7 +15,7 @@ class App extends React.Component {
     	<div className='appComponents'>
     		<SelectComponent />
     		<div className="cardsComponents">
-  				<ActivityComponent url="/api/ironbanner" />
+  				<ActivityComponent url="/api/trials" />
   			</div>
     	</div>
     );

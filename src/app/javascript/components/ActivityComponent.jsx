@@ -34,7 +34,7 @@ class ActivityComponent extends React.Component {
 				modifiers: (result.hasOwnProperty('extended') && result.extended.hasOwnProperty('skullCategories')) ? result.extended.skullCategories : [],
 				bosses: (result.hasOwnProperty('bosses')) ? result.bosses : [],
 				items: (result.hasOwnProperty('items') && result.display.identifier == "xur") ? result.items : [],
-				bounties: (result.hasOwnProperty('bounties') && result.display.identifier == "ironbanner") ? result.bounties : []
+				bounties: (result.hasOwnProperty('bounties')) ? result.bounties : []
 			});
 		}.bind(this));
 	}

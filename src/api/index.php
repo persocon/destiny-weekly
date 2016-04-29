@@ -151,7 +151,21 @@ $app->get('/trials', function ($request, $response, $args) {
 				$json = getActivity($hash);
 				
 				$activity->details = $json->Response->data->activity;
+				$activity->display->image = $activity->details->pgcrImage;
+
+				$ibItems = $activity->vendors[0]->saleItemCategories[0]->saleItems;
+				$items = [];
+				for($i = 0, $c = count($ibItems); $i < $c; $i++) { 
+					$item = $ibItems[$i];
+					$itemInfo = getItemDetail($item->item->itemHash);
+					array_push($items, $itemInfo);
+				}
+				$activity->bounties = $items;
+
+
 				$result->trials = $activity;
+
+
 			}else{
 				$result->trials = 0;
 			}
