@@ -13,8 +13,7 @@ class SelectComponent extends React.Component {
 	componentDidMount() {
 		this.serverRequest = $.get('/api/selectActivity', function (result) {
 			let lastGist = result[0];
-			console.log(result)
-			result.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: ""});
+			result.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: "", disabled: "disabled"});
 			this.setState({
 				options: result
 				
@@ -25,14 +24,21 @@ class SelectComponent extends React.Component {
 	componentWillUnmount() {
 		this.serverRequest.abort();
 	}
+
+	showOptions() {
+		let options = this.state.options.map((option, index) => { 
+			return (<OptionComponent key={index} title={option.advisorTypeCategory} identifier={option.identifier} disabled={option.disabled} />);
+		});
+
+		return options;
+	}
+
 	render() {
 		return (
 			<div className="selectComponent">
     			<div className="selectWrap">
 		    		<select>
-		    			{this.state.options.map((option, index) => { 
-			    			return <OptionComponent key={index} title={option.advisorTypeCategory} identifier={option.identifier} />
-		    			})}
+		    			{this.showOptions()}
 		    		</select>
 	    		</div>
     		</div>

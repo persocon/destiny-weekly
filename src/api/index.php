@@ -45,7 +45,7 @@ $app->get('/selectActivity', function ($request, $response, $args) {
 		$activity = $activities[$i];
 		$identifier = $activity->display->identifier;
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($active == 1 &&  $identifier != 'thetakenking' && $identifier != 'vaultofglass' && $identifier != 'crota'){
+		if($active == 1 &&  $identifier != 'thetakenking' && $identifier != 'vaultofglass' && $identifier != 'crota' && $identifier != 'armsday'){
 			array_push($selectActivity, $activity->display);
 		}
 	}
@@ -181,10 +181,14 @@ $app->get('/ironbanner', function ($request, $response, $args) {
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
 		if($identifier == "ironbanner"){
 			if($active==1){
-				$hash = $activity->display->activityHash;
-				$json = getActivity($hash);
-				
-				$activity->details = $json->Response->data->activity;
+				$ibItems = $activity->vendors[0]->saleItemCategories[1]->saleItems;
+				$items = [];
+				for($i = 0, $c = count($ibItems); $i < $c; $i++) { 
+					$item = $ibItems[$i];
+					$itemInfo = getItemDetail($item->item->itemHash);
+					array_push($items, $itemInfo);
+				}
+				$activity->bounties = $items; // it's getting just the hunter class items :(
 
 				$result->ironbanner = $activity;
 
