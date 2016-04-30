@@ -1,9 +1,20 @@
 import React from 'react';
-import {render} from 'react-dom';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
-import App from './components/App.jsx'
+import activityApp from './reducers/index.jsx';
+import App from './components/App.jsx';
 
 /* Import all CSS */
 import Style from '../stylesheet/style.scss';
 
-render(<App/>, document.getElementById('app'));
+
+let store = createStore(activityApp);
+
+render(
+	<Provider store={store}>
+		<App/>
+	</Provider>, 
+	document.getElementById('app')
+);

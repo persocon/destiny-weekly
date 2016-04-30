@@ -4,18 +4,16 @@ import {createStore} from 'redux';
 import $ from 'jquery';
 
 /* Import all Components */
-import SelectComponent from './selectComponent.jsx';
-import ActivityComponent from './ActivityComponent.jsx';
-import XurComponent from './XurComponent.jsx';
-
+import SelectContainer from '../containers/SelectContainer.jsx';
+import ActivityContainer from '../containers/ActivityContainer.jsx';
 
 class App extends React.Component {
   render () {
     return (
     	<div className='appComponents'>
-    		<SelectComponent />
+    		<SelectContainer />
     		<div className="cardsComponents">
-  				<ActivityComponent url="/api/trials" />
+  				<ActivityContainer />
   			</div>
     	</div>
     );

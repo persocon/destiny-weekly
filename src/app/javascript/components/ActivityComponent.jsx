@@ -16,15 +16,34 @@ class ActivityComponent extends React.Component {
 			modifiers: [],
 			bosses: [],
 			items: [],
-			bounties: [],
-			apiUrl: this.props.url
+			bounties: []
 		};
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.props = {};
+		this.replaceProps(nextProps, cb => this.getAjax());	
+	}
+
+	replaceProps(props, callback){
+		this.props = Object.assign({}, this.props, props);
+		callback();
+	}
+
+
 	componentDidMount() {
-		this.serverRequest = $.get(this.state.apiUrl, function (result) {
+		this.getAjax();
+	}
+
+	componentWillUnmount() {
+		this.serverRequest.abort();
+	}
+
+	getAjax(){
+		// debugger;
+		this.serverRequest = $.get(this.props.activity, function (result) {
 			let lastGist = result[0];
-			console.log(result)
+			console.log("ACTIVITY_COMPONENT_RESULT: ", result);
 			this.setState({
 				identifier: result.display.identifier,
 				title: (result.display.hasOwnProperty('advisorTypeCategory'))? result.display.advisorTypeCategory : '',
@@ -37,10 +56,6 @@ class ActivityComponent extends React.Component {
 				bounties: (result.hasOwnProperty('bounties')) ? result.bounties : []
 			});
 		}.bind(this));
-	}
-
-	componentWillUnmount() {
-		this.serverRequest.abort();
 	}
 
 	backgroundImage(){

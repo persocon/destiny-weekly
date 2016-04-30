@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import OptionComponent from './OptionComponent.jsx';
 
@@ -37,7 +37,7 @@ class SelectComponent extends React.Component {
 		return (
 			<div className="selectComponent">
     			<div className="selectWrap">
-		    		<select>
+		    		<select onChange={event => this.props.onSelectChange(event.target.value)}>
 		    			{this.showOptions()}
 		    		</select>
 	    		</div>
@@ -45,5 +45,9 @@ class SelectComponent extends React.Component {
 		);
 	}
 };
+
+SelectComponent.propTypes = {
+	onSelectChange: PropTypes.func.isRequired
+}
 
 export default SelectComponent;
