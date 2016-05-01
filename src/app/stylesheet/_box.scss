@@ -1,7 +1,6 @@
 .box {
 	float: left;
-	max-width: 320px;
-	min-width: 320px;
+	width: 100%;
 	margin-bottom: 20px;
 	.boxSubtitle {
 		text-decoration: underline;
@@ -36,13 +35,12 @@
 			float: left;
 		}
 		img {
-			max-width: 30px;
-			margin-right: 15px;
-			margin-top: 5px;
+			width: 12%;
 		}
 		.boxItemText {
-			display: inline;
-			max-width: 245px;
+			display: inline-block;
+			width: 88%;
+			padding-left: 15px;
 			strong {
 				font-weight: 700;
 				font-size: 18px;
@@ -54,4 +52,16 @@
 			}
 		}
 	}
+}
+
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+  	.box .boxItems .boxItem img {
+  		width: 3%;
+  	}
+  	.box .boxItems .boxItem .boxItemText {
+  		width: 97%;
+  	}
 }

@@ -4,10 +4,7 @@ import $ from 'jquery';
 import HeaderComponent from './HeaderComponent.jsx'
 import ModifierComponent from './ModifierComponent.jsx'
 
-class ActivityComponent extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
+const initialState = {
 			identifier: '',
 			title: 'Carregando',
 			name: '',
@@ -18,6 +15,11 @@ class ActivityComponent extends React.Component {
 			items: [],
 			bounties: []
 		};
+
+class ActivityComponent extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = initialState;
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -27,6 +29,7 @@ class ActivityComponent extends React.Component {
 
 	replaceProps(props, callback){
 		this.props = Object.assign({}, this.props, props);
+		this.setState(initialState);
 		callback();
 	}
 
@@ -40,7 +43,6 @@ class ActivityComponent extends React.Component {
 	}
 
 	getAjax(){
-		// debugger;
 		this.serverRequest = $.get(this.props.activity, function (result) {
 			let lastGist = result[0];
 			console.log("ACTIVITY_COMPONENT_RESULT: ", result);
