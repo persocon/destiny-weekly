@@ -1,13 +1,23 @@
 const initialState = {
-	activity: '/api/nightfall'
+	identifier: 'nightfall',
+	title: 'Carregando',
+	name: '',
+	desc: '',
+	backgroundImg: '',
+	modifiers: [],
+	bosses: [],
+	items: [],
+	bounties: []
 }
 const activity = (state = initialState, action) => {
 	switch (action.type) {
-		case 'CHANGE_API_URL':
-			let newState = Object.assign({}, state, {
-				activity: action.activity
-			});
+		case 'SET_ACTIVITY':
+			let newState = Object.assign({}, state, action.activity);
 			return newState;
+			break;
+		case 'START_LOADING':
+			let loadingState = Object.assign({}, state, initialState);
+			return loadingState;
 			break;
 		default:
 			return state;

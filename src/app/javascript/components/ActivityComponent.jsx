@@ -17,52 +17,9 @@ const initialState = {
 		};
 
 class ActivityComponent extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = initialState;
-	}
-
-	componentWillReceiveProps(nextProps) {
-		this.props = {};
-		this.replaceProps(nextProps, cb => this.getAjax());	
-	}
-
-	replaceProps(props, callback){
-		this.props = Object.assign({}, this.props, props);
-		this.setState(initialState);
-		callback();
-	}
-
-
-	componentDidMount() {
-		this.getAjax();
-	}
-
-	componentWillUnmount() {
-		this.serverRequest.abort();
-	}
-
-	getAjax(){
-		this.serverRequest = $.get(this.props.activity, function (result) {
-			let lastGist = result[0];
-			console.log("ACTIVITY_COMPONENT_RESULT: ", result);
-			this.setState({
-				identifier: result.display.identifier,
-				title: (result.display.hasOwnProperty('advisorTypeCategory'))? result.display.advisorTypeCategory : '',
-				name: (result.hasOwnProperty('details') && result.details.hasOwnProperty('activityName')) ? result.details.activityName : '',
-				desc: (result.hasOwnProperty('details') && result.details.hasOwnProperty('activityDescription')) ? result.details.activityDescription : '',
-				backgroundImg: (result.display.hasOwnProperty('image')) ? 'http://bungie.net' + result.display.image : '',
-				modifiers: (result.hasOwnProperty('extended') && result.extended.hasOwnProperty('skullCategories')) ? result.extended.skullCategories : [],
-				bosses: (result.hasOwnProperty('bosses')) ? result.bosses : [],
-				items: (result.hasOwnProperty('items') && result.display.identifier == "xur") ? result.items : [],
-				bounties: (result.hasOwnProperty('bounties')) ? result.bounties : []
-			});
-		}.bind(this));
-	}
-
 	backgroundImage(){
 		let divStyle;
-		switch(this.state.identifier){
+		switch(this.props.identifier){
 			case "xur":
 				divStyle = {
 					backgroundImage: 'url(http://bungie.net/img/theme/bungienet/bgs/bg_xuravailable.jpg)',
@@ -77,7 +34,7 @@ class ActivityComponent extends React.Component {
 				break;
 			default:
 				divStyle = {
-					backgroundImage: 'url('+this.state.backgroundImg+')'	
+					backgroundImage: 'url('+this.props.backgroundImg+')'	
 				}
 				break;
 		}
@@ -87,7 +44,7 @@ class ActivityComponent extends React.Component {
 	}
 
 	showModifiers() {
-		let modifiers = this.state.modifiers.map((modifier, index) => {
+		let modifiers = this.props.modifiers.map((modifier, index) => {
 			return (<ModifierComponent key={index} title={modifier.title} details={modifier.skulls} />);
 		});
 
@@ -95,19 +52,19 @@ class ActivityComponent extends React.Component {
 	}
 
 	showXur() {
-		if(this.state.items.length >= 1){
-			return <ModifierComponent title="Itens a venda" details={this.state.items} />;
+		if(this.props.items.length >= 1){
+			return <ModifierComponent title="Itens a venda" details={this.props.items} />;
 		}
 	}
 
 	showBounties(){
-		if(this.state.bounties.length >= 1){
-			return <ModifierComponent title="Contratos" details={this.state.bounties} />;
+		if(this.props.bounties.length >= 1){
+			return <ModifierComponent title="Contratos" details={this.props.bounties} />;
 		}	
 	}
 
 	showBosses() {		
-		let bosses = this.state.bosses.map((boss, index)=>{
+		let bosses = this.props.bosses.map((boss, index)=>{
 			let style = {
 				backgroundImage: 'url(http://bungie.net'+boss.image+')'
 			};
@@ -123,7 +80,7 @@ class ActivityComponent extends React.Component {
 		return (	
 			<div className="activityComponent box"> 
 				<div className="boxContent">
-					<HeaderComponent style={this.backgroundImage()} title={this.state.title} subtitle={this.state.name} description={this.state.desc} />
+					<HeaderComponent style={this.backgroundImage()} title={this.props.title} subtitle={this.props.name} description={this.props.desc} />
 					
 					{this.showModifiers()}
 

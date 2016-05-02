@@ -1,14 +1,17 @@
 import { connect } from 'react-redux';
-import { changeApiUrl } from '../actions/index.jsx';
+import { changeApiUrl, findActivity } from '../actions/index.jsx';
 import ActivityComponent from '../components/ActivityComponent.jsx';
 
 const mapStateToProps = (state) => {
-	return {
-		activity: state.activity.activity
+	return state.activity;
+}
+
+export class ActivityContainer extends ActivityComponent {
+	componentDidMount() {
+		const { dispatch, identifier } = this.props;
+		dispatch(findActivity(identifier));
 	}
 }
 
 
-const ActivityContainer = connect(mapStateToProps)(ActivityComponent);
-
-export default ActivityContainer;
+export default connect(mapStateToProps)(ActivityContainer);
