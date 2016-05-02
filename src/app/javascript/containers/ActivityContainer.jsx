@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
 export class ActivityContainer extends ActivityComponent {
 	componentDidMount() {
 		const { dispatch, identifier } = this.props;
-		dispatch(findActivity(identifier));
+		dispatch(findActivity());
 	}
 }
 

@@ -1,11 +1,12 @@
 const initialState = {
-	activity: '/api/nightfall',
-}
+	activity: 'nightfall'
+};
+
 const select = (state = initialState, action) => {
 	switch (action.type) {
 		case 'CHANGE_API_URL':
 			let newState = Object.assign({}, state, {
-				select: action.activity
+				activity: action.activity
 			});
 			return newState;
 			break;

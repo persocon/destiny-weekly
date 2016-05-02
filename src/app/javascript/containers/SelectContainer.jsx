@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		onSelectChange: (activity) =>{
 			dispatch(changeApiUrl(activity));
-			dispatch(findActivity(activity));
+			dispatch(findActivity());
 		}
 	}
 }

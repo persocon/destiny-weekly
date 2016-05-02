@@ -40,9 +40,10 @@ const setActivity = (result)  => {
 	}
 }
 
-export const findActivity = (activity_id) => {
- return dispatch => {
+export const findActivity = () => {
+ return (dispatch, getState) => {
    dispatch(startLoading())
+   let activity_id = getState().select.activity;
    $.get('/api/'+activity_id, (result)=>{
 		dispatch(doneLoading());
 		dispatch(setActivity(result));
