@@ -23,11 +23,7 @@ $container['cache'] = function () {
     return new \Slim\HttpCache\CacheProvider();
 };
 
-
-
-// Define app routes
-$app->get('/selectActivity', function ($request, $response, $args) {
-	// $resWithExpires = $this->cache->withExpires($response, time() + 3600);
+$container['curl'] = function(){
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
 	$ch = curl_init();
@@ -37,6 +33,17 @@ $app->get('/selectActivity', function ($request, $response, $args) {
 
 	$json = json_decode(curl_exec($ch));
 	$activities = $json->Response->data->activities;
+
+	return $activities;
+};
+
+
+
+// Define app routes
+$app->get('/selectActivity', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+
+	$activities = $this->curl;
 
 	$result = new \stdClass;
 
@@ -50,22 +57,15 @@ $app->get('/selectActivity', function ($request, $response, $args) {
 		}
 	}
 	$result->selectActivity = $selectActivity;
-	return $response->withJson($result->selectActivity);
+	return $resWithExpires->withJson($result->selectActivity);
 });
 
 $app->get('/nightfall', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/2/Account/4611686018446056021/Character/2305843009345804418/Advisors/?lc=pt-br&definitions=true');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($ch));
-	$activities = $json->Response->data->activities;
+	$activities = $this->curl;
 
 	$result = new \stdClass;
+
 
 	for($i = 0, $c = count($activities); $i < $c; $i++) {
 		$activity = $activities[$i];
@@ -101,15 +101,8 @@ $app->get('/nightfall', function ($request, $response, $args) {
 
 $app->get('/xur', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/2/Account/4611686018446056021/Character/2305843009345804418/Advisors/?lc=pt-br&definitions=true');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($ch));
-	$activities = $json->Response->data->activities;
+	
+	$activities = $this->curl;
 
 	$result = new \stdClass;
 
@@ -139,15 +132,8 @@ $app->get('/xur', function ($request, $response, $args) {
 
 $app->get('/trials', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/2/Account/4611686018446056021/Character/2305843009345804418/Advisors/?lc=pt-br&definitions=true');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($ch));
-	$activities = $json->Response->data->activities;
+	$activities = $this->curl;
 
 	$result = new \stdClass;
 
@@ -187,15 +173,8 @@ $app->get('/trials', function ($request, $response, $args) {
 
 $app->get('/ironbanner', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/2/Account/4611686018446056021/Character/2305843009345804418/Advisors/?lc=pt-br&definitions=true');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($ch));
-	$activities = $json->Response->data->activities;
+	$activities = $this->curl;
 
 	$result = new \stdClass;
 
@@ -227,15 +206,8 @@ $app->get('/ironbanner', function ($request, $response, $args) {
 
 $app->get('/heroicstrike', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/2/Account/4611686018446056021/Character/2305843009345804418/Advisors/?lc=pt-br&definitions=true');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($ch));
-	$activities = $json->Response->data->activities;
+	$activities = $this->curl;
 
 	$result = new \stdClass;
 
@@ -267,15 +239,8 @@ $app->get('/heroicstrike', function ($request, $response, $args) {
 
 $app->get('/dailychapter', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/2/Account/4611686018446056021/Character/2305843009345804418/Advisors/?lc=pt-br&definitions=true');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($ch));
-	$activities = $json->Response->data->activities;
+	$activities = $this->curl;
 
 	$result = new \stdClass;
 
@@ -311,15 +276,8 @@ $app->get('/dailychapter', function ($request, $response, $args) {
 
 $app->get('/dailycrucible', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/2/Account/4611686018446056021/Character/2305843009345804418/Advisors/?lc=pt-br&definitions=true');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($ch));
-	$activities = $json->Response->data->activities;
+	$activities = $this->curl;
 
 	$result = new \stdClass;
 
@@ -354,15 +312,8 @@ $app->get('/dailycrucible', function ($request, $response, $args) {
 
 $app->get('/weeklycrucible', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/2/Account/4611686018446056021/Character/2305843009345804418/Advisors/?lc=pt-br&definitions=true');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($ch));
-	$activities = $json->Response->data->activities;
+	$activities = $this->curl;
 
 	$result = new \stdClass;
 
@@ -398,15 +349,7 @@ $app->get('/weeklycrucible', function ($request, $response, $args) {
 $app->get('/elderchallenge', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
-	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/2/Account/4611686018446056021/Character/2305843009345804418/Advisors/?lc=pt-br&definitions=true');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
-	$json = json_decode(curl_exec($ch));
-	$activities = $json->Response->data->activities;
+	$activities = $this->curl;
 
 	$result = new \stdClass;
 

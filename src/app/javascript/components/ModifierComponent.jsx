@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import ListItemComponent from './ListItemComponent.jsx';
 
 class ModifierComponent extends React.Component {
@@ -7,7 +8,8 @@ class ModifierComponent extends React.Component {
 
 			let displayName = detail.hasOwnProperty('displayName') ? detail.displayName : detail.itemName;
 			let description = detail.hasOwnProperty('description') ? detail.description : detail.itemDescription;
-			return (<ListItemComponent key={index} title={displayName} description={description} icon={detail.icon} />);
+			return (
+				<ListItemComponent key={index} title={displayName} description={description} icon={detail.icon} />);
 		});
 		return items;
 	}
@@ -15,7 +17,14 @@ class ModifierComponent extends React.Component {
 	render() {
 		return (
 			<div className="boxText">
-				<h4 className="boxSubtitle">{this.props.title}</h4>
+				<ReactCSSTransitionGroup 
+					transitionName={"fade"}
+			        transitionAppear={true}
+			        transitionAppearTimeout={500}
+			        transitionEnterTimeout={500}
+			        transitionLeaveTimeout={300}>
+					<h4 className="boxSubtitle">{this.props.title}</h4>
+				</ReactCSSTransitionGroup>
 				<ul className="boxItems">
 					{this.showListItems()}
 				</ul>

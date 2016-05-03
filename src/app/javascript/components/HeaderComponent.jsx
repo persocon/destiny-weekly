@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 class HeaderBox extends React.Component {
 	icon() {
@@ -17,18 +18,25 @@ class HeaderBox extends React.Component {
 	}
 	render() {
 		return (
-			<div className="headerBox">
-				<div className="boxImage" style={this.props.style} >
-					<div className="boxImageTextWrap">
-						{this.icon()}
-						<div className="boxImageText">
-							<h4 className="boxTitle">{this.props.title}</h4>
-							<h5 className="boxSubtitle">{this.props.subtitle}</h5>
-						</div>
+			<ReactCSSTransitionGroup 
+				transitionName={"fade"}
+		        transitionAppear={true}
+		        transitionAppearTimeout={500}
+		        transitionEnterTimeout={500}
+		        transitionLeaveTimeout={300}>
+				<div className="headerBox">
+					<div className="boxImage" style={this.props.style} >
+							<div className="boxImageTextWrap">
+								{this.icon()}
+								<div className="boxImageText">
+									<h4 className="boxTitle">{this.props.title}</h4>
+									<h5 className="boxSubtitle">{this.props.subtitle}</h5>
+								</div>
+							</div>
 					</div>
+					{this.description()}
 				</div>
-				{this.description()}
-			</div>
+			</ReactCSSTransitionGroup>
 		);
 	}
 };

@@ -79,9 +79,9 @@ class ActivityComponent extends React.Component {
 			<div className="activityComponent box"> 
 				<div className="boxContent">
 					<HeaderComponent style={this.backgroundImage()} title={this.props.title} subtitle={this.props.name} description={this.props.desc} icon={this.props.icon} />
-					
+				
 					{this.showModifiers()}
-
+				
 					{this.showRewards()}
 
 					{this.showXur()}
@@ -89,6 +89,7 @@ class ActivityComponent extends React.Component {
 					{this.showBounties()}
 
 					{this.showBosses()}
+				
 				</div>
 			</div>
 		);

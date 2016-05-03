@@ -13,7 +13,7 @@ class App extends React.Component {
     	<div className='appComponents'>
     		<SelectContainer />
     		<div className="cardsComponents">
-  				<ActivityContainer />
+				  <ActivityContainer />
   			</div>
     	</div>
     );
