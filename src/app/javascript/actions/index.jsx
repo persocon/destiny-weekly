@@ -48,8 +48,10 @@ const setActivity = (result)  => {
 		name: (result.hasOwnProperty('details') && result.details.hasOwnProperty('activityName')) ? result.details.activityName : '',
 		desc: (result.hasOwnProperty('details') && result.details.hasOwnProperty('activityDescription')) ? result.details.activityDescription : '',
 		backgroundImg: (result.display.hasOwnProperty('image')) ? 'http://bungie.net' + result.display.image : '',
+		icon: (result.display.hasOwnProperty('icon')) ? 'http://bungie.net' + result.display.icon : '',
 		modifiers: (result.hasOwnProperty('extended') && result.extended.hasOwnProperty('skullCategories')) ? result.extended.skullCategories : [],
 		bosses: (result.hasOwnProperty('bosses')) ? result.bosses : [],
+		rewards: (result.hasOwnProperty('rewards')) ? result.rewards : [],
 		items: (result.hasOwnProperty('items') && result.display.identifier == "xur") ? result.items : [],
 		bounties: (result.hasOwnProperty('bounties')) ? result.bounties : []
 	}

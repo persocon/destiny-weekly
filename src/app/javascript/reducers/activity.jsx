@@ -4,9 +4,11 @@ const initialState = {
 	name: '',
 	desc: '',
 	backgroundImg: '',
+	icon: '',
 	modifiers: [],
 	bosses: [],
 	items: [],
+	rewards: [],
 	bounties: []
 }
 const activity = (state = initialState, action) => {

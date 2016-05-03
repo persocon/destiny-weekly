@@ -2,12 +2,7 @@
 	float: left;
 	width: 100%;
 	margin-bottom: 20px;
-	.boxSubtitle {
-		text-decoration: underline;
-
-	}
 	h4.boxSubtitle {
-		text-decoration: none;
 		color: rgb(242, 193, 97);
 	}
 	.boxImage {
@@ -21,9 +16,29 @@
 		text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 		background-size: cover;
 		background-position: center center;
+		.boxImageTextWrap {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: 10px;
+			background: rgba(0,0,0,.7);
+			img {
+				max-width: 50px;
+				float: left;
+			}
+			.boxImageText{
+				float: left;
+				padding: 5px 10px;
+			}
+		}
 	}
 	.boxText {
 		padding: 5px 10px;
+	}
+	.boxDescription p {
+		padding: 20px 10px;
+		font-style: italic;
 	}
 }
 .box .boxItems {

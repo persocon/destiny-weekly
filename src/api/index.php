@@ -78,6 +78,16 @@ $app->get('/nightfall', function ($request, $response, $args) {
 				
 				$activity->details = $json->Response->data->activity;
 
+				$heroicRewards = $activity->activityTiers[0]->rewards;
+				$rewards = [];
+				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
+					$rew = $heroicRewards[$i]->rewardItems[0];
+					$itemInfo = getItemDetail($rew->itemHash);
+					array_push($rewards, $itemInfo);
+				}
+				$activity->rewards = $rewards;
+				$result->xur = $activity;
+
 				$result->nightfall = $activity;
 
 			}else {
@@ -235,6 +245,16 @@ $app->get('/heroicstrike', function ($request, $response, $args) {
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
 		if($identifier == "heroicstrike"){
 			if($active == 1){
+
+				$heroicRewards = $activity->activityTiers[0]->rewards;
+				$rewards = [];
+				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
+					$rew = $heroicRewards[$i]->rewardItems[0];
+					$itemInfo = getItemDetail($rew->itemHash);
+					array_push($rewards, $itemInfo);
+				}
+				$activity->rewards = $rewards;
+
 				$result->heroicstrike = $activity;
 			}else{
 				$result->heroicstrike = 0;
@@ -267,6 +287,15 @@ $app->get('/dailychapter', function ($request, $response, $args) {
 			if($active == 1) {
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
+				
+				$heroicRewards = $activity->activityTiers[0]->rewards;
+				$rewards = [];
+				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
+					$rew = $heroicRewards[$i]->rewardItems[0];
+					$itemInfo = getItemDetail($rew->itemHash);
+					array_push($rewards, $itemInfo);
+				}
+				$activity->rewards = $rewards;
 				
 				$activity->details = $json->Response->data->activity;
 
@@ -302,6 +331,15 @@ $app->get('/dailycrucible', function ($request, $response, $args) {
 			if($active == 1) {
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
+
+				$heroicRewards = $activity->activityTiers[0]->rewards;
+				$rewards = [];
+				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
+					$rew = $heroicRewards[$i]->rewardItems[0];
+					$itemInfo = getItemDetail($rew->itemHash);
+					array_push($rewards, $itemInfo);
+				}
+				$activity->rewards = $rewards;
 				
 				$activity->details = $json->Response->data->activity;
 				$result->dailycrucible = $activity;
@@ -336,6 +374,15 @@ $app->get('/weeklycrucible', function ($request, $response, $args) {
 			if($active == 1){
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
+
+				$heroicRewards = $activity->activityTiers[0]->rewards;
+				$rewards = [];
+				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
+					$rew = $heroicRewards[$i]->rewardItems[0];
+					$itemInfo = getItemDetail($rew->itemHash);
+					array_push($rewards, $itemInfo);
+				}
+				$activity->rewards = $rewards;
 				
 				$activity->details = $json->Response->data->activity;
 				$result->weeklycrucible = $activity;

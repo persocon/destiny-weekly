@@ -54,26 +54,35 @@ class ActivityComponent extends React.Component {
 		}	
 	}
 
+	showRewards(){
+		if(this.props.rewards.length >= 1){
+			return <ModifierComponent title="Recompensas" details={this.props.rewards} />;
+		}
+	}
+
 	showBosses() {		
 		let bosses = this.props.bosses.map((boss, index)=>{
 			let style = {
 				backgroundImage: 'url(http://bungie.net'+boss.image+')'
 			};
-			return (<HeaderComponent key={index} style={style} title={boss.combatantName} subtitle="" description={boss.description} />);
+			return (<HeaderComponent key={index} style={style} title={boss.combatantName} subtitle={boss.description} description="" />);
 		});
 
 		return bosses;
 
 	}
 
+
 	render(){
 
 		return (	
 			<div className="activityComponent box"> 
 				<div className="boxContent">
-					<HeaderComponent style={this.backgroundImage()} title={this.props.title} subtitle={this.props.name} description={this.props.desc} />
+					<HeaderComponent style={this.backgroundImage()} title={this.props.title} subtitle={this.props.name} description={this.props.desc} icon={this.props.icon} />
 					
 					{this.showModifiers()}
+
+					{this.showRewards()}
 
 					{this.showXur()}
 
