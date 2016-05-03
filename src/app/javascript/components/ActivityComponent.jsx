@@ -1,23 +1,14 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
 
 import HeaderComponent from './HeaderComponent.jsx'
 import ModifierComponent from './ModifierComponent.jsx'
 
-const initialState = {
-			identifier: '',
-			title: 'Carregando',
-			name: '',
-			desc: '',
-			backgroundImg: '',
-			modifiers: [],
-			bosses: [],
-			items: [],
-			bounties: []
-		};
-
 class ActivityComponent extends React.Component {
-	backgroundImage(){
+	componentDidMount() {
+		this.props.getInitialActivity();
+	}
+	backgroundImage() {
 		let divStyle;
 		switch(this.props.identifier){
 			case "xur":
@@ -94,5 +85,9 @@ class ActivityComponent extends React.Component {
 		);
 	}
 };
+
+ActivityComponent.propTypes = {
+	getInitialActivity: PropTypes.func.isRequired
+}
 
 export default ActivityComponent;

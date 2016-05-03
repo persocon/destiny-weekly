@@ -1,12 +1,5 @@
 import $ from 'jquery';
 
-export const changeApiUrl = (activity) => {
-	return {
-		type: 'CHANGE_API_URL',
-		activity
-	}
-}
-
 const startLoading = () => {
 	return {
 		type: 'START_LOADING',
@@ -19,6 +12,32 @@ const doneLoading = () => {
 		type: 'STOP_LOADING',
 		isLoading: false
 	}
+}
+
+const changeApiUrl = (activity) => {
+	return {
+		type: 'CHANGE_API_URL',
+		activity
+	}
+}
+
+const setOptions = (result) => {
+	return {
+		type: 'GET_OPTIONS',
+		options: result
+	}
+}
+
+const getOptions = () => {
+	return (dispatch, getState) => {
+    dispatch(startLoading())
+    let activity_id = getState().select.activity;
+    $.get('/api/selectActivity', (result)=>{
+		dispatch(doneLoading());
+		result.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: "", disabled: "disabled"});
+		dispatch(setOptions(result));
+    });
+ }
 }
 
 const setActivity = (result)  => {
@@ -40,7 +59,7 @@ const setActivity = (result)  => {
 	}
 }
 
-export const findActivity = () => {
+const findActivity = () => {
  return (dispatch, getState) => {
    dispatch(startLoading())
    let activity_id = getState().select.activity;
@@ -50,3 +69,5 @@ export const findActivity = () => {
    });
  }
 }
+
+export {findActivity, changeApiUrl, getOptions};

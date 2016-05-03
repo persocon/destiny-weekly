@@ -1,5 +1,6 @@
 const initialState = {
-	activity: 'nightfall'
+	activity: 'nightfall',
+	options: [{advisorTypeCategory: 'Carregando...'}]
 };
 
 const select = (state = initialState, action) => {
@@ -9,6 +10,12 @@ const select = (state = initialState, action) => {
 				activity: action.activity
 			});
 			return newState;
+			break;
+		case 'GET_OPTIONS':
+			let optState = Object.assign({}, state, {
+				options: action.options
+			});
+			return optState;
 			break;
 		default:
 			return state;

@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import { changeApiUrl, findActivity } from '../actions/index.jsx';
+import { changeApiUrl, findActivity, getOptions } from '../actions/index.jsx';
 import SelectComponent from '../components/SelectComponent.jsx';
 
 const mapStateToProps = (state) => {
 	return {
-		activity: state.select.activity
+		activity: state.select.activity,
+		options: state.select.options
 	}
 }
 
@@ -13,7 +14,11 @@ const mapDispatchToProps = (dispatch) => {
 		onSelectChange: (activity) =>{
 			dispatch(changeApiUrl(activity));
 			dispatch(findActivity());
+		},
+		getInitialOptions: () => {
+			dispatch(getOptions());
 		}
+
 	}
 }
 
