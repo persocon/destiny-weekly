@@ -75,23 +75,24 @@ $app->get('/nightfall', function ($request, $response, $args) {
 			if($active==1){
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
-				
-				$activity->details = $json->Response->data->activity;
 
-				$heroicRewards = $activity->activityTiers[0]->rewards;
-				$rewards = [];
-				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
-					$rew = $heroicRewards[$i]->rewardItems[0];
-					$itemInfo = getItemDetail($rew->itemHash);
-					array_push($rewards, $itemInfo);
+				$activity->details = $json->Response->data->activity;
+				if(array_key_exists('rewards', $activity->activityTiers[0])){
+					$heroicRewards = $activity->activityTiers[0]->rewards;
+					$rewards = [];
+					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+						$rew = $heroicRewards[$i]->rewardItems[0];
+						$itemInfo = getItemDetail($rew->itemHash);
+						array_push($rewards, $itemInfo);
+					}
+					$activity->rewards = $rewards;
 				}
-				$activity->rewards = $rewards;
 				$result->xur = $activity;
 
 				$result->nightfall = $activity;
 
 			}else {
-				$result->nightfall = 0;	
+				$result->nightfall = 0;
 			}
 		}
 
@@ -101,7 +102,7 @@ $app->get('/nightfall', function ($request, $response, $args) {
 
 $app->get('/xur', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
-	
+
 	$activities = $this->curl;
 
 	$result = new \stdClass;
@@ -114,7 +115,7 @@ $app->get('/xur', function ($request, $response, $args) {
 			if($active == 1){
 				$xurItems = $activity->vendors[0]->saleItemCategories[2]->saleItems;
 				$items = [];
-				for($i = 0, $c = count($xurItems); $i < $c; $i++) { 
+				for($i = 0, $c = count($xurItems); $i < $c; $i++) {
 					$item = $xurItems[$i];
 					$itemInfo = getItemDetail($item->item->itemHash);
 					array_push($items, $itemInfo);
@@ -145,13 +146,13 @@ $app->get('/trials', function ($request, $response, $args) {
 			if($active == 1){
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
-				
+
 				$activity->details = $json->Response->data->activity;
 				$activity->display->image = $activity->details->pgcrImage;
 
 				$ibItems = $activity->vendors[0]->saleItemCategories[0]->saleItems;
 				$items = [];
-				for($i = 0, $c = count($ibItems); $i < $c; $i++) { 
+				for($i = 0, $c = count($ibItems); $i < $c; $i++) {
 					$item = $ibItems[$i];
 					$itemInfo = getItemDetail($item->item->itemHash);
 					array_push($items, $itemInfo);
@@ -186,7 +187,7 @@ $app->get('/ironbanner', function ($request, $response, $args) {
 			if($active==1){
 				$ibItems = $activity->vendors[0]->saleItemCategories[1]->saleItems;
 				$items = [];
-				for($i = 0, $c = count($ibItems); $i < $c; $i++) { 
+				for($i = 0, $c = count($ibItems); $i < $c; $i++) {
 					$item = $ibItems[$i];
 					$itemInfo = getItemDetail($item->item->itemHash);
 					array_push($items, $itemInfo);
@@ -196,7 +197,7 @@ $app->get('/ironbanner', function ($request, $response, $args) {
 				$result->ironbanner = $activity;
 
 			}else {
-				$result->ironbanner = 0;	
+				$result->ironbanner = 0;
 			}
 		}
 
@@ -217,15 +218,16 @@ $app->get('/heroicstrike', function ($request, $response, $args) {
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
 		if($identifier == "heroicstrike"){
 			if($active == 1){
-
-				$heroicRewards = $activity->activityTiers[0]->rewards;
-				$rewards = [];
-				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
-					$rew = $heroicRewards[$i]->rewardItems[0];
-					$itemInfo = getItemDetail($rew->itemHash);
-					array_push($rewards, $itemInfo);
+				if(array_key_exists('rewards', $activity->activityTiers[0])){
+					$heroicRewards = $activity->activityTiers[0]->rewards;
+					$rewards = [];
+					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+						$rew = $heroicRewards[$i]->rewardItems[0];
+						$itemInfo = getItemDetail($rew->itemHash);
+						array_push($rewards, $itemInfo);
+					}
+					$activity->rewards = $rewards;
 				}
-				$activity->rewards = $rewards;
 
 				$result->heroicstrike = $activity;
 			}else{
@@ -252,16 +254,17 @@ $app->get('/dailychapter', function ($request, $response, $args) {
 			if($active == 1) {
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
-				
-				$heroicRewards = $activity->activityTiers[0]->rewards;
-				$rewards = [];
-				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
-					$rew = $heroicRewards[$i]->rewardItems[0];
-					$itemInfo = getItemDetail($rew->itemHash);
-					array_push($rewards, $itemInfo);
+				if(array_key_exists('rewards', $activity->activityTiers[0])){
+					$heroicRewards = $activity->activityTiers[0]->rewards;
+					$rewards = [];
+					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+						$rew = $heroicRewards[$i]->rewardItems[0];
+						$itemInfo = getItemDetail($rew->itemHash);
+						array_push($rewards, $itemInfo);
+					}
+					$activity->rewards = $rewards;
 				}
-				$activity->rewards = $rewards;
-				
+
 				$activity->details = $json->Response->data->activity;
 
 				$result->dailychapter = $activity;
@@ -289,16 +292,17 @@ $app->get('/dailycrucible', function ($request, $response, $args) {
 			if($active == 1) {
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
-
-				$heroicRewards = $activity->activityTiers[0]->rewards;
-				$rewards = [];
-				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
-					$rew = $heroicRewards[$i]->rewardItems[0];
-					$itemInfo = getItemDetail($rew->itemHash);
-					array_push($rewards, $itemInfo);
+				if(array_key_exists('rewards', $activity->activityTiers[0])){
+					$heroicRewards = $activity->activityTiers[0]->rewards;
+					$rewards = [];
+					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+						$rew = $heroicRewards[$i]->rewardItems[0];
+						$itemInfo = getItemDetail($rew->itemHash);
+						array_push($rewards, $itemInfo);
+					}
+					$activity->rewards = $rewards;
 				}
-				$activity->rewards = $rewards;
-				
+
 				$activity->details = $json->Response->data->activity;
 				$result->dailycrucible = $activity;
 			}else{
@@ -326,15 +330,17 @@ $app->get('/weeklycrucible', function ($request, $response, $args) {
 				$hash = $activity->display->activityHash;
 				$json = getActivity($hash);
 
-				$heroicRewards = $activity->activityTiers[0]->rewards;
-				$rewards = [];
-				for($i = 0, $c = count($heroicRewards); $i < $c; $i++) { 
-					$rew = $heroicRewards[$i]->rewardItems[0];
-					$itemInfo = getItemDetail($rew->itemHash);
-					array_push($rewards, $itemInfo);
+				if(array_key_exists('rewards', $activity->activityTiers[0])){
+					$heroicRewards = $activity->activityTiers[0]->rewards;
+					$rewards = [];
+					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+						$rew = $heroicRewards[$i]->rewardItems[0];
+						$itemInfo = getItemDetail($rew->itemHash);
+						array_push($rewards, $itemInfo);
+					}
+					$activity->rewards = $rewards;
 				}
-				$activity->rewards = $rewards;
-				
+
 				$activity->details = $json->Response->data->activity;
 				$result->weeklycrucible = $activity;
 			}else{
@@ -363,13 +369,13 @@ $app->get('/elderchallenge', function ($request, $response, $args) {
 				$json = getActivity($hash);
 				$bosses = $activity->activityTiers[0]->extended->rounds;
 				$bossInfo = [];
-				for($i = 0, $c = count($bosses); $i < $c; $i++) { 
+				for($i = 0, $c = count($bosses); $i < $c; $i++) {
 					$boss = $bosses[$i];
 					$binfo = getBoss($boss->bossCombatantHash);
 					array_push($bossInfo, $binfo);
 				}
 				$activity->bosses = $bossInfo;
-				
+
 				$activity->details = $json->Response->data->activity;
 				$result->elderchallenge = $activity;
 			}else{
@@ -412,7 +418,7 @@ $app->get('/manifest', function ($request, $response, $args) {
 function getActivity($hash) {
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 	$nf = curl_init();
-				
+
 	$url = 'http://www.bungie.net/platform/Destiny/Manifest/Activity/'.$hash.'/?lc=pt-br&definitions=true';
 
 	curl_setopt($nf, CURLOPT_URL, $url);
@@ -425,7 +431,7 @@ function getActivity($hash) {
 
 function getItemDetail($hash){
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
- 
+
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/Manifest/InventoryItem/'.$hash.'/?lc=pt-br&definitions=true');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

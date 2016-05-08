@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import select from './select.jsx';
-import activity from './activity.jsx';
+import select from './select';
+import activity from './activity';
 
 
 const activityApp = combineReducers({

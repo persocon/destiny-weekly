@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
 
-import HeaderComponent from './HeaderComponent.jsx'
-import ModifierComponent from './ModifierComponent.jsx'
+import HeaderComponent from './HeaderComponent'
+import ModifierComponent from './ModifierComponent'
 
 class ActivityComponent extends React.Component {
 	componentDidMount() {
@@ -25,13 +25,13 @@ class ActivityComponent extends React.Component {
 				break;
 			default:
 				divStyle = {
-					backgroundImage: 'url('+this.props.backgroundImg+')'	
+					backgroundImage: 'url('+this.props.backgroundImg+')'
 				}
 				break;
 		}
 
 		return divStyle
-		
+
 	}
 
 	showModifiers() {
@@ -51,7 +51,7 @@ class ActivityComponent extends React.Component {
 	showBounties(){
 		if(this.props.bounties.length >= 1){
 			return <ModifierComponent title="Contratos" details={this.props.bounties} />;
-		}	
+		}
 	}
 
 	showRewards(){
@@ -60,7 +60,7 @@ class ActivityComponent extends React.Component {
 		}
 	}
 
-	showBosses() {		
+	showBosses() {
 		let bosses = this.props.bosses.map((boss, index)=>{
 			let style = {
 				backgroundImage: 'url(http://bungie.net'+boss.image+')'
@@ -75,13 +75,13 @@ class ActivityComponent extends React.Component {
 
 	render(){
 
-		return (	
-			<div className="activityComponent box"> 
+		return (
+			<div className="activityComponent box">
 				<div className="boxContent">
 					<HeaderComponent style={this.backgroundImage()} title={this.props.title} subtitle={this.props.name} description={this.props.desc} icon={this.props.icon} />
-				
+
 					{this.showModifiers()}
-				
+
 					{this.showRewards()}
 
 					{this.showXur()}
@@ -89,7 +89,7 @@ class ActivityComponent extends React.Component {
 					{this.showBounties()}
 
 					{this.showBosses()}
-				
+
 				</div>
 			</div>
 		);

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { changeApiUrl, findActivity, getOptions } from '../actions/index.jsx';
-import SelectComponent from '../components/SelectComponent.jsx';
+import { changeApiUrl, findActivity, getOptions } from '../actions/index';
+import SelectActivityComponent from '../components/SelectActivityComponent';
 
 const mapStateToProps = (state) => {
 	return {
@@ -22,6 +22,6 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-const SelectContainer = connect(mapStateToProps, mapDispatchToProps)(SelectComponent);
+const SelectActivityContainer = connect(mapStateToProps, mapDispatchToProps)(SelectActivityComponent);
 
-export default SelectContainer;
+export default SelectActivityContainer;

@@ -201,20 +201,20 @@ blockquote {
   .box .boxItems .boxItem .boxItemText {
     width: 97%; } }
 
-.selectComponent {
+.selectActivityComponent {
   color: #f5f5f5; }
-  .selectComponent .selectWrap {
+  .selectActivityComponent .selectWrap {
     position: relative;
     width: 100%;
     padding: 5px; }
-    .selectComponent .selectWrap:after {
+    .selectActivityComponent .selectWrap:after {
       color: whitesmoke;
       content: "\25BE";
       position: absolute;
       pointer-events: none;
       right: 14px;
       top: 18px; }
-    .selectComponent .selectWrap select {
+    .selectActivityComponent .selectWrap select {
       background: transparent;
       border: 1px solid rgba(97, 119, 147, 0.5);
       color: #f5f5f5;
@@ -228,7 +228,7 @@ blockquote {
       -webkit-appearance: none;
       -moz-appearance: none;
       outline: medium none; }
-      .selectComponent .selectWrap select:focus {
+      .selectActivityComponent .selectWrap select:focus {
         outline: medium none; }
 
 .fade-enter, .fade-appear {

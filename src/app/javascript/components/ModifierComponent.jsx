@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
-import ListItemComponent from './ListItemComponent.jsx';
+import ListItemComponent from './ListItemComponent';
 
 class ModifierComponent extends React.Component {
 	showListItems() {
@@ -17,7 +17,7 @@ class ModifierComponent extends React.Component {
 	render() {
 		return (
 			<div className="boxText">
-				<ReactCSSTransitionGroup 
+				<ReactCSSTransitionGroup
 					transitionName={"fade"}
 			        transitionAppear={true}
 			        transitionAppearTimeout={500}

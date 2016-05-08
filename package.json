@@ -4,7 +4,7 @@
   "description": "Opensource App done in ReactJS to show weekly reset updates from Destiny the game.",
   "main": "index.js",
   "scripts": {
-    "test": ""
+    "": ""
   },
   "author": "",
   "license": "ISC",
@@ -18,12 +18,32 @@
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-thunk": "^2.0.1",
-    "webpack": "^1.13.0"
+    "webpack": "^1.13.0",
+    "yargs": "^4.7.0"
   },
   "devDependencies": {
+    "babel-polyfill": "^6.8.0",
+    "babel-register": "^6.8.0",
+    "chai": "^3.5.0",
     "css-loader": "^0.23.1",
+    "enzyme": "^2.2.0",
+    "karma": "^0.13.22",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^1.0.1",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.4.5",
     "node-sass": "^3.5.3",
+    "phantomjs": "^2.1.7",
+    "phantomjs-polyfill": "0.0.2",
+    "phantomjs-prebuilt": "^2.1.7",
+    "react": "^15.0.2",
+    "react-addons-test-utils": "^15.0.2",
+    "react-dom": "^15.0.2",
     "sass-loader": "^3.2.0",
+    "sinon": "^1.17.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0"
   }

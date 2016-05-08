@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { findActivity } from '../actions/index.jsx';
-import ActivityComponent from '../components/ActivityComponent.jsx';
+import { findActivity } from '../actions/index';
+import ActivityComponent from '../components/ActivityComponent';
 
 const mapStateToProps = (state) => {
 	return state.activity;
