@@ -8,7 +8,7 @@ const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
 
-describe('Actions', () => {
+describe('(Actions) Select', () => {
   it('should create an action to changeApiUrl', () => {
     const activity = 'elderschallenge';
     const expectedAction = {
@@ -19,14 +19,14 @@ describe('Actions', () => {
   });
 });
 
-describe('Async Actions', () => {
+describe('(Async Actions) Select', () => {
   afterEach(() => {
     nock.cleanAll();
     nock.disableNetConnect();
     nock.enableNetConnect('127.0.0.1');
   });
 
-  it('fill in GET_OPTIONS when fetching all options is done', (done) => {
+  it('fill in GET_OPTIONS when fetching all options is done', () => {
     nock('http://localhost:8888')
     .get('/api/selectActivity')
     .reply(200, {options: [
@@ -44,11 +44,10 @@ describe('Async Actions', () => {
       }]
     };
 
-    const store = mockStore({}, expectedAction, done);
+    const store = mockStore({});
     store.dispatch(actions.getOptions())
       .then(()=>{
         expect(store.getActions()[0]).to.eql(expectedAction);
-        done();
       });
   });
 

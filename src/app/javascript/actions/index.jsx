@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch';
+
 const startLoading = () => {
 	return {
 		type: 'START_LOADING',
@@ -28,9 +30,9 @@ const setOptions = (result) => {
 
 const getOptions = () => {
 	return dispatch => {
-    dispatch(startLoading())
+		dispatch(startLoading())
   	return fetch('/api/selectActivity')
-			.then(response => response.json())
+		  .then(resolve => resolve.json())
 			.then( json => {
 				dispatch(doneLoading());
 				json.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: "", disabled: "disabled"});
