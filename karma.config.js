@@ -12,7 +12,6 @@ module.exports = function(config) {
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
       './test/test.bundle.js'
     ],
-    // tell karma all the plugins we're going to be using to prevent warnings
     plugins: [
       'karma-mocha',
       'karma-chai',
@@ -37,13 +36,8 @@ module.exports = function(config) {
             'sinon': 'sinon/pkg/sinon'
         },
         root: [
-          // allows us to import modules as if /src was the root.
-          // so I can do: import Comment from 'components/Comment'
-          // instead of:  import Comment from '../components/Comment' or whatever relative path would be
           path.resolve(__dirname, './src/app')
         ],
-        // allows you to require without the .js at end of filenames
-        // import Component from 'component' vs. import Component from 'component.js'
         extensions: ['', '.js', '.json', '.jsx']
       },
       module: {
