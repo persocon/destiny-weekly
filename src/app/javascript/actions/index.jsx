@@ -31,7 +31,6 @@ const setOptions = (result) => {
 const getOptions = () => {
 	return (dispatch, getState) => {
     dispatch(startLoading())
-    let activity_id = getState().select.activity;
     $.get('/api/selectActivity', (result)=>{
 		dispatch(doneLoading());
 		result.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: "", disabled: "disabled"});

@@ -40,6 +40,9 @@ module.exports = function(config) {
         ],
         extensions: ['', '.js', '.json', '.jsx']
       },
+      node: {
+        fs: "empty"
+      },
       module: {
         noParse: [
             /node_modules\/sinon\//,
