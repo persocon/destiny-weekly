@@ -27,9 +27,9 @@ const setOptions = (result) => {
 }
 
 const getOptions = () => {
-	return (dispatch, getState) => {
+	return dispatch => {
     dispatch(startLoading())
-  	fetch('/api/selectActivity')
+  	return fetch('/api/selectActivity')
 			.then(response => response.json())
 			.then( json => {
 				dispatch(doneLoading());
@@ -37,7 +37,6 @@ const getOptions = () => {
 				dispatch(setOptions(json));
 			}
 		)
-    // });
  }
 }
 
@@ -66,7 +65,7 @@ const findActivity = () => {
  return (dispatch, getState) => {
    dispatch(startLoading())
    let activity_id = getState().select.activity;
-	 fetch('/api/'+activity_id)
+	 return fetch('/api/'+activity_id)
 	 .then(response => response.json())
 	 .then(json => {
 				dispatch(doneLoading());
