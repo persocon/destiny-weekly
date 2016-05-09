@@ -6,13 +6,14 @@ describe('(Reducer) Select', () => {
   });
 
   it('should handle change api url', () => {
+    const expectedState = 'elderschallenge';
     expect(
       reducer([], {
         type: 'CHANGE_API_URL',
-        activity: 'elderschallenge'
+        activity: expectedState
       })
     ).to.eql({
-      activity: 'elderschallenge'
+      activity: expectedState
     })
   });
 });
