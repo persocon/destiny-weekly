@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 const startLoading = () => {
 	return {
 		type: 'START_LOADING',
@@ -31,11 +29,15 @@ const setOptions = (result) => {
 const getOptions = () => {
 	return (dispatch, getState) => {
     dispatch(startLoading())
-    $.get('/api/selectActivity', (result)=>{
-		dispatch(doneLoading());
-		result.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: "", disabled: "disabled"});
-		dispatch(setOptions(result));
-    });
+  	fetch('/api/selectActivity')
+			.then(response => response.json())
+			.then( json => {
+				dispatch(doneLoading());
+				json.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: "", disabled: "disabled"});
+				dispatch(setOptions(json));
+			}
+		)
+    // });
  }
 }
 
@@ -64,10 +66,13 @@ const findActivity = () => {
  return (dispatch, getState) => {
    dispatch(startLoading())
    let activity_id = getState().select.activity;
-   $.get('/api/'+activity_id, (result)=>{
-		dispatch(doneLoading());
-		dispatch(setActivity(result));
-   });
+	 fetch('/api/'+activity_id)
+	 .then(response => response.json())
+	 .then(json => {
+				dispatch(doneLoading());
+				dispatch(setActivity(json));
+			}
+		)
  }
 }
 
