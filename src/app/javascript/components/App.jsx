@@ -6,7 +6,7 @@ import $ from 'jquery';
 /* Import all Components */
 import SelectActivityContainer from '../containers/SelectActivityContainer';
 import ActivityContainer from '../containers/ActivityContainer';
-import LoginComponent from './LoginComponent.jsx';
+import LoginContainer from '../containers/LoginContainer.jsx';
 
 class App extends React.Component {
   activity() {
@@ -22,7 +22,7 @@ class App extends React.Component {
   render () {
     return (
       <div className='appComponents'>
-        <LoginComponent />
+        <LoginContainer />
       </div>
     );
   }
