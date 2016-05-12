@@ -231,6 +231,35 @@ blockquote {
       .selectActivityComponent .selectWrap select:focus {
         outline: medium none; }
 
+.loginComponent {
+  border-top: 3px solid #ffce1f;
+  padding: 5px 0; }
+  .loginComponent .loginComponentWrap {
+    padding: 5px; }
+  .loginComponent .loginComponentText {
+    width: 100%;
+    height: 45px;
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid rgba(97, 119, 147, 0.5);
+    color: #f5f5f5;
+    background: transparent; }
+    .loginComponent .loginComponentText:focus {
+      outline: none; }
+  .loginComponent .loginComponentSubmit {
+    width: 100%;
+    height: 45px;
+    padding: 5px;
+    font-size: 12px;
+    display: block;
+    border: none;
+    background: #ffce1f;
+    color: #1e242b;
+    text-transform: uppercase;
+    cursor: pointer; }
+    .loginComponent .loginComponentSubmit:hover {
+      background: #ffdd66; }
+
 .fade-enter, .fade-appear {
   opacity: 0.01; }
   .fade-enter-active, .fade-appear-active {
