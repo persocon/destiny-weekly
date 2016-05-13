@@ -5,7 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import activityApp from './reducers/index';
-import App from './components/App';
+import App from './containers/AppContainer';
 
 /* Import all CSS */
 import Style from '../stylesheet/style.scss';

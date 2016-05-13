@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getCharacterList, setUser } from '../actions/index';
+import { getCharacterList, setUser, setAppScreen } from '../actions/index';
 import LoginComponent from '../components/LoginComponent';
 
 const mapStateToProps = (state) => {
@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 			if(username){
 				dispatch(setUser(platform, username));
       	dispatch(getCharacterList());
+				dispatch(setAppScreen('character_list'));
 			}else{
 				let input = event.target.getElementsByClassName('username')[0];
 				input.classList.add('noUserName');

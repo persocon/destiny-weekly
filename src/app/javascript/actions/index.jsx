@@ -14,6 +14,23 @@ const doneLoading = () => {
 	}
 }
 
+const setAppScreen = (screen) => {
+	return {
+		type: 'SET_APP_SCREEN',
+		screen
+	}
+}
+
+const getAppScreen = () => {
+	return (dispatch, getState)=> {
+		let screen = getState().app.screen;
+		return {
+			type: 'GET_APP_SCREEN',
+			screen
+		}
+	}
+}
+
 const changeApiUrl = (activity) => {
 	return {
 		type: 'CHANGE_API_URL',
@@ -27,6 +44,7 @@ const setOptions = (result) => {
 		options: result
 	}
 }
+
 
 const getOptions = () => {
 	return dispatch => {
@@ -109,4 +127,4 @@ const getCharacterList = () => {
 	}
 }
 
-export {findActivity, changeApiUrl, getOptions, getCharacterList, setUser};
+export {findActivity, changeApiUrl, getOptions, getCharacterList, setUser, setAppScreen, getAppScreen};
