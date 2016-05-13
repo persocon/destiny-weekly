@@ -7,7 +7,7 @@ class LoginComponent extends React.Component {
     return (
       <form className="loginComponent" onSubmit={event => this.props.onSubmit(event)}>
         <div className="loginComponentWrap">
-          <input type="text" defaultValue="" placeholder="Username" className="loginComponentText username" />
+          <input type="text" defaultValue="" placeholder="Username" className="loginComponentText username" onKeyUp={ (event)=> this.props.onUsernameChange(event)} />
         </div>
           <div className="selectActivityComponent">
       			<div className="selectWrap">
@@ -38,7 +38,8 @@ class LoginComponent extends React.Component {
 }
 
 LoginComponent.propTypes = {
-	onSubmit: PropTypes.func.isRequired
+	onSubmit: PropTypes.func.isRequired,
+  onUsernameChange: PropTypes.func.isRequired
 }
 
 export default LoginComponent;

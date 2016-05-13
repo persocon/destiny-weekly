@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onSubmit: (event) =>{
+		onSubmit: (event) => {
       event.preventDefault();
       let username = event.target.getElementsByClassName('username')[0].value;
       let platform = event.target.getElementsByClassName('platform')[0].value;
@@ -19,9 +19,14 @@ const mapDispatchToProps = (dispatch) => {
       	dispatch(getCharacterList());
 			}else{
 				let input = event.target.getElementsByClassName('username')[0];
-				var klass = input.className+" noUserName";
-				input.className = klass;
+				input.classList.add('noUserName');
 				input.focus();
+			}
+		},
+		onUsernameChange: (event) => {
+			let input = event.target;
+			if(input.classList.contains("noUserName") && input.value.length >= 1){
+				input.classList.remove("noUserName");
 			}
 		}
 
