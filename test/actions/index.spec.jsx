@@ -7,6 +7,16 @@ import * as actions from '../../src/app/javascript/actions/index.jsx';
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
+describe('(Actions) App', () => {
+  it('should create an action to setAppScreen', () => {
+    const screen = 'login';
+    const expectedAction = {
+      type: 'SET_APP_SCREEN',
+      screen
+    }
+    expect(actions.setAppScreen(screen)).to.eql(expectedAction);
+  });
+});
 
 describe('(Actions) Select', () => {
   it('should create an action to changeApiUrl', () => {
