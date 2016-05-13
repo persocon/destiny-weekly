@@ -77,4 +77,36 @@ const findActivity = () => {
  }
 }
 
-export {findActivity, changeApiUrl, getOptions};
+const setCharacterList = (result) => {
+	let characters = result;
+	return {
+		type: 'SET_CHARACTER_LIST',
+		characters: characters
+	}
+}
+
+const setUser = (platform, username) => {
+	return {
+		type: 'SET_USER',
+		user_info: {
+			platform,
+			username
+		}
+	}
+}
+
+const getCharacterList = () => {
+	return (dispatch, getState) => {
+		dispatch(startLoading());
+		let username = getState().user.user_info.username;
+		let platform = getState().user.user_info.platform;
+		return fetch('/api/getCharacterList/'+platform+'/'+username)
+		.then(response => response.json())
+		.then(json => {
+				dispatch(doneLoading());
+				dispatch(setCharacterList(json));
+		})
+	}
+}
+
+export {findActivity, changeApiUrl, getOptions, getCharacterList, setUser};

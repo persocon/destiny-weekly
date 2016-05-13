@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 
 class LoginComponent extends React.Component {
   form() {
     return (
-      <form className="loginComponent">
+      <form className="loginComponent" onSubmit={event => this.props.onSubmit(event)}>
         <div className="loginComponentWrap">
-          <input type="text" value="" placeholder="Username" className="loginComponentText" />
+          <input type="text" defaultValue="" placeholder="Username" className="loginComponentText username" />
         </div>
           <div className="selectActivityComponent">
       			<div className="selectWrap">
-              <select>
-                <option>PSN</option>
-                <option>Xbox</option>
+              <select className="platform">
+                <option value="2">PSN</option>
+                <option value="1">Xbox</option>
               </select>
             </div>
           </div>
@@ -35,6 +35,10 @@ class LoginComponent extends React.Component {
           </ReactCSSTransitionGroup>
     )
   }
+}
+
+LoginComponent.propTypes = {
+	onSubmit: PropTypes.func.isRequired
 }
 
 export default LoginComponent;

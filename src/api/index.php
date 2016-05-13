@@ -37,9 +37,67 @@ $container['curl'] = function(){
 	return $activities;
 };
 
+function curl_membership_id($platform, $username){
+	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
+	$url = 'https://www.bungie.net/platform/Destiny/'.$platform.'/Stats/GetMembershipIdByDisplayName/'.$username.'/?lc=pt-br&definitions=true';
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
 
+	$json = json_decode(curl_exec($ch));
+	return $json->Response;
+};
+
+function curl_character_list($platform, $membership_id) {
+	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
+	$url = 'https://www.bungie.net/platform/Destiny/'.$platform.'/Account/'.$membership_id.'/?lc=pt-br&definitions=true';
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
+
+	$json = json_decode(curl_exec($ch));
+	$characters = $json->Response->data->characters;
+	$arr = [];
+	for($i = 0, $c = count($characters); $i < $c; $i++) {
+		$obj = new \stdClass;
+		$obj->character_id = $characters[$i]->characterBase->characterId;
+		$obj->power_level = $characters[$i]->characterBase->powerLevel;
+		$obj->raceHash = $characters[$i]->characterBase->raceHash;
+		$obj->genderHash = $characters[$i]->characterBase->genderHash;
+		$obj->classHash = $characters[$i]->characterBase->classHash;
+
+		$obj->emblemPath = $characters[$i]->emblemPath;
+		$obj->backgroundPath = $characters[$i]->backgroundPath;
+		$obj->characterLevel = $characters[$i]->characterLevel;
+		$obj->classDetails = classDefinition($characters[$i]->characterBase->classHash);
+		$obj->genderDetails = genderDefinition($characters[$i]->characterBase->genderHash);
+		$obj->raceDetails = raceDefinition($characters[$i]->characterBase->raceHash);
+		array_push($arr, $obj);
+	}
+	return $arr;
+};
 
 // Define app routes
+
+$app->get('/getCharacterList/{platform}/{username}', function($request, $response, $args){
+		$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+		$platform = $request->getAttribute('platform');
+		$username = $request->getAttribute('username');
+		$membership_id = curl_membership_id($platform, $username);
+		if($membership_id != 0){
+
+				$character_list = curl_character_list($platform, $membership_id);
+				return $resWithExpires->withJson($character_list);
+		}else{
+			$res = new \stdClass;
+			$res->status = 'error';
+			return $resWithExpires->withJson($res);
+		}
+
+});
+
 $app->get('/selectActivity', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
@@ -447,6 +505,48 @@ function getBoss($id){
 	$stmt = $container->db->query('SELECT * from DestinyCombatantDefinition WHERE id='.$id);
 	$all = $stmt->fetchAll();
 	return json_decode($all[0]['json']);
+}
+
+function classDefinition($id){
+	global $container;
+	$stmt = $container->db->query('SELECT * from DestinyClassDefinition');
+	$all = $stmt->fetchAll();
+	$result = new \stdClass;
+	for($i = 0, $c = count($all); $i < $c; $i++) {
+		$json = json_decode($all[$i]['json']);
+		if($json->classHash == $id) {
+			$result = $json;
+		}
+	}
+	return $result;
+}
+
+function genderDefinition($id){
+	global $container;
+	$stmt = $container->db->query('SELECT * from DestinyGenderDefinition');
+	$all = $stmt->fetchAll();
+	$result = new \stdClass;
+	for($i = 0, $c = count($all); $i < $c; $i++) {
+		$json = json_decode($all[$i]['json']);
+		if($json->genderHash == $id) {
+			$result = $json;
+		}
+	}
+	return $result;
+}
+
+function raceDefinition($id){
+	global $container;
+	$stmt = $container->db->query('SELECT * from DestinyRaceDefinition');
+	$all = $stmt->fetchAll();
+	$result = new \stdClass;
+	for($i = 0, $c = count($all); $i < $c; $i++) {
+		$json = json_decode($all[$i]['json']);
+		if($json->raceHash == $id) {
+			$result = $json;
+		}
+	}
+	return $result;
 }
 
 // Run app

@@ -26,7 +26,7 @@ describe('(Async Actions) Select', () => {
     nock.enableNetConnect('127.0.0.1');
   });
 
-  it('fill in GET_OPTIONS when fetching all options is done', () => {
+  it('should fill in GET_OPTIONS when fetching all options is done', () => {
     nock('http://localhost:8888')
     .get('/api/selectActivity')
     .reply(200, {options: [
@@ -49,6 +49,48 @@ describe('(Async Actions) Select', () => {
       .then(()=>{
         expect(store.getActions()[0]).to.eql(expectedAction);
       });
+  });
+
+});
+
+describe('(Async Action) User form', () => {
+  it('should fill in SET_CHARACTER_LIST when fetching is done', () => {
+    nock('http://localhost:8888')
+    .get('/api/getCharacterList/1/tkrp1986')
+    .reply(200, {characters: [
+        {
+            "character_id": "2305843009271058982"
+        },
+        {
+          "character_id": "2305843009345804418"
+        },
+        {
+          "character_id": "2305843009359370836"
+        }
+      ]
+    });
+
+    const expectedState = {
+      type: 'SET_CHARACTER_LIST',
+      characters: [
+          {
+              "character_id": "2305843009271058982"
+          },
+          {
+            "character_id": "2305843009345804418"
+          },
+          {
+            "character_id": "2305843009359370836"
+          }
+        ]
+    }
+
+    const store = mockStore({});
+    store.dispatch(actions.getOptions())
+      .then(()=>{
+        expect(store.getAction()[0]).to.eql(expectedState);
+      })
+
   });
 
 });
