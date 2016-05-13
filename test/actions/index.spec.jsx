@@ -8,6 +8,13 @@ const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
 describe('(Actions) App', () => {
+  it('should create an action to getAppScreen', () => {
+    const expectedAction = {
+      type: 'GET_APP_SCREEN'
+    }
+    expect(actions.getAppScreen()).to.eql(expectedAction);
+  });
+
   it('should create an action to setAppScreen', () => {
     const screen = 'login';
     const expectedAction = {

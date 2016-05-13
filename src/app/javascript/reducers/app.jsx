@@ -10,6 +10,9 @@ const select = (state = initialState, action) => {
 			});
 			return newState;
 			break;
+			case 'GET_APP_SCREEN':
+				return state;
+				break;
 		default:
 			return state;
 			break;

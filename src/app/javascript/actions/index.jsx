@@ -22,12 +22,8 @@ const setAppScreen = (screen) => {
 }
 
 const getAppScreen = () => {
-	return (dispatch, getState)=> {
-		let screen = getState().app.screen;
-		return {
-			type: 'GET_APP_SCREEN',
-			screen
-		}
+	return {
+		type: 'GET_APP_SCREEN'
 	}
 }
 
