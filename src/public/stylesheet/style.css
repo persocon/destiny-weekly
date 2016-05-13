@@ -246,6 +246,8 @@ blockquote {
     background: transparent; }
     .loginComponent .loginComponentText:focus {
       outline: none; }
+    .loginComponent .loginComponentText.noUserName {
+      border: 1px solid red; }
   .loginComponent .loginComponentSubmit {
     width: 100%;
     height: 45px;
