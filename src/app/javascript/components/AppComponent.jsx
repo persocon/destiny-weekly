@@ -4,9 +4,10 @@ import React, { PropTypes } from 'react';
 import SelectActivityContainer from '../containers/SelectActivityContainer';
 import ActivityContainer from '../containers/ActivityContainer';
 import LoginContainer from '../containers/LoginContainer.jsx';
+import CharactersContainer from '../containers/CharactersContainer.jsx';
 
 class AppComponent extends React.Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.getInitialScreen();
   }
   activity() {
@@ -23,6 +24,8 @@ class AppComponent extends React.Component {
     // debugger;
     if(this.props.screen == 'login'){
       return (<LoginContainer />);
+    }else if(this.props.screen == 'character_list'){
+      return(<CharactersContainer />);
     }else{
       return(this.activity());
     }

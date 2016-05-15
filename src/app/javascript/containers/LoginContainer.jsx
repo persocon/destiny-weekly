@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch) => {
       let platform = event.target.getElementsByClassName('platform')[0].value;
 			if(username){
 				dispatch(setUser(platform, username));
-      	dispatch(getCharacterList());
 				dispatch(setAppScreen('character_list'));
 			}else{
 				let input = event.target.getElementsByClassName('username')[0];

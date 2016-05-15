@@ -89,7 +89,7 @@ describe('(Async Action) User form', () => {
 
     const expectedState = {
       type: 'SET_CHARACTER_LIST',
-      characters: [
+      character_list: [
           {
               "character_id": "2305843009271058982"
           },

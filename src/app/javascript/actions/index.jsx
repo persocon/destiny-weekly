@@ -92,10 +92,10 @@ const findActivity = () => {
 }
 
 const setCharacterList = (result) => {
-	let characters = result;
+	let character_list = result;
 	return {
 		type: 'SET_CHARACTER_LIST',
-		characters: characters
+		character_list
 	}
 }
 

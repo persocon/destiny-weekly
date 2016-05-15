@@ -262,6 +262,67 @@ blockquote {
     .loginComponent .loginComponentSubmit:hover {
       background: #ffdd66; }
 
+.characterComponent {
+  padding: 5px;
+  color: #f5f5f5; }
+  .characterComponent {
+    *zoom: 1; }
+  .characterComponent:before, .characterComponent:after {
+    content: "";
+    display: table; }
+  .characterComponent:after {
+    clear: both; }
+  .characterComponent .characterListItem {
+    margin: 0 0 5px 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    padding: 0 0 8px 55px;
+    height: 59px; }
+    .characterComponent .characterListItem {
+      *zoom: 1; }
+    .characterComponent .characterListItem:before, .characterComponent .characterListItem:after {
+      content: "";
+      display: table; }
+    .characterComponent .characterListItem:after {
+      clear: both; }
+    .characterComponent .characterListItem p {
+      font-size: 18px;
+      font-weight: 400; }
+      .characterComponent .characterListItem p {
+        *zoom: 1; }
+      .characterComponent .characterListItem p:before, .characterComponent .characterListItem p:after {
+        content: "";
+        display: table; }
+      .characterComponent .characterListItem p:after {
+        clear: both; }
+  .characterComponent .characterListItemEmblem {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 2px;
+    top: 2px; }
+  .characterComponent .characterListItemText {
+    padding: 4px 4px 4px 0px; }
+  .characterComponent .characterListItemLevel {
+    float: right;
+    text-align: right;
+    font-size: 27px; }
+  .characterComponent .characterListItemRaceDetails {
+    font-size: 13px; }
+  .characterComponent .characterListItemLightLevel {
+    color: #f5dc56;
+    float: right;
+    text-align: right;
+    font-size: 12px; }
+    .characterComponent .characterListItemLightLevel:before {
+      content: "\2726";
+      display: inline-block;
+      vertical-align: 22%;
+      font-size: 50%; }
+
 .fade-enter, .fade-appear {
   opacity: 0.01; }
   .fade-enter-active, .fade-appear-active {
@@ -280,7 +341,8 @@ blockquote {
 body {
   background: #2f2f2f;
   color: #c6c6c6;
-  font-family: 'Roboto', sans-serif; }
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400; }
 
 img {
   max-width: 100%; }

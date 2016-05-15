@@ -4,6 +4,7 @@
 @import "box";
 @import "select";
 @import "form";
+@import "character";
 @import "animation";
 
 * {
@@ -14,6 +15,7 @@ body {
 	background: #2f2f2f;
 	color: #c6c6c6;
 	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
 }
 
 img { max-width: 100%; }
