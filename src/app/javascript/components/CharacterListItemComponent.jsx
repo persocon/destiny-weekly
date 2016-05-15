@@ -28,6 +28,17 @@ class CharacterListItemComponent extends React.Component {
     }
     return divStyle;
   }
+  progress(){
+    let percent = this.props.character.percentToNextLevel;
+    let style = {
+      width: percent+'%'
+    }
+    return(
+      <div className="characterListItemProgress">
+        <div className="characterlistItemProgressBar" style={style}></div>
+      </div>
+    );
+  }
 	render() {
 
 		return (
@@ -43,6 +54,7 @@ class CharacterListItemComponent extends React.Component {
   						<p>{this.classDetails()} <span className="characterListItemLevel">{this.props.character.characterLevel}</span></p>
   						<p><span className="characterListItemRaceDetails">{this.raceDetails()}</span> <span className="characterListItemLightLevel">{this.props.character.power_level}</span></p>
   					</div>
+            {this.progress()}
 				</li>
 			</ReactCSSTransitionGroup>
 		);

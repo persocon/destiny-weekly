@@ -296,6 +296,18 @@ blockquote {
         display: table; }
       .characterComponent .characterListItem p:after {
         clear: both; }
+  .characterComponent .characterListItemProgress {
+    overflow: hidden;
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+    height: 8px;
+    background: rgba(245, 245, 245, 0.1); }
+    .characterComponent .characterListItemProgress .characterlistItemProgressBar {
+      position: relative;
+      height: 8px;
+      background: #5da469; }
   .characterComponent .characterListItemEmblem {
     width: 50px;
     height: 50px;

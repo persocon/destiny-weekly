@@ -68,6 +68,8 @@ function curl_character_list($platform, $membership_id) {
 		$obj->genderHash = $characters[$i]->characterBase->genderHash;
 		$obj->classHash = $characters[$i]->characterBase->classHash;
 
+		$obj->percentToNextLevel = $characters[$i]->percentToNextLevel;
+
 		$obj->emblemPath = $characters[$i]->emblemPath;
 		$obj->backgroundPath = $characters[$i]->backgroundPath;
 		$obj->characterLevel = $characters[$i]->characterLevel;
