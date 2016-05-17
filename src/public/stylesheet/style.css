@@ -134,6 +134,9 @@ blockquote {
     /* 35px / 24px */ } }
 
 /*micro clearfix mixin */
+.top-bar {
+  border-top: 3px solid #ffce1f; }
+
 .box {
   float: left;
   width: 100%;
@@ -232,7 +235,6 @@ blockquote {
         outline: medium none; }
 
 .loginComponent {
-  border-top: 3px solid #ffce1f;
   padding: 5px 0; }
   .loginComponent .loginComponentWrap {
     padding: 5px; }
@@ -286,6 +288,9 @@ blockquote {
       display: table; }
     .characterComponent .characterListItem:after {
       clear: both; }
+    .characterComponent .characterListItem a {
+      color: #FFF;
+      text-decoration: none; }
     .characterComponent .characterListItem p {
       font-size: 18px;
       font-weight: 400; }

@@ -40,7 +40,6 @@ class CharacterListItemComponent extends React.Component {
     );
   }
 	render() {
-
 		return (
 			<ReactCSSTransitionGroup
 				transitionName={"fade"}
@@ -49,12 +48,14 @@ class CharacterListItemComponent extends React.Component {
 		        transitionEnterTimeout={500}
 		        transitionLeaveTimeout={300}>
 				<li className="characterListItem" style={this.backgroundImage()}>
-          <div style={this.emblemImage()} className="characterListItemEmblem"></div>
-  					<div className="characterListItemText">
-  						<p>{this.classDetails()} <span className="characterListItemLevel">{this.props.character.characterLevel}</span></p>
-  						<p><span className="characterListItemRaceDetails">{this.raceDetails()}</span> <span className="characterListItemLightLevel">{this.props.character.power_level}</span></p>
-  					</div>
-            {this.progress()}
+          <a href={this.props.character.character_id} onClick={event => this.props.handleClick(event)}>
+            <div style={this.emblemImage()} className="characterListItemEmblem"></div>
+    					<div className="characterListItemText">
+    						<p>{this.classDetails()} <span className="characterListItemLevel">{this.props.character.characterLevel}</span></p>
+    						<p><span className="characterListItemRaceDetails">{this.raceDetails()}</span> <span className="characterListItemLightLevel">{this.props.character.power_level}</span></p>
+    					</div>
+              {this.progress()}
+            </a>
 				</li>
 			</ReactCSSTransitionGroup>
 		);

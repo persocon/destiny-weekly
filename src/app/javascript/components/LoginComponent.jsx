@@ -5,7 +5,7 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 class LoginComponent extends React.Component {
   form() {
     return (
-      <form className="loginComponent" onSubmit={event => this.props.onSubmit(event)}>
+      <form className="loginComponent top-bar" onSubmit={event => this.props.onSubmit(event)}>
         <div className="loginComponentWrap">
           <input type="text" defaultValue="" placeholder="Username" className="loginComponentText username" onKeyUp={ (event)=> this.props.onUsernameChange(event)} />
         </div>

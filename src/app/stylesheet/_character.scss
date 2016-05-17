@@ -11,6 +11,10 @@
     position: relative;
     padding: 0 0 8px 55px;
     height: 59px;
+    a {
+      color: #FFF;
+      text-decoration: none;
+    }
     p {
       @include clearfix-micro();
       font-size: 18px;

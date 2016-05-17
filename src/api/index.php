@@ -100,7 +100,7 @@ $app->get('/getCharacterList/{platform}/{username}', function($request, $respons
 
 });
 
-$app->get('/selectActivity', function ($request, $response, $args) {
+$app->get('/`selectAc`tivity', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$activities = $this->curl;
@@ -112,7 +112,7 @@ $app->get('/selectActivity', function ($request, $response, $args) {
 		$activity = $activities[$i];
 		$identifier = $activity->display->identifier;
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($active == 1 &&  $identifier != 'thetakenking' && $identifier != 'vaultofglass' && $identifier != 'crota' && $identifier != 'armsday'){
+		if($active == 1 &&  $identifier != 'thetakenking' && $identifier != 'kingsfall' && $identifier != 'vaultofglass' && $identifier != 'crota' && $identifier != 'armsday'){
 			array_push($selectActivity, $activity->display);
 		}
 	}

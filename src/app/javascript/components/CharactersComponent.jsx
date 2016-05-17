@@ -20,11 +20,11 @@ class CharactersComponent extends React.Component {
     }else{
       let character_list = this.props.character_list.map((character, index) => {
   			return (
-          <CharacterListItemComponent character={character} key={index} />
+          <CharacterListItemComponent character={character} handleClick={event => this.props.handleClickItem(event)} key={index} />
         );
   		});
 
-  		return(<ul className="characterComponent">{character_list}</ul>);
+  		return(<ul className="characterComponent top-bar">{character_list}</ul>);
     }
   }
   render() {
@@ -43,7 +43,8 @@ class CharactersComponent extends React.Component {
 
 CharactersComponent.propTypes = {
 	onInit: PropTypes.func.isRequired,
-  backToLogin: PropTypes.func.isRequired
+  backToLogin: PropTypes.func.isRequired,
+  handleClickItem: PropTypes.func.isRequired
 }
 
 export default CharactersComponent;

@@ -16,6 +16,11 @@ const mapDispatchToProps = (dispatch) => {
     backToLogin: (event) => {
       event.preventDefault();
       dispatch(setAppScreen('login'));
+    },
+    handleClickItem: (event) => {
+      event.preventDefault();
+      let href = event.currentTarget.getAttribute('href');
+      debugger;
     }
 	}
 }
