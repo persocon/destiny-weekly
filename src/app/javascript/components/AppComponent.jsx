@@ -26,8 +26,10 @@ class AppComponent extends React.Component {
       return (<LoginContainer />);
     }else if(this.props.screen == 'character_list'){
       return(<CharactersContainer />);
-    }else{
+    }else if(this.props.screen == 'activity'){
       return(this.activity());
+    }else{
+      return (<LoginContainer />);
     }
   }
   render () {

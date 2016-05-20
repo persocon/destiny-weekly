@@ -44,7 +44,10 @@ class ActivityComponent extends React.Component {
 
 	showXur() {
 		if(this.props.items.length >= 1){
-			return <ModifierComponent title="Itens a venda" details={this.props.items} />;
+			let items = this.props.items.map( (item, index) => {
+				return <ModifierComponent key={index} title={item.title} details={item.items} />;
+			});
+			return items;
 		}
 	}
 

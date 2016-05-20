@@ -100,7 +100,7 @@ $app->get('/getCharacterList/{platform}/{username}', function($request, $respons
 
 });
 
-$app->get('/`selectAc`tivity', function ($request, $response, $args) {
+$app->get('/selectActivity', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$activities = $this->curl;
@@ -171,16 +171,24 @@ $app->get('/xur', function ($request, $response, $args) {
 		$activity = $activities[$i];
 		$identifier = $activity->display->identifier;
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
+
 		if($identifier == "xur"){
+
 			if($active == 1){
-				$xurItems = $activity->vendors[0]->saleItemCategories[2]->saleItems;
+				$getXur = getXur();
+				$xurItems = [];
 				$items = [];
-				for($i = 0, $c = count($xurItems); $i < $c; $i++) {
-					$item = $xurItems[$i];
-					$itemInfo = getItemDetail($item->item->itemHash);
-					array_push($items, $itemInfo);
+				$saleItemCategories = array_reverse($getXur->saleItemCategories);
+				for($x = 0, $z = count($saleItemCategories); $x < $z; $x++){
+					$obj = new \stdClass;
+					$obj->title = $saleItemCategories[$x]->categoryTitle;
+					$obj->items = [];
+					for($index = 0, $count = count($saleItemCategories[$x]->saleItems); $index < $count; $index++){
+							array_push($obj->items, getItemDetail($saleItemCategories[$x]->saleItems[$index]->item->itemHash));
+					}
+					array_push($xurItems, $obj);
 				}
-				$activity->items = $items;
+				$activity->items = $xurItems;
 				$result->xur = $activity;
 			}else {
 				$result->xur = 0;
@@ -487,6 +495,17 @@ function getActivity($hash) {
 
 	$json = json_decode(curl_exec($nf));
 	return $json;
+}
+function getXur() {
+	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/Platform/Destiny/Advisors/Xur/?lc=pt-br&definitions=true');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
+
+	$json = json_decode(curl_exec($ch));
+	return $json->Response->data;
 }
 
 function getItemDetail($hash){

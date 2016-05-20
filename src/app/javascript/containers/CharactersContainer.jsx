@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => {
     handleClickItem: (event) => {
       event.preventDefault();
       let href = event.currentTarget.getAttribute('href');
-      debugger;
+      dispatch(setAppScreen('activity'));// on activity it should retrieve the character_id active
     }
 	}
 }

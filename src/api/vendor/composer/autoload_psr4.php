@@ -11,4 +11,5 @@ return array(
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
     'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),
+    'Dflydev\\FigCookies\\' => array($vendorDir . '/dflydev/fig-cookies/src/Dflydev/FigCookies'),
 );
