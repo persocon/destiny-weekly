@@ -189,6 +189,8 @@ $app->get('/xur', function ($request, $response, $args) {
 					array_push($xurItems, $obj);
 				}
 				$activity->items = $xurItems;
+				$activity->details = new \stdClass;
+				$activity->details->activityName = "Items a venda";
 				$result->xur = $activity;
 			}else {
 				$result->xur = 0;
