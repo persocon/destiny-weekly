@@ -34,6 +34,25 @@ describe('(Reducer) User', () => {
 
   });
 
+  it('should return user character_id', () => {
+    const character_id = 123456;
+    const expectedState = { user_info:
+      {
+        character_id
+      }
+    }
+    expect(
+      reducer(expectedState, {
+        type: 'GET_USER_CHARACTER',
+        user_info: {
+          character_id: expectedState
+        }
+      })
+    ).to.eql(character_id);
+
+  });
+
+
   it('should set character list', () => {
       const expectedState =
       [
