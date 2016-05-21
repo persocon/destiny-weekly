@@ -23,9 +23,10 @@ $container['cache'] = function () {
     return new \Slim\HttpCache\CacheProvider();
 };
 
-function curl($platform, $membership_id, $character_id){
+function curl($platform, $username, $character_id){
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
-
+	$membership_id = curl_membership_id($platform, $username);
+	
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/'.$platform.'/Account/'.$membership_id.'/Character/'.$character_id.'/Advisors/?lc=pt-br&definitions=true');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -100,12 +101,12 @@ $app->get('/getCharacterList/{platform}/{username}', function($request, $respons
 
 });
 
-$app->get('/selectActivity/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/selectActivity/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 
@@ -122,12 +123,12 @@ $app->get('/selectActivity/{platform}/{membership_id}/{character_id}', function 
 	return $resWithExpires->withJson($result->selectActivity);
 });
 
-$app->get('/nightfall/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/nightfall/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 
@@ -165,13 +166,13 @@ $app->get('/nightfall/{platform}/{membership_id}/{character_id}', function ($req
 	return $resWithExpires->withJson($result->nightfall);
 });
 
-$app->get('/xur/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/xur/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 
@@ -209,13 +210,13 @@ $app->get('/xur/{platform}/{membership_id}/{character_id}', function ($request, 
 	return $resWithExpires->withJson($result->xur);
 });
 
-$app->get('/trials/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/trials/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 
@@ -253,13 +254,13 @@ $app->get('/trials/{platform}/{membership_id}/{character_id}', function ($reques
 	return $resWithExpires->withJson($result->trials);
 });
 
-$app->get('/ironbanner/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/ironbanner/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 
@@ -289,13 +290,13 @@ $app->get('/ironbanner/{platform}/{membership_id}/{character_id}', function ($re
 	return $resWithExpires->withJson($result->ironbanner);
 });
 
-$app->get('/heroicstrike/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/heroicstrike/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 
@@ -326,13 +327,13 @@ $app->get('/heroicstrike/{platform}/{membership_id}/{character_id}', function ($
 	return $resWithExpires->withJson($result->heroicstrike);
 });
 
-$app->get('/dailychapter/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/dailychapter/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 
@@ -367,13 +368,13 @@ $app->get('/dailychapter/{platform}/{membership_id}/{character_id}', function ($
 	return $resWithExpires->withJson($result->dailychapter);
 });
 
-$app->get('/dailycrucible/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/dailycrucible/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 
@@ -407,13 +408,13 @@ $app->get('/dailycrucible/{platform}/{membership_id}/{character_id}', function (
 	return $resWithExpires->withJson($result->dailycrucible);
 });
 
-$app->get('/weeklycrucible/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/weeklycrucible/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 
@@ -448,13 +449,13 @@ $app->get('/weeklycrucible/{platform}/{membership_id}/{character_id}', function 
 	return $resWithExpires->withJson($result->weeklycrucible);
 });
 
-$app->get('/elderchallenge/{platform}/{membership_id}/{character_id}', function ($request, $response, $args) {
+$app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 
 	$platform = $request->getAttribute('platform');
-	$membership_id = $request->getAttribute('membership_id');
+	$username = $request->getAttribute('username');
 	$character_id = $request->getAttribute('character_id');
-	$activities = curl($platform, $membership_id, $character_id);
+	$activities = curl($platform, $username, $character_id);
 
 	$result = new \stdClass;
 

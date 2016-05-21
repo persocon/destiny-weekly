@@ -2,7 +2,15 @@ import reducer from '../../src/app/javascript/reducers/user.jsx';
 
 describe('(Reducer) User', () => {
   it('should return the initial state', () => {
-    expect(reducer(undefined, {})).to.eql({character_list: [], user_info: {}})
+    const expectedState = {
+      character_list: [],
+      user_info: {
+        platform: '',
+        username: '',
+        character_id: ''
+      }
+    }
+    expect(reducer(undefined, {})).to.eql(expectedState);
   });
 
   it('should set user info', () => {
@@ -11,7 +19,9 @@ describe('(Reducer) User', () => {
       username: 'tkrp1986'
     };
     expect(
-      reducer([], {
+      reducer({
+        user_info: expectedState
+      }, {
         type: 'SET_USER',
         user_info: expectedState
       })
@@ -24,11 +34,11 @@ describe('(Reducer) User', () => {
       character_id: 123456
     };
     expect(
-      reducer([], {
+      reducer({
+        user_info: expectedState
+      }, {
         type: 'SET_USER_CHARACTER',
-        user_info: {
-          character_id: expectedState
-        }
+        user_info: expectedState
       })
     ).to.eql({user_info: expectedState});
 
@@ -171,12 +181,15 @@ describe('(Reducer) User', () => {
             "index": 0
           }
         }];
+        const state = {
+          character_list: expectedState
+        }
         expect(
-          reducer([], {
+          reducer(state, {
             type: 'SET_CHARACTER_LIST',
             character_list: expectedState
           })
-        ).to.eql({character_list: expectedState});
+        ).to.eql(state);
   });
 
 });

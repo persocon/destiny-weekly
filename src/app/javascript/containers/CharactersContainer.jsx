@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getCharacterList, setAppScreen } from '../actions/index';
+import { getCharacterList, setAppScreen, setCharacterId } from '../actions/index';
 import CharactersComponent from '../components/CharactersComponent';
 
 const mapStateToProps = (state) => {
@@ -20,6 +20,7 @@ const mapDispatchToProps = (dispatch) => {
     handleClickItem: (event) => {
       event.preventDefault();
       let href = event.currentTarget.getAttribute('href');
+			dispatch(setCharacterId(href));
       dispatch(setAppScreen('activity'));// on activity it should retrieve the character_id active
     }
 	}

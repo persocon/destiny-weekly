@@ -43,9 +43,13 @@ const setOptions = (result) => {
 
 
 const getOptions = () => {
-	return dispatch => {
+	return (dispatch, getState) => {
 		dispatch(startLoading())
-  	return fetch('/api/selectActivity')
+		const {user} = getState();
+		if(!user){
+			return Promise.resolve();
+		}
+  	return fetch('/api/selectActivity/'+user.user_info.platform+'/'+user.user_info.username+'/'+user.user_info.character_id)
 		  .then(resolve => resolve.json())
 			.then( json => {
 				dispatch(doneLoading());
@@ -80,8 +84,12 @@ const setActivity = (result)  => {
 const findActivity = () => {
  return (dispatch, getState) => {
    dispatch(startLoading())
-   let activity_id = getState().select.activity;
-	 return fetch('/api/'+activity_id)
+   const {activity} = getState().select.activity;
+	 const {user} = getState();
+	 if(!user || !activity){
+		 return Promise.resolve();
+	 }
+	 return fetch('/api/'+activity.activity_id+'/'+user.user_info.platform+'/'+user.user_info.username+'/'+user.user_info.character_id)
 	 .then(response => response.json())
 	 .then(json => {
 				dispatch(doneLoading());

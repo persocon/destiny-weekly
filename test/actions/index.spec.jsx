@@ -45,7 +45,7 @@ describe('(Async Actions) Select', () => {
 
   it('should fill in GET_OPTIONS when fetching all options is done', () => {
     nock('http://localhost:8888')
-    .get('/api/selectActivity')
+    .get('/api/selectActivity/2/tkrp1986')
     .reply(200, {options: [
             {
               identifier: "nightfall"
@@ -58,7 +58,8 @@ describe('(Async Actions) Select', () => {
       options: [
         {
         identifier: "nightfall"
-      }]
+        }
+      ]
     };
 
     const store = mockStore({});
