@@ -84,12 +84,12 @@ const setActivity = (result)  => {
 const findActivity = () => {
  return (dispatch, getState) => {
    dispatch(startLoading())
-   const {activity} = getState().select.activity;
+   const {activity} = getState();
 	 const {user} = getState();
 	 if(!user || !activity){
 		 return Promise.resolve();
 	 }
-	 return fetch('/api/'+activity.activity_id+'/'+user.user_info.platform+'/'+user.user_info.username+'/'+user.user_info.character_id)
+	 return fetch('/api/'+activity.identifier+'/'+user.user_info.platform+'/'+user.user_info.username+'/'+user.user_info.character_id)
 	 .then(response => response.json())
 	 .then(json => {
 				dispatch(doneLoading());
