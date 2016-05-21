@@ -123,4 +123,18 @@ const getCharacterList = () => {
 	}
 }
 
-export {findActivity, changeApiUrl, getOptions, getCharacterList, setUser, setAppScreen, getAppScreen};
+const setCharacterId = (character_id) => {
+	return {
+		type: 'SET_USER_CHARACTER',
+		user_info: {
+			character_id
+		}
+	}
+}
+const getCharacterId = () => {
+	return {
+		type: 'GET_USER_CHARACTER'
+	}
+}
+
+export {findActivity, changeApiUrl, getOptions, getCharacterList, setUser, setAppScreen, getAppScreen, setCharacterId, getCharacterId};

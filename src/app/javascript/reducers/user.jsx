@@ -17,6 +17,15 @@ const select = (state = initialState, action) => {
       });
       return userState;
       break;
+		case 'SET_USER_CHARACTER':
+			let userStateCharacter = Object.assign({}, state, {
+				user_info: action.user_info.character_id
+			});
+			return userStateCharacter;
+			break;
+			case 'GET_USER_CHARACTER':
+				return state.user_info.character_id;
+				break;
 		default:
 			return state;
 			break;
