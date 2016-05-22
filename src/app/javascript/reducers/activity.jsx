@@ -1,3 +1,5 @@
+import update from 'react/lib/update';
+
 const initialState = {
 	identifier: 'nightfall',
 	title: 'Carregando',
@@ -14,11 +16,11 @@ const initialState = {
 const activity = (state = initialState, action) => {
 	switch (action.type) {
 		case 'SET_ACTIVITY':
-			let newState = Object.assign({}, state, action.activity);
+			let newState = update(state, {$set: action.activity});
 			return newState;
 			break;
 		case 'START_LOADING':
-			let loadingState = Object.assign({}, state, initialState);
+			let loadingState = update(state, {$set: initialState});
 			return loadingState;
 			break;
 		default:

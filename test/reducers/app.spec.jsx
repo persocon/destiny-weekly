@@ -6,9 +6,9 @@ describe('(Reducer) App', () => {
   });
 
   it('should handle set app screen', () => {
-    const expectedState = 'character_list';
+    const expectedState = 'login';
     expect(
-      reducer([], {
+      reducer({screen: expectedState}, {
         type: 'SET_APP_SCREEN',
         screen: expectedState
       })

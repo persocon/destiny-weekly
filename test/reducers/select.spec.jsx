@@ -8,7 +8,7 @@ describe('(Reducer) Select', () => {
   it('should handle change api url', () => {
     const expectedState = 'elderschallenge';
     expect(
-      reducer([], {
+      reducer({activity: expectedState}, {
         type: 'CHANGE_API_URL',
         activity: expectedState
       })

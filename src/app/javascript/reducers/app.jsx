@@ -1,3 +1,5 @@
+import update from 'react/lib/update';
+
 const initialState = {
 	screen: 'login'
 };
@@ -5,8 +7,8 @@ const initialState = {
 const select = (state = initialState, action) => {
 	switch (action.type) {
 		case 'SET_APP_SCREEN':
-			let newState = Object.assign({}, state, {
-				screen: action.screen
+			let newState = update(state, {
+				screen: {$set: action.screen}
 			});
 			return newState;
 			break;
