@@ -19,4 +19,7 @@ describe('(Container) App (login screen)', () => {
   it('should expect .loginComponent to exist', ()=>{
     expect(wrapper.find('.loginComponent')).to.exist;
   });
+  it('should expect .loginComponent to have a submit button', ()=>{
+    expect(wrapper.find('.loginComponentSubmit')).to.exist;
+  });
 });
