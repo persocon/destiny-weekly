@@ -3,6 +3,8 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import {persistStore, autoRehydrate} from 'redux-persist'
+
 
 import appReducer from './reducers/index';
 import App from './containers/AppContainer';
@@ -15,6 +17,7 @@ let store = createStore(
 	appReducer,
 	applyMiddleware(thunk)
 	);
+persistStore(store)
 
 render(
 	<Provider store={store}>
