@@ -3,7 +3,7 @@ import { setAppScreen, getAppScreen } from '../actions/index';
 import AppComponent from '../components/AppComponent';
 
 const mapStateToProps = (state) => {
-	return state.app;
+	return {app: state.app};
 }
 
 const mapDispatchToProps = (dispatch) => {

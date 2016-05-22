@@ -21,12 +21,11 @@ class AppComponent extends React.Component {
     )
   }
   screen() {
-    // debugger;
-    if(this.props.screen == 'login'){
+    if(this.props.app.screen == 'login'){
       return (<LoginContainer />);
-    }else if(this.props.screen == 'character_list'){
+    }else if(this.props.app.screen == 'character_list'){
       return(<CharactersContainer />);
-    }else if(this.props.screen == 'activity'){
+    }else if(this.props.app.screen == 'activity'){
       return(this.activity());
     }else{
       return (<LoginContainer />);
