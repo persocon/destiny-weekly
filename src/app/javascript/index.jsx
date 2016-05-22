@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import {persistStore, autoRehydrate} from 'redux-persist'
 
@@ -15,7 +15,8 @@ import Style from '../stylesheet/style.scss';
 
 let store = createStore(
 	appReducer,
-	applyMiddleware(thunk)
+	compose(applyMiddleware(thunk),
+	window.devToolsExtension ? window.devToolsExtension() : f => f)
 	);
 persistStore(store)
 
