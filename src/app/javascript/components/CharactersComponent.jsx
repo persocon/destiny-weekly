@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import CharacterListItemComponent from './CharacterListItemComponent';
+import LoadingComponent from './LoadingComponent';
+import BackToLoginComponent from './BackToLoginComponent';
 
 
 
@@ -10,13 +12,13 @@ class CharactersComponent extends React.Component {
   }
   list() {
     if(this.props.character_list.length <= 0){
-      //CREATE LOADING VIEW!!!
       return (
-        <div className="charactersList">LOADING</div>
+        <LoadingComponent />
       )
     }else if(this.props.character_list.status == "error"){
       //CREATE VIEW FOR WHEN THERE'S NO USER;
-      return (<div><a href="#" onClick={event => this.props.backToLogin(event)}>DEU RUIM</a></div>);
+      return (<BackToLoginComponent backToLogin={event=>this.props.backToLogin(event)} />)
+      // return (<div><a href="#" onClick={event => this.props.backToLogin(event)}>DEU RUIM</a></div>);
     }else{
       let character_list = this.props.character_list.map((character, index) => {
   			return (

@@ -3,6 +3,7 @@ import $ from 'jquery';
 
 import HeaderComponent from './HeaderComponent'
 import ModifierComponent from './ModifierComponent'
+import LoadingComponent from './LoadingComponent'
 
 class ActivityComponent extends React.Component {
 	componentDidMount() {
@@ -77,7 +78,9 @@ class ActivityComponent extends React.Component {
 
 
 	render(){
-
+		if(!this.props.name){
+			return (<LoadingComponent />);
+		}
 		return (
 			<div className="activityComponent box">
 				<div className="boxContent">
