@@ -51,7 +51,10 @@ var config = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("../stylesheet/style.css")
+    new ExtractTextPlugin("../stylesheet/style.css"),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
   ]
 };
 
