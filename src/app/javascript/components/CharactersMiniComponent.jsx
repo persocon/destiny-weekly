@@ -5,9 +5,6 @@ import CharacterMiniListItemComponent from './CharacterMiniListItemComponent';
 
 
 class CharactersMiniComponent extends React.Component {
-  componentWillMount(){
-    this.props.onInit();
-  }
   list(){
     let character_list = this.props.character_list.map((character, index) => {
       let selected = (character.character_id === this.props.user_info.character_id) ? true : false;
@@ -31,7 +28,6 @@ class CharactersMiniComponent extends React.Component {
   }
 }
 CharactersMiniComponent.propTypes = {
-	onInit: PropTypes.func.isRequired,
   handleClickItem: PropTypes.func.isRequired
 }
 

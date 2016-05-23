@@ -12,14 +12,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onInit: () => {
-    	dispatch(getCharacterList());
-		},
     handleClickItem: (event) => {
       event.preventDefault();
       let href = event.currentTarget.getAttribute('href');
 			dispatch(setCharacterId(href));
-      dispatch(setAppScreen('activity'));
       dispatch(getOptions());
 			dispatch(findActivity());
     }

@@ -75,14 +75,9 @@ class ActivityComponent extends React.Component {
 		return bosses;
 
 	}
-
-
-	render(){
-		if(!this.props.name){
-			return (<LoadingComponent />);
-		}
+	activity() {
 		return (
-			<div className="activityComponent box">
+
 				<div className="boxContent">
 					<HeaderComponent style={this.backgroundImage()} title={this.props.title} subtitle={this.props.name} description={this.props.desc} icon={this.props.icon} />
 
@@ -97,8 +92,15 @@ class ActivityComponent extends React.Component {
 					{this.showBosses()}
 
 				</div>
-			</div>
 		);
+	}
+
+
+	render(){
+		if(this.props.title == 'loading'){
+			return (<LoadingComponent />);
+		}
+		return ( <div className="activityComponent box">{this.activity()}</div> );
 	}
 };
 

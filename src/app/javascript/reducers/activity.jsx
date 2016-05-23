@@ -2,7 +2,7 @@ import update from 'react/lib/update';
 
 const initialState = {
 	identifier: 'nightfall',
-	title: 'Carregando',
+	title: 'loading',
 	name: '',
 	desc: '',
 	backgroundImg: '',
