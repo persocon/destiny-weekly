@@ -4,7 +4,8 @@ import React, { PropTypes } from 'react';
 import SelectActivityContainer from '../containers/SelectActivityContainer';
 import ActivityContainer from '../containers/ActivityContainer';
 import LoginContainer from '../containers/LoginContainer.jsx';
-import {CharactersContainer, CharactersMiniContainer} from '../containers/CharactersContainer.jsx';
+import CharactersContainer from '../containers/CharactersContainer.jsx';
+import CharactersMiniContainer from '../containers/CharactersMiniContainer.jsx';
 
 class AppComponent extends React.Component {
   componentWillMount() {
