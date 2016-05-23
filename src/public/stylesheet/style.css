@@ -264,44 +264,69 @@ blockquote {
     .loginComponent .loginComponentSubmit:hover {
       background: #ffdd66; }
 
-.characterComponent {
+.characterMiniComponent {
+  text-align: center; }
+
+.characterComponent, .characterMiniComponent {
   padding: 5px;
   color: #f5f5f5; }
-  .characterComponent {
+  .characterComponent, .characterMiniComponent {
     *zoom: 1; }
-  .characterComponent:before, .characterComponent:after {
+  .characterComponent:before, .characterComponent:after, .characterMiniComponent:before, .characterMiniComponent:after {
     content: "";
     display: table; }
-  .characterComponent:after {
+  .characterComponent:after, .characterMiniComponent:after {
     clear: both; }
-  .characterComponent .characterListItem {
+  .characterComponent .characterListItem, .characterComponent .characterMiniListItem, .characterMiniComponent .characterListItem, .characterMiniComponent .characterMiniListItem {
     margin: 0 0 5px 0;
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
     padding: 0 0 8px 55px;
     height: 59px; }
-    .characterComponent .characterListItem {
+    .characterComponent .characterListItem, .characterComponent .characterMiniListItem, .characterMiniComponent .characterListItem, .characterMiniComponent .characterMiniListItem {
       *zoom: 1; }
-    .characterComponent .characterListItem:before, .characterComponent .characterListItem:after {
+    .characterComponent .characterListItem:before, .characterComponent .characterListItem:after, .characterComponent .characterMiniListItem:before, .characterComponent .characterMiniListItem:after, .characterMiniComponent .characterListItem:before, .characterMiniComponent .characterListItem:after, .characterMiniComponent .characterMiniListItem:before, .characterMiniComponent .characterMiniListItem:after {
       content: "";
       display: table; }
-    .characterComponent .characterListItem:after {
+    .characterComponent .characterListItem:after, .characterComponent .characterMiniListItem:after, .characterMiniComponent .characterListItem:after, .characterMiniComponent .characterMiniListItem:after {
       clear: both; }
-    .characterComponent .characterListItem a {
+    .characterComponent .characterListItem a, .characterComponent .characterMiniListItem a, .characterMiniComponent .characterListItem a, .characterMiniComponent .characterMiniListItem a {
       color: #FFF;
       text-decoration: none; }
-    .characterComponent .characterListItem p {
+    .characterComponent .characterListItem p, .characterComponent .characterMiniListItem p, .characterMiniComponent .characterListItem p, .characterMiniComponent .characterMiniListItem p {
       font-size: 18px;
       font-weight: 400; }
-      .characterComponent .characterListItem p {
+      .characterComponent .characterListItem p, .characterComponent .characterMiniListItem p, .characterMiniComponent .characterListItem p, .characterMiniComponent .characterMiniListItem p {
         *zoom: 1; }
-      .characterComponent .characterListItem p:before, .characterComponent .characterListItem p:after {
+      .characterComponent .characterListItem p:before, .characterComponent .characterListItem p:after, .characterComponent .characterMiniListItem p:before, .characterComponent .characterMiniListItem p:after, .characterMiniComponent .characterListItem p:before, .characterMiniComponent .characterListItem p:after, .characterMiniComponent .characterMiniListItem p:before, .characterMiniComponent .characterMiniListItem p:after {
         content: "";
         display: table; }
-      .characterComponent .characterListItem p:after {
+      .characterComponent .characterListItem p:after, .characterComponent .characterMiniListItem p:after, .characterMiniComponent .characterListItem p:after, .characterMiniComponent .characterMiniListItem p:after {
         clear: both; }
-  .characterComponent .characterListItemProgress {
+  .characterComponent .characterMiniListItemSelected:after, .characterMiniComponent .characterMiniListItemSelected:after {
+    border-bottom-color: #f2c161 !important; }
+  .characterComponent .characterMiniListItem, .characterMiniComponent .characterMiniListItem {
+    width: 54px;
+    height: 54px;
+    padding: 0;
+    display: inline-block;
+    margin: 5px 5px 0px 5px;
+    position: relative; }
+    .characterComponent .characterMiniListItem:after, .characterMiniComponent .characterMiniListItem:after {
+      top: -5px;
+      left: 0;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-width: 5px;
+      margin-left: -5px;
+      transform: rotate(-45deg);
+      transition: all .5s ease; }
+  .characterComponent .characterListItemProgress, .characterMiniComponent .characterListItemProgress {
     overflow: hidden;
     position: absolute;
     bottom: 1px;
@@ -309,11 +334,11 @@ blockquote {
     right: 1px;
     height: 8px;
     background: rgba(245, 245, 245, 0.1); }
-    .characterComponent .characterListItemProgress .characterlistItemProgressBar {
+    .characterComponent .characterListItemProgress .characterlistItemProgressBar, .characterMiniComponent .characterListItemProgress .characterlistItemProgressBar {
       position: relative;
       height: 8px;
       background: #5da469; }
-  .characterComponent .characterListItemEmblem {
+  .characterComponent .characterListItemEmblem, .characterMiniComponent .characterListItemEmblem {
     width: 50px;
     height: 50px;
     background-size: cover;
@@ -321,20 +346,20 @@ blockquote {
     position: absolute;
     left: 2px;
     top: 2px; }
-  .characterComponent .characterListItemText {
+  .characterComponent .characterListItemText, .characterMiniComponent .characterListItemText {
     padding: 4px 4px 4px 0px; }
-  .characterComponent .characterListItemLevel {
+  .characterComponent .characterListItemLevel, .characterMiniComponent .characterListItemLevel {
     float: right;
     text-align: right;
     font-size: 27px; }
-  .characterComponent .characterListItemRaceDetails {
+  .characterComponent .characterListItemRaceDetails, .characterMiniComponent .characterListItemRaceDetails {
     font-size: 13px; }
-  .characterComponent .characterListItemLightLevel {
+  .characterComponent .characterListItemLightLevel, .characterMiniComponent .characterListItemLightLevel {
     color: #f5dc56;
     float: right;
     text-align: right;
     font-size: 12px; }
-    .characterComponent .characterListItemLightLevel:before {
+    .characterComponent .characterListItemLightLevel:before, .characterMiniComponent .characterListItemLightLevel:before {
       content: "\2726";
       display: inline-block;
       vertical-align: 22%;

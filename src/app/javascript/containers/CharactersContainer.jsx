@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
-import { getCharacterList, setAppScreen, setCharacterId } from '../actions/index';
+import { getCharacterList, setAppScreen, setCharacterId,findActivity } from '../actions/index';
 import CharactersComponent from '../components/CharactersComponent';
+import CharactersMiniComponent from '../components/CharactersMiniComponent';
 
 const mapStateToProps = (state) => {
 	return {
-		character_list: state.user.character_list
+		character_list: state.user.character_list,
+		user_info: state.user.user_info
 	}
 }
 
@@ -21,11 +23,13 @@ const mapDispatchToProps = (dispatch) => {
       event.preventDefault();
       let href = event.currentTarget.getAttribute('href');
 			dispatch(setCharacterId(href));
-      dispatch(setAppScreen('activity'));// on activity it should retrieve the character_id active
+      dispatch(setAppScreen('activity'));
+			dispatch(findActivity());
     }
 	}
 }
 
 const CharactersContainer = connect(mapStateToProps, mapDispatchToProps)(CharactersComponent);
+const CharactersMiniContainer = connect(mapStateToProps, mapDispatchToProps)(CharactersMiniComponent);
 
-export default CharactersContainer;
+export {CharactersContainer, CharactersMiniContainer};

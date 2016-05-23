@@ -1,9 +1,12 @@
-.characterComponent {
+.characterMiniComponent {
+  text-align: center;
+}
+.characterComponent, .characterMiniComponent {
   @include clearfix-micro();
   padding: 5px;
   color: #f5f5f5;
 
-  .characterListItem {
+  .characterListItem, .characterMiniListItem {
     @include clearfix-micro();
     margin: 0 0 5px 0;
     background-size: cover;
@@ -21,6 +24,31 @@
       font-weight: 400;
     }
 
+  }
+  .characterMiniListItemSelected:after {
+    border-bottom-color: #f2c161!important;
+  }
+  .characterMiniListItem {
+    width: 54px;
+    height: 54px;
+    padding: 0;
+    display: inline-block;
+    margin: 5px 5px 0px 5px;
+    position: relative;
+    &:after {
+      top: -5px;
+      left: 0;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-width: 5px;
+      margin-left: -5px;
+      transform: rotate(-45deg);
+      transition: all .5s ease;
+    }
   }
   .characterListItemProgress {
     overflow: hidden;

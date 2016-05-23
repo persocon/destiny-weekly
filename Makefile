@@ -36,6 +36,7 @@ dist: ## Build for Production
 	$(WEBPACK_CMD) $(WEBPACK_ARGS_DIST)
 	@echo "${CLOUD} ${CYAN}Compacting for distribution${NO_COLOR} ${ARROW}"
 	zip -r dist/dist.zip dist/api/ dist/public/ dist/index.html
+	@echo "${CLOUD} ${CYAN}DONE!${NO_COLOR} ${ARROW}"
 
 test: ## Singlerun tests
 	$(KARMA_CMD) $(KARMA_ARGS)
