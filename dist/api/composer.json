@@ -1,7 +1,0 @@
-{
-    "require": {
-        "slim/slim": "^3.0",
-        "slim/http-cache": "^0.3.0",
-        "dflydev/fig-cookies": "^1.0"
-    }
-}

@@ -9,6 +9,10 @@
 
 # Dev-specific personal directories
 _src/
+dist/api
+dist/public
+dist/.DS_Store
+dist/index.html
 
 # Windows image file caches
 Thumbs.db
