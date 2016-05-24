@@ -2,8 +2,6 @@ import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import CharacterMiniListItemComponent from './CharacterMiniListItemComponent';
 
-
-
 class CharactersMiniComponent extends React.Component {
   list(){
     let character_list = this.props.character_list.map((character, index) => {

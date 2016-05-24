@@ -377,7 +377,22 @@ blockquote {
     color: #f2c161;
     font-style: normal; }
 
-.loadingComponent img {
+.menuComponent {
+  position: relative;
+  width: 100%; }
+  .menuComponent .menuComponentLogOut {
+    position: absolute;
+    top: 15px;
+    right: 5px; }
+    .menuComponent .menuComponentLogOut svg {
+      width: 32px;
+      height: auto;
+      fill: #FFF;
+      transition: fill .5s ease-in-out; }
+      .menuComponent .menuComponentLogOut svg:hover {
+        fill: #f2c161; }
+
+.loadingComponent svg {
   display: block;
   margin: 20px auto; }
 

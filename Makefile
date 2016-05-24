@@ -30,6 +30,7 @@ watch: ## Starts Webpack Watch
 
 dist: ## Build for Production
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Copying images${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
+	mkdir -p dist/public
 	cp -R src/public/images/ dist/public/images/
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Copying API${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
 	cp -R src/api/ dist/api/

@@ -23,6 +23,10 @@ const activity = (state = initialState, action) => {
 			let loadingState = update(state, {$set: initialState});
 			return loadingState;
 			break;
+		case 'RESET_ACTIVITY':
+			let resetState = update(state, {$set: initialState});
+			return resetState;
+			break;
 		default:
 			return state;
 			break;

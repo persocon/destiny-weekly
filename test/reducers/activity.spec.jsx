@@ -4,17 +4,17 @@ describe('(Reducer) Activity', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).to.eql(
       {
-        identifier: 'nightfall',
-        title: 'Carregando',
-        name: '',
-        desc: '',
-        backgroundImg: '',
-        icon: '',
-        modifiers: [],
-        bosses: [],
-        items: [],
-        rewards: [],
-        bounties: []
+      	identifier: 'nightfall',
+      	title: 'loading',
+      	name: '',
+      	desc: '',
+      	backgroundImg: '',
+      	icon: '',
+      	modifiers: [],
+      	bosses: [],
+      	items: [],
+      	rewards: [],
+      	bounties: []
       }
     );
   });

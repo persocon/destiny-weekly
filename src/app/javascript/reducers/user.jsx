@@ -48,6 +48,10 @@ const user = (state = initialState, action) => {
 		case 'GET_USER_CHARACTER':
 			return state.user_info.character_id;
 			break;
+		case 'RESET_USER':
+			let resetState = update(state, {$set: initialState});
+			return resetState;
+			break;
 		default:
 			return state;
 			break;

@@ -8,7 +8,7 @@ $config = [
 ];
 
 $app = new \Slim\App($config);
-$app->add(new \Slim\HttpCache\Cache('public', 86400));
+$app->add(new \Slim\HttpCache\Cache('public', 43200));
 
 $container = $app->getContainer();
 $container['view'] = function ($container) {
@@ -26,7 +26,7 @@ $container['cache'] = function () {
 function curl($platform, $username, $character_id){
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 	$membership_id = curl_membership_id($platform, $username);
-	
+
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/'.$platform.'/Account/'.$membership_id.'/Character/'.$character_id.'/Advisors/?lc=pt-br&definitions=true');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

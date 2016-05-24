@@ -1,16 +1,26 @@
 import fetch from 'isomorphic-fetch';
 
-const startLoading = () => {
+const resetUser = () => {
 	return {
-		type: 'START_LOADING',
-		isLoading: true
+		type: 'RESET_USER'
 	}
 }
 
-const doneLoading = () => {
+const resetSelect = () => {
 	return {
-		type: 'STOP_LOADING',
-		isLoading: false
+		type: 'RESET_SELECT'
+	}
+}
+
+const resetActivity = () => {
+	return {
+		type: 'RESET_ACTIVITY'
+	}
+}
+
+const resetApp = () => {
+	return {
+		type: 'RESET_APP'
 	}
 }
 
@@ -44,7 +54,6 @@ const setOptions = (result) => {
 
 const getOptions = () => {
 	return (dispatch, getState) => {
-		dispatch(startLoading())
 		const {user} = getState();
 		if(!user){
 			return Promise.resolve();
@@ -52,7 +61,6 @@ const getOptions = () => {
   	return fetch('/api/selectActivity/'+user.user_info.platform+'/'+user.user_info.username+'/'+user.user_info.character_id)
 		  .then(resolve => resolve.json())
 			.then( json => {
-				dispatch(doneLoading());
 				json.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: "", disabled: "disabled"});
 				dispatch(setOptions(json));
 			}
@@ -83,7 +91,6 @@ const setActivity = (result)  => {
 
 const findActivity = () => {
  return (dispatch, getState) => {
-   dispatch(startLoading())
    const {select} = getState();
 	 const {user} = getState();
 	 if(!user || !select){
@@ -92,7 +99,6 @@ const findActivity = () => {
 	 return fetch('/api/'+select.activity+'/'+user.user_info.platform+'/'+user.user_info.username+'/'+user.user_info.character_id)
 	 .then(response => response.json())
 	 .then(json => {
-				dispatch(doneLoading());
 				dispatch(setActivity(json));
 			}
 		)
@@ -119,13 +125,11 @@ const setUser = (platform, username) => {
 
 const getCharacterList = () => {
 	return (dispatch, getState) => {
-		dispatch(startLoading());
 		let username = getState().user.user_info.username;
 		let platform = getState().user.user_info.platform;
 		return fetch('/api/getCharacterList/'+platform+'/'+username)
 		.then(response => response.json())
 		.then(json => {
-				dispatch(doneLoading());
 				dispatch(setCharacterList(json));
 		})
 	}
@@ -145,4 +149,4 @@ const getCharacterId = () => {
 	}
 }
 
-export {findActivity, changeApiUrl, getOptions, getCharacterList, setUser, setAppScreen, getAppScreen, setCharacterId, getCharacterId};
+export {findActivity, changeApiUrl, getOptions, getCharacterList, setUser, setAppScreen, getAppScreen, setCharacterId, getCharacterId, resetApp, resetUser, resetSelect, resetActivity};

@@ -21,9 +21,13 @@ const app = (state = initialState, action) => {
 			});
 			return newState;
 			break;
-			case 'GET_APP_SCREEN':
-				return state;
-				break;
+		case 'GET_APP_SCREEN':
+			return state;
+			break;
+		case 'RESET_APP':
+			let resetState = update(state, {$set: initialState});
+			return resetState;
+			break;
 		default:
 			return state;
 			break;

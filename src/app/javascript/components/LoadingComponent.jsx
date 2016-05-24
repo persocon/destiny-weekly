@@ -1,10 +1,11 @@
 import React from 'react';
+import IconComponent from './IconComponent';
 
 class LoadingComponent extends React.Component {
 	render() {
 		return (
 			<div className="loadingComponent top-bar">
-        <img src="public/images/gears.svg" />
+        <IconComponent icon='loading' />
       </div>
 		)
 	}

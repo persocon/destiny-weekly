@@ -19,6 +19,10 @@ const select = (state = initialState, action) => {
 			});
 			return optState;
 			break;
+		case 'RESET_SELECT':
+			let resetState = update(state, {$set: initialState});
+			return resetState;
+			break;
 		default:
 			return state;
 			break;

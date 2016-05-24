@@ -1,5 +1,6 @@
 var argv = require('yargs').argv;
 var path = require('path');
+var webpackConfig = require('./webpack.config.test');
 
 module.exports = function(config) {
   config.set({
@@ -23,39 +24,7 @@ module.exports = function(config) {
     preprocessors: {
       ['./test/test.bundle.js']: ['webpack', 'sourcemap']
     },
-    webpack: {
-      devtool: 'inline-source-map',
-      externals: {
-        'cheerio': 'window',
-        'react/lib/ExecutionEnvironment': true,
-        'react/lib/ReactContext': true,
-        'react/addons': true
-      },
-      resolve: {
-        alias: {
-            'sinon': 'sinon/pkg/sinon'
-        },
-        root: [
-          path.resolve(__dirname, './src/app')
-        ],
-        extensions: ['', '.js', '.json', '.jsx']
-      },
-      node: {
-        fs: "empty"
-      },
-      module: {
-        noParse: [
-            /node_modules\/sinon\//,
-        ],
-        loaders: [
-          {
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            test: /\.jsx?$/
-          }
-        ],
-      }
-    },
+    webpack: webpackConfig,
     webpackMiddleware: {
       noInfo: true,
     }
