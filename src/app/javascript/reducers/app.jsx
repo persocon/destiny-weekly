@@ -5,7 +5,7 @@ const initialState = {
 	screen: 'login'
 };
 
-const select = (state = initialState, action) => {
+const app = (state = initialState, action) => {
 	switch (action.type) {
 		case REHYDRATE:
 	  	let incoming = action.payload.app;
@@ -30,4 +30,4 @@ const select = (state = initialState, action) => {
 	}
 }
 
-export default select;
+export default app;

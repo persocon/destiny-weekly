@@ -10,7 +10,7 @@ const initialState = {
 	}
 };
 
-const select = (state = initialState, action) => {
+const user = (state = initialState, action) => {
 	switch (action.type) {
 		case REHYDRATE:
 	  	let incoming = action.payload.user;
@@ -54,4 +54,4 @@ const select = (state = initialState, action) => {
 	}
 }
 
-export default select;
+export default user;

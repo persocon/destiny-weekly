@@ -10,7 +10,7 @@ export default function configureStore(){
   	appReducer,
   	enhancer
   	);
-  persistStore(store);
+  persistStore(store, {blacklist: ['activity', 'select']});
 
   return store;
 }
