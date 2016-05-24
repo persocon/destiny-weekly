@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
 
-import HeaderComponent from './HeaderComponent'
+import BigPictureComponent from './BigPictureComponent'
 import ModifierComponent from './ModifierComponent'
 import LoadingComponent from './LoadingComponent'
 
@@ -69,7 +69,7 @@ class ActivityComponent extends React.Component {
 			let style = {
 				backgroundImage: 'url(http://bungie.net'+boss.image+')'
 			};
-			return (<HeaderComponent key={index} style={style} title={boss.combatantName} subtitle={boss.description} description="" />);
+			return (<BigPictureComponent key={index} style={style} title={boss.combatantName} subtitle={boss.description} description="" />);
 		});
 
 		return bosses;
@@ -79,7 +79,7 @@ class ActivityComponent extends React.Component {
 		return (
 
 				<div className="boxContent">
-					<HeaderComponent style={this.backgroundImage()} title={this.props.title} subtitle={this.props.name} description={this.props.desc} icon={this.props.icon} />
+					<BigPictureComponent style={this.backgroundImage()} title={this.props.title} subtitle={this.props.name} description={this.props.desc} icon={this.props.icon} />
 
 					{this.showModifiers()}
 

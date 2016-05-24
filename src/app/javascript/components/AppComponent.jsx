@@ -5,7 +5,7 @@ import SelectActivityContainer from '../containers/SelectActivityContainer';
 import ActivityContainer from '../containers/ActivityContainer';
 import LoginContainer from '../containers/LoginContainer.jsx';
 import CharactersContainer from '../containers/CharactersContainer.jsx';
-import MenuContainer from '../containers/MenuContainer.jsx';
+import HeaderContainer from '../containers/HeaderContainer.jsx';
 
 class AppComponent extends React.Component {
   componentWillMount() {
@@ -14,7 +14,7 @@ class AppComponent extends React.Component {
   activity() {
     return (
       <div className='activityComponents'>
-        <MenuContainer />
+        <HeaderContainer />
         <SelectActivityContainer />
         <div className="cardsComponents">
           <ActivityContainer />

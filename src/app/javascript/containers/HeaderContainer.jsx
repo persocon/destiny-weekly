@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { resetActivity, resetSelect, resetUser, resetApp, setAppScreen } from '../actions/index';
-import MenuComponent from '../components/MenuComponent';
+import HeaderComponent from '../components/HeaderComponent';
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -15,6 +15,6 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-const MenuContainer = connect(null, mapDispatchToProps)(MenuComponent);
+const HeaderContainer = connect(null, mapDispatchToProps)(HeaderComponent);
 
-export default MenuContainer;
+export default HeaderContainer;
