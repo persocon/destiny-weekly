@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import $ from 'jquery';
 
 import BigPictureComponent from './BigPictureComponent';
 import ModifierComponent from './ModifierComponent';
