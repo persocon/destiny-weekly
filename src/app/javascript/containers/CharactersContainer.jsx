@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { getCharacterList, setAppScreen, setCharacterId,findActivity } from '../actions/index';
+import { getCharacterList, setAppScreen, setCharacterId,findActivity, resetActivity, resetSelect, resetUser, resetApp } from '../actions/index';
 import CharactersComponent from '../components/CharactersComponent';
 
 const mapStateToProps = (state) => {
@@ -15,7 +15,11 @@ const mapDispatchToProps = (dispatch) => {
 		},
     backToLogin: (event) => {
       event.preventDefault();
-      dispatch(setAppScreen('login'));
+			dispatch(resetActivity());
+      dispatch(resetSelect());
+      dispatch(resetUser());
+      dispatch(resetApp());
+			dispatch(setAppScreen('login'));
     },
     handleClickItem: (event) => {
       event.preventDefault();

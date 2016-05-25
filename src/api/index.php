@@ -537,6 +537,7 @@ function getActivity($hash) {
 	$json = json_decode(curl_exec($nf));
 	return $json;
 }
+
 function getXur() {
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
