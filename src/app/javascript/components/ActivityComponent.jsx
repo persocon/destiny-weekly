@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
 
-import BigPictureComponent from './BigPictureComponent'
-import ModifierComponent from './ModifierComponent'
-import LoadingComponent from './LoadingComponent'
+import BigPictureComponent from './BigPictureComponent';
+import ModifierComponent from './ModifierComponent';
+import ObjectivesComponent from './ObjectivesComponent';
+import LoadingComponent from './LoadingComponent';
 
 class ActivityComponent extends React.Component {
 	componentDidMount() {
@@ -64,6 +65,12 @@ class ActivityComponent extends React.Component {
 		}
 	}
 
+	showObjectives(){
+		if(this.props.objectives.length >= 1) {
+			return <ObjectivesComponent objectives={this.props.objectives} />;
+		}
+	}
+
 	showBosses() {
 		let bosses = this.props.bosses.map((boss, index)=>{
 			let style = {
@@ -79,13 +86,15 @@ class ActivityComponent extends React.Component {
 		return (
 
 				<div className="boxContent">
-					<BigPictureComponent style={this.backgroundImage()} title={this.props.title} subtitle={this.props.name} description={this.props.desc} icon={this.props.icon} />
+					<BigPictureComponent style={this.backgroundImage()} completed={this.props.completed} title={this.props.title} subtitle={this.props.name} description={this.props.desc} icon={this.props.icon} />
 
 					{this.showModifiers()}
 
 					{this.showRewards()}
 
 					{this.showXur()}
+
+					{this.showObjectives()}
 
 					{this.showBounties()}
 

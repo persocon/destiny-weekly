@@ -270,15 +270,16 @@ $app->get('/ironbanner/{platform}/{username}/{character_id}', function ($request
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
 		if($identifier == "ironbanner"){
 			if($active==1){
-				$ibItems = $activity->vendors[0]->saleItemCategories[1]->saleItems;
-				$items = [];
-				for($i = 0, $c = count($ibItems); $i < $c; $i++) {
-					$item = $ibItems[$i];
-					$itemInfo = getItemDetail($item->item->itemHash);
-					array_push($items, $itemInfo);
+				if(array_key_exists('vendors', $activity)){
+					$ibItems = $activity->vendors[0]->saleItemCategories[1]->saleItems;
+					$items = [];
+					for($i = 0, $c = count($ibItems); $i < $c; $i++) {
+						$item = $ibItems[$i];
+						$itemInfo = getItemDetail($item->item->itemHash);
+						array_push($items, $itemInfo);
+					}
+					$activity->bounties = $items;
 				}
-				$activity->bounties = $items; // it's getting just the hunter class items :(
-
 				$result->ironbanner = $activity;
 
 			}else {
@@ -474,6 +475,14 @@ $app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($req
 					$binfo = getBoss($boss->bossCombatantHash);
 					array_push($bossInfo, $binfo);
 				}
+				$objectives = [];
+				for($i = 0, $c = count($activity->extended->objectives); $i< $c; $i++){
+					$objective = $activity->extended->objectives[$i];
+					$objInfo = objectivesDefinition($objective->objectiveHash);
+					$objInfo->progress = $objective->progress;
+					array_push($objectives, $objInfo);
+				}
+				$activity->objectives = $objectives;
 				$activity->bosses = $bossInfo;
 
 				$activity->details = $json->Response->data->activity;
@@ -596,6 +605,20 @@ function raceDefinition($id){
 	for($i = 0, $c = count($all); $i < $c; $i++) {
 		$json = json_decode($all[$i]['json']);
 		if($json->raceHash == $id) {
+			$result = $json;
+		}
+	}
+	return $result;
+}
+
+function objectivesDefinition($id){
+	global $container;
+	$stmt = $container->db->query('SELECT * from DestinyObjectiveDefinition');
+	$all = $stmt->fetchAll();
+	$result = new \stdClass;
+	for($i = 0, $c = count($all); $i < $c; $i++) {
+		$json = json_decode($all[$i]['json']);
+		if($json->objectiveHash == $id) {
 			$result = $json;
 		}
 	}

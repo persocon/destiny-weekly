@@ -16,6 +16,15 @@ class BigPictureComponent extends React.Component {
 			)
 		}
 	}
+	hasBeenCompleted() {
+		let style;
+		if(this.props.completed){
+			style = "boxImage boxImageCompleted";
+		}else{
+			style = "boxImage";
+		}
+		return style;
+	}
 	render() {
 		return (
 			<ReactCSSTransitionGroup
@@ -25,7 +34,7 @@ class BigPictureComponent extends React.Component {
 		        transitionEnterTimeout={500}
 		        transitionLeaveTimeout={300}>
 				<div className="headerBox">
-					<div className="boxImage" style={this.props.style} >
+					<div className={this.hasBeenCompleted()} style={this.props.style} >
 							<div className="boxImageTextWrap">
 								{this.icon()}
 								<div className="boxImageText">

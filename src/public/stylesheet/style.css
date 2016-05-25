@@ -154,6 +154,21 @@ blockquote {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     background-size: cover;
     background-position: center center; }
+    .box .boxImage:after {
+      top: -15px;
+      left: 0;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-width: 15px;
+      margin-left: -15px;
+      transform: rotate(-45deg);
+      transition: all .5s ease; }
+    .box .boxImage.boxImageCompleted:after {
+      border-bottom-color: #f2c161 !important; }
     .box .boxImage .boxImageTextWrap {
       position: absolute;
       bottom: 0;
@@ -198,6 +213,22 @@ blockquote {
       font-size: 14px;
       line-height: 16px; }
 
+.box .boxItems.progressObjectives {
+  background: #181D25;
+  padding: 10px 15px;
+  margin-bottom: 10px; }
+  .box .boxItems.progressObjectives .boxItemText {
+    padding-left: 0; }
+    .box .boxItems.progressObjectives .boxItemText p {
+      margin-bottom: 5px; }
+  .box .boxItems.progressObjectives .progressBarWrap {
+    overflow: hidden;
+    width: 100%;
+    height: 10px; }
+    .box .boxItems.progressObjectives .progressBarWrap .progressBar {
+      height: 10px;
+      background: #f2c161; }
+
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
   .box .boxItems .boxItem img {
     width: 3%; }
@@ -221,7 +252,7 @@ blockquote {
       background: transparent;
       border: 1px solid rgba(97, 119, 147, 0.5);
       color: #f5f5f5;
-      background: #2f2f2f;
+      background: #1e242b;
       font-size: 12px;
       padding: 5px 35px 5px 5px;
       width: 100%;
@@ -412,7 +443,7 @@ blockquote {
   box-sizing: border-box; }
 
 body {
-  background: #2f2f2f;
+  background: #1e242b;
   color: #c6c6c6;
   font-family: 'Roboto', sans-serif;
   font-weight: 400; }

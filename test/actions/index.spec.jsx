@@ -65,7 +65,7 @@ describe('(Async Actions) Select', () => {
     const store = mockStore({});
     store.dispatch(actions.getOptions())
       .then(()=>{
-        expect(store.getActions()[0]).to.eql(expectedAction);
+        expect(store.getActions()[0]).should.equal(expectedAction);
       });
   });
 
@@ -130,7 +130,7 @@ describe('(Async Actions) Activity', () => {
     const store = mockStore({});
     store.dispatch(actions.findActivity())
       .then(()=>{
-        expect(store.getActions()[0]).to.eql(expectedAction);
+        expect(store.getActions()[0]).should.equal(expectedAction);
       });
   });
 
@@ -192,7 +192,7 @@ describe('(Async Action) User form', () => {
     const store = mockStore({});
     store.dispatch(actions.getOptions())
       .then(()=>{
-        expect(store.getAction()[0]).to.eql(expectedState);
+        expect(store.getAction()[0]).should.equal(expectedState);
       })
 
   });

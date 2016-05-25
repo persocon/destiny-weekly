@@ -16,6 +16,23 @@
 		text-shadow: 0 1px 2px rgba(0,0,0,0.3);
 		background-size: cover;
 		background-position: center center;
+		&:after {
+      top: -15px;
+      left: 0;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-width: 15px;
+      margin-left: -15px;
+      transform: rotate(-45deg);
+      transition: all .5s ease;
+    }
+		&.boxImageCompleted:after {
+			border-bottom-color: #f2c161!important;
+		}
 		.boxImageTextWrap {
 			position: absolute;
 			bottom: 0;
@@ -67,12 +84,32 @@
 			}
 		}
 	}
+	&.progressObjectives{
+		background: #181D25;
+		padding: 10px 15px;
+		margin-bottom: 10px;
+		.boxItemText {
+			padding-left: 0;
+			p {
+				margin-bottom: 5px;
+			}
+		}
+		.progressBarWrap {
+			overflow: hidden;
+			width: 100%;
+			height: 10px;
+			.progressBar {
+				height: 10px;
+				background: #f2c161;
+			}
+		}
+	}
 }
 
-@media screen 
-  and (min-device-width: 1200px) 
-  and (max-device-width: 1600px) 
-  and (-webkit-min-device-pixel-ratio: 1) { 
+@media screen
+  and (min-device-width: 1200px)
+  and (max-device-width: 1600px)
+  and (-webkit-min-device-pixel-ratio: 1) {
   	.box .boxItems .boxItem img {
   		width: 3%;
   	}

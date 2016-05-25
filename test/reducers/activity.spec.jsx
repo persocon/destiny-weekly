@@ -8,13 +8,15 @@ describe('(Reducer) Activity', () => {
       	title: 'loading',
       	name: '',
       	desc: '',
+        completed: '',
       	backgroundImg: '',
       	icon: '',
       	modifiers: [],
       	bosses: [],
       	items: [],
       	rewards: [],
-      	bounties: []
+      	bounties: [],
+        objectives: []
       }
     );
   });

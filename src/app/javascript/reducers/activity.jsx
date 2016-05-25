@@ -5,13 +5,15 @@ const initialState = {
 	title: 'loading',
 	name: '',
 	desc: '',
+	completed: '',
 	backgroundImg: '',
 	icon: '',
 	modifiers: [],
 	bosses: [],
 	items: [],
 	rewards: [],
-	bounties: []
+	bounties: [],
+	objectives: []
 }
 const activity = (state = initialState, action) => {
 	switch (action.type) {
