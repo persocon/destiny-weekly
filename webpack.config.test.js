@@ -29,7 +29,11 @@ var config = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         test: /\.jsx?$/
-      }
+      },
+      {
+      	test: /vendor\/.+\.(jsx|js)$/,
+	      loader: 'imports?jQuery=jquery,$=jquery,this=>window'
+	    }
     ],
   },
   plugins: [
