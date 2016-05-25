@@ -22,7 +22,7 @@ module.exports = function(config) {
       'karma-sourcemap-loader'
     ],
     preprocessors: {
-      ['test/test.bundle.js']: ['webpack', 'sourcemap']
+      'test/test.bundle.js': ['webpack']
     },
     webpack: webpackConfig,
     webpackMiddleware: {

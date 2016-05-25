@@ -42,7 +42,7 @@ dist: ## Build for Production
 
 test: ## Singlerun tests
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Singlerun Tests${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
-	$(KARMA_CMD) $(KARMA_ARGS)
+	$(KARMA_CMD) $(KARMA_ARGS) --single-run
 
 test-watch: ## Starts Test Watch
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Running Test Watch${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
