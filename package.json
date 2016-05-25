@@ -15,8 +15,8 @@
     "es6-promise": "^3.1.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "isomorphic-fetch": "^2.2.1",
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-persist": "^3.1.1",
@@ -43,13 +43,10 @@
     "phantomjs": "^2.1.7",
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.7",
-    "react": "^15.0.2",
     "react-addons-test-utils": "^15.0.2",
-    "react-dom": "^15.0.2",
     "redux-mock-store": "^1.0.2",
     "sass-loader": "^3.2.0",
     "sinon": "^1.17.4",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.13.0"
+    "style-loader": "^0.13.1"
   }
 }

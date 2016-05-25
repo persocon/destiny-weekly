@@ -41,10 +41,6 @@ var config = {
         loader : 'babel-loader'
       },
       {
-      	test: /vendor\/.+\.(jsx|js)$/,
-	      loader: 'imports?jQuery=jquery,$=jquery,this=>window'
-	    },
-      {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract(['css','sass'])
       }

@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import $ from 'jquery';
 import OptionComponent from './OptionComponent';
 
 class SelectActivityComponent extends React.Component {
