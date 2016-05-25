@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setAppScreen, getAppScreen } from '../actions/index';
+import { setAppScreen, getAppScreen } from '../actions/app';
 import AppComponent from '../components/AppComponent';
 
 const mapStateToProps = (state) => {

@@ -1,71 +1,9 @@
 import fetch from 'isomorphic-fetch';
 
-const resetUser = () => {
-	return {
-		type: 'RESET_USER'
-	}
-}
-
-const resetSelect = () => {
-	return {
-		type: 'RESET_SELECT'
-	}
-}
-
 const resetActivity = () => {
 	return {
 		type: 'RESET_ACTIVITY'
 	}
-}
-
-const resetApp = () => {
-	return {
-		type: 'RESET_APP'
-	}
-}
-
-const setAppScreen = (screen) => {
-	return {
-		type: 'SET_APP_SCREEN',
-		screen
-	}
-}
-
-const getAppScreen = () => {
-	return {
-		type: 'GET_APP_SCREEN'
-	}
-}
-
-const changeApiUrl = (activity) => {
-	return {
-		type: 'CHANGE_API_URL',
-		activity
-	}
-}
-
-const setOptions = (result) => {
-	return {
-		type: 'GET_OPTIONS',
-		options: result
-	}
-}
-
-
-const getOptions = () => {
-	return (dispatch, getState) => {
-		const {user} = getState();
-		if(!user){
-			return Promise.resolve();
-		}
-  	return fetch('/api/selectActivity/'+user.user_info.platform+'/'+user.user_info.username+'/'+user.user_info.character_id)
-		  .then(resolve => resolve.json())
-			.then( json => {
-				json.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: "", disabled: "disabled"});
-				dispatch(setOptions(json));
-			}
-		)
- }
 }
 
 const startLoading = () => {
@@ -114,48 +52,4 @@ const findActivity = () => {
  }
 }
 
-const setCharacterList = (result) => {
-	let character_list = result;
-	return {
-		type: 'SET_CHARACTER_LIST',
-		character_list
-	}
-}
-
-const setUser = (platform, username) => {
-	return {
-		type: 'SET_USER',
-		user_info: {
-			platform,
-			username
-		}
-	}
-}
-
-const getCharacterList = () => {
-	return (dispatch, getState) => {
-		let username = getState().user.user_info.username;
-		let platform = getState().user.user_info.platform;
-		return fetch('/api/getCharacterList/'+platform+'/'+username)
-		.then(response => response.json())
-		.then(json => {
-				dispatch(setCharacterList(json));
-		})
-	}
-}
-
-const setCharacterId = (character_id) => {
-	return {
-		type: 'SET_USER_CHARACTER',
-		user_info: {
-			character_id
-		}
-	}
-}
-const getCharacterId = () => {
-	return {
-		type: 'GET_USER_CHARACTER'
-	}
-}
-
-export {findActivity, changeApiUrl, getOptions, getCharacterList, setUser, setAppScreen, getAppScreen, setCharacterId, getCharacterId, resetApp, resetUser, resetSelect, resetActivity};
+export {findActivity, resetActivity};

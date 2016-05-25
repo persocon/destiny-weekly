@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { getCharacterList, setUser, setAppScreen } from '../actions/index';
+import { getCharacterList, setUser} from '../actions/user';
+import { setAppScreen } from '../actions/app';
 import LoginComponent from '../components/LoginComponent';
 
 const mapStateToProps = (state) => {

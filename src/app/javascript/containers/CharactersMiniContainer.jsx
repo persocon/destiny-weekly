@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
-import { getCharacterList, setAppScreen, setCharacterId, findActivity, getOptions } from '../actions/index';
+import { getCharacterList, setAppScreen, setCharacterId } from '../actions/user';
+import { findActivity } from '../actions/activity';
+import { getOptions } from '../actions/select';
 import CharactersMiniComponent from '../components/CharactersMiniComponent';
 
 const mapStateToProps = (state) => {

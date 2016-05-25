@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { changeApiUrl, findActivity, getOptions } from '../actions/index';
+import { findActivity } from '../actions/activity';
+import { changeApiUrl, getOptions } from '../actions/select';
 import SelectActivityComponent from '../components/SelectActivityComponent';
 
 const mapStateToProps = (state) => {

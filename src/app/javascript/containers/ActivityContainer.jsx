@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { findActivity } from '../actions/index';
+import { findActivity } from '../actions/activity';
 import ActivityComponent from '../components/ActivityComponent';
 
 const mapStateToProps = (state) => {

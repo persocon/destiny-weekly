@@ -218,7 +218,8 @@ blockquote {
   padding: 10px 15px;
   margin-bottom: 10px; }
   .box .boxItems.progressObjectives .boxItemText {
-    padding-left: 0; }
+    padding-left: 0;
+    width: 100%; }
     .box .boxItems.progressObjectives .boxItemText p {
       margin-bottom: 5px; }
   .box .boxItems.progressObjectives .progressBarWrap {

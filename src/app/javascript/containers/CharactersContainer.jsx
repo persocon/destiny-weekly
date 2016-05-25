@@ -1,5 +1,8 @@
 import { connect } from 'react-redux';
-import { getCharacterList, setAppScreen, setCharacterId,findActivity, resetActivity, resetSelect, resetUser, resetApp } from '../actions/index';
+import { getCharacterList, setCharacterId, resetUser } from '../actions/user';
+import { findActivity, resetActivity } from '../actions/activity';
+import { resetSelect } from '../actions/select.jsx';
+import { setAppScreen, resetApp } from '../actions/app';
 import CharactersComponent from '../components/CharactersComponent';
 
 const mapStateToProps = (state) => {

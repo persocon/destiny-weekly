@@ -1,5 +1,8 @@
 import { connect } from 'react-redux';
-import { resetActivity, resetSelect, resetUser, resetApp, setAppScreen } from '../actions/index';
+import { resetUser } from '../actions/user.jsx';
+import { resetActivity } from '../actions/activity';
+import { resetSelect } from '../actions/select';
+import { resetApp, setAppScreen } from '../actions/app';
 import HeaderComponent from '../components/HeaderComponent';
 
 const mapDispatchToProps = (dispatch) => {
