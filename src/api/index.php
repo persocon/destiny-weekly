@@ -280,7 +280,19 @@ $app->get('/ironbanner/{platform}/{username}/{character_id}', function ($request
 					}
 					$activity->bounties = $items;
 				}
+				if(array_key_exists('progression', $activity)){
+					$activity->progress = [];
+					$obj = new \stdClass;
+					$obj->displayDescription = "Reputação";
+					$obj->subDisplayDescription= "Rank";
+					$obj->level = $activity->progression->level;
+					$obj->progress = $activity->progression->progressToNextLevel;
+					$obj->completionValue = $activity->progression->nextLevelAt;
+					array_push($activity->progress, $obj);
+				}
+
 				$result->ironbanner = $activity;
+
 
 			}else {
 				$result->ironbanner = 0;
@@ -620,6 +632,20 @@ function objectivesDefinition($id){
 	for($i = 0, $c = count($all); $i < $c; $i++) {
 		$json = json_decode($all[$i]['json']);
 		if($json->objectiveHash == $id) {
+			$result = $json;
+		}
+	}
+	return $result;
+}
+
+function progressionDefinition($id){
+	global $container;
+	$stmt = $container->db->query('SELECT * from DestinyProgressionDefinition');
+	$all = $stmt->fetchAll();
+	$result = new \stdClass;
+	for($i = 0, $c = count($all); $i < $c; $i++) {
+		$json = json_decode($all[$i]['json']);
+		if($json->progressionHash == $id) {
 			$result = $json;
 		}
 	}

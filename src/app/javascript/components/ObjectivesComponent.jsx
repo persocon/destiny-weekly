@@ -4,9 +4,9 @@ import ObjectiveProgressionComponent from './ObjectiveProgressionComponent';
 
 class ObjectivesComponent extends React.Component {
 	showProgressionItems() {
-		let items = this.props.objectives.map((detail, index) => {
+		let items = this.props.progression.map((detail, index) => {
 			return (
-				<ObjectiveProgressionComponent key={index} title={detail.displayDescription} progress={detail.progress} completionValue={detail.completionValue}/>);
+				<ObjectiveProgressionComponent key={index} title={detail.displayDescription} subtitle={detail.subDisplayDescription} level={detail.level} progress={detail.progress} total={detail.completionValue}/>);
 		});
 		return items;
 	}

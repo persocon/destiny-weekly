@@ -27,7 +27,8 @@ const setActivity = (result)  => {
 		rewards: (result.hasOwnProperty('rewards')) ? result.rewards : [],
 		items: (result.hasOwnProperty('items') && result.display.identifier == "xur") ? result.items : [],
 		bounties: (result.hasOwnProperty('bounties')) ? result.bounties : [],
-		objectives: (result.hasOwnProperty('objectives')) ? result.objectives : []
+		objectives: (result.hasOwnProperty('objectives')) ? result.objectives : [],
+		progress: (result.hasOwnProperty('progress')) ? result.progress : []
 	}
 	return {
 		type: 'SET_ACTIVITY',

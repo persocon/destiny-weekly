@@ -13,7 +13,8 @@ const initialState = {
 	items: [],
 	rewards: [],
 	bounties: [],
-	objectives: []
+	objectives: [],
+	progress: []
 }
 const activity = (state = initialState, action) => {
 	switch (action.type) {

@@ -66,7 +66,13 @@ class ActivityComponent extends React.Component {
 
 	showObjectives(){
 		if(this.props.objectives.length >= 1) {
-			return <ObjectivesComponent objectives={this.props.objectives} />;
+			return <ObjectivesComponent progression={this.props.objectives} />;
+		}
+	}
+
+	showProgression(){
+		if(this.props.progress.length >= 1){
+			return <ObjectivesComponent progression={this.props.progress} />
 		}
 	}
 
@@ -94,6 +100,8 @@ class ActivityComponent extends React.Component {
 					{this.showXur()}
 
 					{this.showObjectives()}
+
+					{this.showProgression()}
 
 					{this.showBounties()}
 

@@ -3,11 +3,16 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 class ObjectiveProgressionComponent extends React.Component {
   progressBar(){
-    let percent = Math.floor((100 / this.props.completionValue) * this.props.progress);;
+    let percent = Math.floor((100 / this.props.total) * this.props.progress);;
     let style = {
       width: percent+'%'
     }
     return style;
+  }
+  subtitle(){
+    if(this.props.subtitle){
+      return (<small> / {this.props.subtitle} {this.props.level}</small>);
+    }
   }
 	render() {
 		return (
@@ -19,8 +24,8 @@ class ObjectiveProgressionComponent extends React.Component {
 		        transitionLeaveTimeout={300}>
 				<li className="listItem boxItem">
 					<div className="boxItemText">
-						<p><strong>{this.props.title}</strong></p>
-						<p>{this.props.progress} / {this.props.completionValue}</p>
+						<p><strong>{this.props.title}</strong>{this.subtitle()}</p>
+						<p>{this.props.progress} / {this.props.total}</p>
             <div className="progressBarWrap">
               <div className="progressBar" style={this.progressBar()}></div>
             </div>

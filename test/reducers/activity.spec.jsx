@@ -16,7 +16,8 @@ describe('(Reducer) Activity', () => {
       	items: [],
       	rewards: [],
       	bounties: [],
-        objectives: []
+        objectives: [],
+        progress: []
       }
     );
   });
