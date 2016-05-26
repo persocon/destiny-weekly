@@ -509,6 +509,104 @@ $app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($req
 	return $resWithExpires->withJson($result->elderchallenge);
 });
 
+$app->get('/nightbot/nightfall', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+	$platform = "2";
+	$username = "tkrp1986";
+	$character_id = "2305843009271058982";
+	$activities = curl($platform, $username, $character_id);
+
+	$result = new \stdClass;
+
+
+	for($i = 0, $c = count($activities); $i < $c; $i++) {
+		$activity = $activities[$i];
+		$identifier = $activity->display->identifier;
+		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
+		if($identifier == "nightfall"){
+			if($active==1){
+				$hash = $activity->display->activityHash;
+				$json = getActivity($hash);
+
+				$activity->details = $json->Response->data->activity;
+
+				$result->nightfall = $activity;
+				$modifiers = "";
+				for($i = 0, $c = count($activity->extended->skullCategories[0]->skulls); $i < $c; $i++) {
+					$modifiers .= $activity->extended->skullCategories[0]->skulls[$i]->displayName.", ";
+				}
+				$modifiers = rtrim($modifiers, ", ");
+
+				$res = "O Anoitecer dessa semana é: ".$activity->details->activityName.', com os seguintes modificadores: '.$modifiers.'.';
+
+			}
+		}
+
+	}
+	$body = $response->getBody();
+	$body->write($res);
+	return $resWithExpires;
+});
+
+$app->get('/nightbot/elderchallenge', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+
+	$platform = "2";
+	$username = "tkrp1986";
+	$character_id = "2305843009271058982";
+	$activities = curl($platform, $username, $character_id);
+
+	$result = new \stdClass;
+
+	for($i = 0, $c = count($activities); $i < $c; $i++) {
+		$activity = $activities[$i];
+		$identifier = $activity->display->identifier;
+		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
+		if($identifier == "elderchallenge"){
+			if($active == 1){
+				$hash = $activity->display->activityHash;
+				$json = getActivity($hash);
+				$bosses = $activity->activityTiers[0]->extended->rounds;
+				$bossInfo = [];
+				for($i = 0, $c = count($bosses); $i < $c; $i++) {
+					$boss = $bosses[$i];
+					$binfo = getBoss($boss->bossCombatantHash);
+					array_push($bossInfo, $binfo);
+				}
+
+				$activity->bosses = $bossInfo;
+
+				$modifiers = "";
+				for($i = 0, $c = count($activity->extended->skullCategories[0]->skulls); $i < $c; $i++) {
+					$modifiers .= $activity->extended->skullCategories[0]->skulls[$i]->displayName.", ";
+				}
+				$modifiers = rtrim($modifiers, ", ");
+
+				$bonus = "";
+				for($i = 0, $c = count($activity->extended->skullCategories[1]->skulls); $i < $c; $i++) {
+					$bonus .= $activity->extended->skullCategories[1]->skulls[$i]->displayName.", ";
+				}
+				$bonus = rtrim($bonus, ", ");
+
+				$bosses = "";
+				for($i = 0, $c = count($activity->bosses); $i < $c; $i++) {
+					$bosses .= $activity->bosses[$i]->combatantName.", ";
+				}
+				$bosses = rtrim($bosses, ", ");
+
+				$activity->details = $json->Response->data->activity;
+				$result->elderchallenge = $activity;
+				$res = "Desafio dos Anciões da semana tem os seguintes modificadores: ".$modifiers.", e bônus: ".$bonus.", você irá enfrentar os seguintes bosses: ".$bosses.".";
+			}
+		}
+
+	}
+
+	$body = $response->getBody();
+	$body->write($res);
+	return $resWithExpires;
+});
+
 $app->get('/manifest', function ($request, $response, $args) {
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
