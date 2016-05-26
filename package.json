@@ -2,7 +2,11 @@
   "name": "destiny-weekly",
   "version": "1.0.0",
   "description": "Opensource App done in ReactJS to show weekly reset updates from Destiny the game.",
-  "main": "index.js",
+  "main": "./src/public/javascript/bundle.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/persocon/destiny-weekly.git"
+  },
   "scripts": {
     "test": "make test"
   },

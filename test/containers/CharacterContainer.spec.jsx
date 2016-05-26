@@ -5,7 +5,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import CharactersContainer from '../../src/app/javascript/containers/CharactersContainer.jsx';
 
-import * as mock from './mock.jsx';
+import { EmptyCharacterList, FullCharacterList CharacterNotFound} from './mock.jsx';
 
 const mockStore = configureStore();
 
@@ -14,19 +14,19 @@ describe('(Container) Characters', () => {
   let wrapper;
 
   it('should expect LoadingComponent to exist while loading', ()=>{
-    store = mockStore({user: mock.emptyCharacterList});
+    store = mockStore({user: EmptyCharacterList});
     wrapper = mount(<Provider store={store}><CharactersContainer /></Provider>);
     expect(wrapper.find('.loadingComponent')).to.exist;
   });
 
   it('should expect .characterComponent to exist', ()=>{
-    store = mockStore({user: mock.fullCharacterList});
+    store = mockStore({user: FullCharacterList});
     wrapper = mount(<Provider store={store}><CharactersContainer /></Provider>);
     expect(wrapper.find('.characterComponent')).to.exist;
   });
 
   it('should expect Error Screen to exists when character not found', ()=>{
-    store = mockStore({user: mock.characterNotFound});
+    store = mockStore({user: CharacterNotFound});
     wrapper = mount(<Provider store={store}><CharactersContainer /></Provider>);
     expect(wrapper.find('.backToLoginComponent')).to.exist;
   })

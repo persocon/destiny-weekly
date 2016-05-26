@@ -4,7 +4,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 import LoginContainer from '../../src/app/javascript/containers/LoginContainer.jsx';
-import * as mock from './mock.jsx';
+import { ScreenLogin } from './mock.jsx';
 
 const mockStore = configureStore();
 
@@ -12,7 +12,7 @@ describe('(Container) Login', () => {
   let store;
   let wrapper;
   beforeEach(()=>{
-    store = mockStore({app: mock.screenLogin});
+    store = mockStore({app: ScreenLogin});
     wrapper = mount(<Provider store={store}><LoginContainer /></Provider>);
   })
   it('should expect .loginComponent to exist', ()=>{
