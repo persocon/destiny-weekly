@@ -122,6 +122,18 @@ $app->get('/selectActivity/{platform}/{username}/{character_id}', function ($req
 	return $resWithExpires->withJson($selectActivity);
 });
 
+$app->get('/activities/{platform}/{username}/{character_id}', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+	$platform = $request->getAttribute('platform');
+	$username = $request->getAttribute('username');
+	$character_id = $request->getAttribute('character_id');
+	$activities = curl($platform, $username, $character_id);
+
+	$activity = new \stdClass;
+	$activity = $activities;
+  return $resWithExpires->withJson($activity);
+});
+
 $app->get('/nightfall/{platform}/{username}/{character_id}', function ($request, $response, $args) {
 	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
 	$platform = $request->getAttribute('platform');
@@ -191,40 +203,24 @@ $app->get('/trials/{platform}/{username}/{character_id}', function ($request, $r
 	$character_id = $request->getAttribute('character_id');
 	$activities = curl($platform, $username, $character_id);
 
-	$result = new \stdClass;
+    $activity = new \stdClass;
+  	$activity = $activities->trials;
+		$hash = $activity->display->activityHash;
+		$json = getActivity($hash);
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "trials"){
-			if($active == 1){
-				$hash = $activity->display->activityHash;
-				$json = getActivity($hash);
+		$activity->details = $json->Response->data->activity;
+		$activity->display->image = $activity->details->pgcrImage;
 
-				$activity->details = $json->Response->data->activity;
-				$activity->display->image = $activity->details->pgcrImage;
+		// $ibItems = $activity->vendors[0]->bountyHashes;
+		// $items = [];
+		// foreach($ibItems as $key => $value){
+		// 	$item = $value;
+		// 	$itemInfo = getItemDetail($item);
+		// 	array_push($items, $itemInfo);
+		// }
+		// $activity->bounties = $items;
 
-				$ibItems = $activity->vendors[0]->saleItemCategories[0]->saleItems;
-				$items = [];
-				for($i = 0, $c = count($ibItems); $i < $c; $i++) {
-					$item = $ibItems[$i];
-					$itemInfo = getItemDetail($item->item->itemHash);
-					array_push($items, $itemInfo);
-				}
-				$activity->bounties = $items;
-
-
-				$result->trials = $activity;
-
-
-			}else{
-				$result->trials = 0;
-			}
-		}
-
-	}
-	return $resWithExpires->withJson($result->trials);
+	return $resWithExpires->withJson($activity);
 });
 
 $app->get('/ironbanner/{platform}/{username}/{character_id}', function ($request, $response, $args) {
