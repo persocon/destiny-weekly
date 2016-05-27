@@ -1,40 +1,40 @@
 import fetch from 'isomorphic-fetch';
 
-const resetSelect = () => {
-	return {
-		type: 'RESET_SELECT'
-	}
-}
+const resetSelect = () => ({ type: 'RESET_SELECT' });
 
-const changeApiUrl = (activity) => {
-	return {
-		type: 'CHANGE_API_URL',
-		activity
-	}
-}
+const changeApiUrl = (activity) => ({
+  type: 'CHANGE_API_URL',
+  activity,
+});
 
-const setOptions = (result) => {
-	return {
-		type: 'GET_OPTIONS',
-		options: result
-	}
-}
+const setOptions = (result) => ({
+  type: 'GET_OPTIONS',
+  options: result,
+});
 
 
-const getOptions = () => {
-	return (dispatch, getState) => {
-		const {user} = getState();
-		if(!user){
-			return Promise.resolve();
-		}
-  	return fetch('/api/selectActivity/'+user.user_info.platform+'/'+user.user_info.username+'/'+user.user_info.character_id)
-		  .then(resolve => resolve.json())
-			.then( json => {
-				json.unshift({advisorTypeCategory: "Selecione Uma Atividade", identifier: "", disabled: "disabled"});
-				dispatch(setOptions(json));
-			}
-		)
- }
-}
+const getOptions = () => (dispatch, getState) => {
+  const { user } = getState();
+  if (!user) {
+    return Promise.resolve();
+  }
+  const platform = user.user_info.platform;
+  const username = user.user_info.username;
+  const characterId = user.user_info.character_id;
 
-export {changeApiUrl, getOptions, resetSelect};
+  const url = `/api/selectActivity/${platform}/${username}/${characterId}`;
+  return fetch(url)
+    .then(resolve => resolve.json())
+    .then(json => {
+      json.unshift({
+        advisorTypeCategory: 'Selecione Uma Atividade',
+        identifier: '',
+        disabled: 'disabled',
+      });
+      dispatch(setOptions(json));
+    }
+  );
+};
+
+
+export { changeApiUrl, getOptions, resetSelect };

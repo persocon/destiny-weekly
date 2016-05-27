@@ -28,13 +28,12 @@ function curl($platform, $username, $character_id){
 	$membership_id = curl_membership_id($platform, $username);
 
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/'.$platform.'/Account/'.$membership_id.'/Character/'.$character_id.'/Advisors/?lc=pt-br&definitions=true');
+	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/'.$platform.'/Account/'.$membership_id.'/Character/'.$character_id.'/Advisors/V2/?lc=pt-br&definitions=true');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
 
 	$json = json_decode(curl_exec($ch));
 	$activities = $json->Response->data->activities;
-
 	return $activities;
 };
 
@@ -111,16 +110,16 @@ $app->get('/selectActivity/{platform}/{username}/{character_id}', function ($req
 	$result = new \stdClass;
 
 	$selectActivity = [];
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
+	foreach($activities as $key => $activity){
+		$identifier = $activity->identifier;
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($active == 1 &&  $identifier != 'thetakenking' && $identifier != 'kingsfall' && $identifier != 'vaultofglass' && $identifier != 'crota' && $identifier != 'armsday'){
+		if($active == 1 &&  $identifier != 'thetakenking' && $identifier != 'kingsfall' && $identifier != 'vaultofglass' && $identifier != 'crota' && $identifier != 'armsday' && $identifier != 'prisonofelders-playlist'){
+			$activity->display->identifier = $identifier;
 			array_push($selectActivity, $activity->display);
 		}
 	}
 	$result->selectActivity = $selectActivity;
-	return $resWithExpires->withJson($result->selectActivity);
+	return $resWithExpires->withJson($selectActivity);
 });
 
 $app->get('/nightfall/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -130,40 +129,25 @@ $app->get('/nightfall/{platform}/{username}/{character_id}', function ($request,
 	$character_id = $request->getAttribute('character_id');
 	$activities = curl($platform, $username, $character_id);
 
-	$result = new \stdClass;
+	$activity = new \stdClass;
+	$activity = $activities->nightfall;
 
+	$hash = $activity->display->activityHash;
+	$json = getActivity($hash);
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "nightfall"){
-			if($active==1){
-				$hash = $activity->display->activityHash;
-				$json = getActivity($hash);
+	$activity->details = $json->Response->data->activity;
 
-				$activity->details = $json->Response->data->activity;
-				if(array_key_exists('rewards', $activity->activityTiers[0])){
-					$heroicRewards = $activity->activityTiers[0]->rewards;
-					$rewards = [];
-					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-						$rew = $heroicRewards[$i]->rewardItems[0];
-						$itemInfo = getItemDetail($rew->itemHash);
-						array_push($rewards, $itemInfo);
-					}
-					$activity->rewards = $rewards;
-				}
-				$result->xur = $activity;
-
-				$result->nightfall = $activity;
-
-			}else {
-				$result->nightfall = 0;
-			}
+	if(array_key_exists('rewards', $activity->activityTiers[0])){
+		$heroicRewards = $activity->activityTiers[0]->rewards;
+		$rewards = [];
+		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+			$rew = $heroicRewards[$i]->rewardItems[0];
+			$itemInfo = getItemDetail($rew->itemHash);
+			array_push($rewards, $itemInfo);
 		}
-
+		$activity->rewards = $rewards;
 	}
-	return $resWithExpires->withJson($result->nightfall);
+	return $resWithExpires->withJson($activity);
 });
 
 $app->get('/xur/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -176,38 +160,27 @@ $app->get('/xur/{platform}/{username}/{character_id}', function ($request, $resp
 
 	$result = new \stdClass;
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
+  $activity = new \stdClass;
+	$activity = $activities->xur;
 
-		if($identifier == "xur"){
-
-			if($active == 1){
-				$getXur = getXur();
-				$xurItems = [];
-				$items = [];
-				$saleItemCategories = array_reverse($getXur->saleItemCategories);
-				for($x = 0, $z = count($saleItemCategories); $x < $z; $x++){
-					$obj = new \stdClass;
-					$obj->title = $saleItemCategories[$x]->categoryTitle;
-					$obj->items = [];
-					for($index = 0, $count = count($saleItemCategories[$x]->saleItems); $index < $count; $index++){
-							array_push($obj->items, getItemDetail($saleItemCategories[$x]->saleItems[$index]->item->itemHash));
-					}
-					array_push($xurItems, $obj);
-				}
-				$activity->items = $xurItems;
-				$activity->details = new \stdClass;
-				$activity->details->activityName = "Items a venda";
-				$result->xur = $activity;
-			}else {
-				$result->xur = 0;
-			}
+	// $hash = $activity->display->activityHash;
+	$getXur = getXur();
+	$xurItems = [];
+	$items = [];
+	$saleItemCategories = array_reverse($getXur->saleItemCategories);
+	for($x = 0, $z = count($saleItemCategories); $x < $z; $x++){
+		$obj = new \stdClass;
+		$obj->title = $saleItemCategories[$x]->categoryTitle;
+		$obj->items = [];
+		for($index = 0, $count = count($saleItemCategories[$x]->saleItems); $index < $count; $index++){
+				array_push($obj->items, getItemDetail($saleItemCategories[$x]->saleItems[$index]->item->itemHash));
 		}
-
+		array_push($xurItems, $obj);
 	}
-	return $resWithExpires->withJson($result->xur);
+	$activity->items = $xurItems;
+	$activity->details = new \stdClass;
+	$activity->details->activityName = "Items a venda";
+	return $resWithExpires->withJson($activity);
 });
 
 $app->get('/trials/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -264,43 +237,30 @@ $app->get('/ironbanner/{platform}/{username}/{character_id}', function ($request
 
 	$result = new \stdClass;
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "ironbanner"){
-			if($active==1){
-				if(array_key_exists('vendors', $activity)){
-					$ibItems = $activity->vendors[0]->saleItemCategories[1]->saleItems;
-					$items = [];
-					for($i = 0, $c = count($ibItems); $i < $c; $i++) {
-						$item = $ibItems[$i];
-						$itemInfo = getItemDetail($item->item->itemHash);
-						array_push($items, $itemInfo);
-					}
-					$activity->bounties = $items;
-				}
-				if(array_key_exists('progression', $activity)){
-					$activity->progress = [];
-					$obj = new \stdClass;
-					$obj->displayDescription = "Reputação";
-					$obj->subDisplayDescription= "Rank";
-					$obj->level = $activity->progression->level;
-					$obj->progress = $activity->progression->progressToNextLevel;
-					$obj->completionValue = $activity->progression->nextLevelAt;
-					array_push($activity->progress, $obj);
-				}
+	$activity = $activities->ironbanner;
 
-				$result->ironbanner = $activity;
-
-
-			}else {
-				$result->ironbanner = 0;
-			}
+	$identifier = $activity->identifier;
+	if(array_key_exists('vendors', $activity)){
+		$ibItems = $activity->vendors[0]->saleItemCategories[1]->saleItems;
+		$items = [];
+		for($i = 0, $c = count($ibItems); $i < $c; $i++) {
+			$item = $ibItems[$i];
+			$itemInfo = getItemDetail($item->item->itemHash);
+			array_push($items, $itemInfo);
 		}
-
+		$activity->bounties = $items;
 	}
-	return $resWithExpires->withJson($result->ironbanner);
+	if(array_key_exists('progression', $activity)){
+		$activity->progress = [];
+		$obj = new \stdClass;
+		$obj->displayDescription = "Reputação";
+		$obj->subDisplayDescription= "Rank";
+		$obj->level = $activity->progression->level;
+		$obj->progress = $activity->progression->progressToNextLevel;
+		$obj->completionValue = $activity->progression->nextLevelAt;
+		array_push($activity->progress, $obj);
+	}
+	return $resWithExpires->withJson($activity);
 });
 
 $app->get('/heroicstrike/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -313,31 +273,20 @@ $app->get('/heroicstrike/{platform}/{username}/{character_id}', function ($reque
 
 	$result = new \stdClass;
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "heroicstrike"){
-			if($active == 1){
-				if(array_key_exists('rewards', $activity->activityTiers[0])){
-					$heroicRewards = $activity->activityTiers[0]->rewards;
-					$rewards = [];
-					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-						$rew = $heroicRewards[$i]->rewardItems[0];
-						$itemInfo = getItemDetail($rew->itemHash);
-						array_push($rewards, $itemInfo);
-					}
-					$activity->rewards = $rewards;
-				}
+	$activity = $activities->heroicstrike;
 
-				$result->heroicstrike = $activity;
-			}else{
-				$result->heroicstrike = 0;
-			}
+	$identifier = $activity->identifier;
+	if(array_key_exists('rewards', $activity->activityTiers[0])){
+		$heroicRewards = $activity->activityTiers[0]->rewards;
+		$rewards = [];
+		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+			$rew = $heroicRewards[$i]->rewardItems[0];
+			$itemInfo = getItemDetail($rew->itemHash);
+			array_push($rewards, $itemInfo);
 		}
-
+		$activity->rewards = $rewards;
 	}
-	return $resWithExpires->withJson($result->heroicstrike);
+	return $resWithExpires->withJson($activity);
 });
 
 $app->get('/dailychapter/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -350,35 +299,24 @@ $app->get('/dailychapter/{platform}/{username}/{character_id}', function ($reque
 
 	$result = new \stdClass;
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "dailychapter"){
-			if($active == 1) {
-				$hash = $activity->display->activityHash;
-				$json = getActivity($hash);
-				if(array_key_exists('rewards', $activity->activityTiers[0])){
-					$heroicRewards = $activity->activityTiers[0]->rewards;
-					$rewards = [];
-					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-						$rew = $heroicRewards[$i]->rewardItems[0];
-						$itemInfo = getItemDetail($rew->itemHash);
-						array_push($rewards, $itemInfo);
-					}
-					$activity->rewards = $rewards;
-				}
+	$activity = $activities->dailychapter;
 
-				$activity->details = $json->Response->data->activity;
-
-				$result->dailychapter = $activity;
-			}else {
-				$result->dailychapter = 0;
-			}
+	$identifier = $activity->identifier;
+	$hash = $activity->display->activityHash;
+	$json = getActivity($hash);
+	if(array_key_exists('rewards', $activity->activityTiers[0])){
+		$heroicRewards = $activity->activityTiers[0]->rewards;
+		$rewards = [];
+		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+			$rew = $heroicRewards[$i]->rewardItems[0];
+			$itemInfo = getItemDetail($rew->itemHash);
+			array_push($rewards, $itemInfo);
 		}
-
+		$activity->rewards = $rewards;
 	}
-	return $resWithExpires->withJson($result->dailychapter);
+
+	$activity->details = $json->Response->data->activity;
+	return $resWithExpires->withJson($activity);
 });
 
 $app->get('/dailycrucible/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -391,34 +329,24 @@ $app->get('/dailycrucible/{platform}/{username}/{character_id}', function ($requ
 
 	$result = new \stdClass;
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "dailycrucible"){
-			if($active == 1) {
-				$hash = $activity->display->activityHash;
-				$json = getActivity($hash);
-				if(array_key_exists('rewards', $activity->activityTiers[0])){
-					$heroicRewards = $activity->activityTiers[0]->rewards;
-					$rewards = [];
-					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-						$rew = $heroicRewards[$i]->rewardItems[0];
-						$itemInfo = getItemDetail($rew->itemHash);
-						array_push($rewards, $itemInfo);
-					}
-					$activity->rewards = $rewards;
-				}
+	$activity = $activities->dailycrucible;
 
-				$activity->details = $json->Response->data->activity;
-				$result->dailycrucible = $activity;
-			}else{
-				$result->dailycrucible = 0;
-			}
+	$identifier = $activity->identifier;
+	$hash = $activity->display->activityHash;
+	$json = getActivity($hash);
+	if(array_key_exists('rewards', $activity->activityTiers[0])){
+		$heroicRewards = $activity->activityTiers[0]->rewards;
+		$rewards = [];
+		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+			$rew = $heroicRewards[$i]->rewardItems[0];
+			$itemInfo = getItemDetail($rew->itemHash);
+			array_push($rewards, $itemInfo);
 		}
-
+		$activity->rewards = $rewards;
 	}
-	return $resWithExpires->withJson($result->dailycrucible);
+
+	$activity->details = $json->Response->data->activity;
+	return $resWithExpires->withJson($activity);
 });
 
 $app->get('/weeklycrucible/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -431,35 +359,25 @@ $app->get('/weeklycrucible/{platform}/{username}/{character_id}', function ($req
 
 	$result = new \stdClass;
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "weeklycrucible"){
-			if($active == 1){
-				$hash = $activity->display->activityHash;
-				$json = getActivity($hash);
+	$activity = $activities->weeklycrucible;
 
-				if(array_key_exists('rewards', $activity->activityTiers[0])){
-					$heroicRewards = $activity->activityTiers[0]->rewards;
-					$rewards = [];
-					for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-						$rew = $heroicRewards[$i]->rewardItems[0];
-						$itemInfo = getItemDetail($rew->itemHash);
-						array_push($rewards, $itemInfo);
-					}
-					$activity->rewards = $rewards;
-				}
+	$identifier = $activity->identifier;
+	$hash = $activity->display->activityHash;
+	$json = getActivity($hash);
 
-				$activity->details = $json->Response->data->activity;
-				$result->weeklycrucible = $activity;
-			}else{
-				$result->weeklycrucible = 0;
-			}
+	if(array_key_exists('rewards', $activity->activityTiers[0])){
+		$heroicRewards = $activity->activityTiers[0]->rewards;
+		$rewards = [];
+		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+			$rew = $heroicRewards[$i]->rewardItems[0];
+			$itemInfo = getItemDetail($rew->itemHash);
+			array_push($rewards, $itemInfo);
 		}
-
+		$activity->rewards = $rewards;
 	}
-	return $resWithExpires->withJson($result->weeklycrucible);
+
+	$activity->details = $json->Response->data->activity;
+	return $resWithExpires->withJson($activity);
 });
 
 $app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -472,41 +390,31 @@ $app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($req
 
 	$result = new \stdClass;
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "elderchallenge"){
-			if($active == 1){
-				$hash = $activity->display->activityHash;
-				$json = getActivity($hash);
-				$bosses = $activity->activityTiers[0]->extended->rounds;
-				$bossInfo = [];
-				for($i = 0, $c = count($bosses); $i < $c; $i++) {
-					$boss = $bosses[$i];
-					$binfo = getBoss($boss->bossCombatantHash);
-					array_push($bossInfo, $binfo);
-				}
-				$objectives = [];
-				for($i = 0, $c = count($activity->extended->objectives); $i< $c; $i++){
-					$objective = $activity->extended->objectives[$i];
-					$objInfo = objectivesDefinition($objective->objectiveHash);
-					$objInfo->progress = $objective->progress;
-					array_push($objectives, $objInfo);
-				}
-				$activity->objectives = $objectives;
-				$activity->bosses = $bossInfo;
+	$activity = $activities->elderchallenge;
 
-				$activity->details = $json->Response->data->activity;
-				$result->elderchallenge = $activity;
-			}else{
-				$result->elderchallenge = 0;
-			}
-		}
-
+	$identifier = $activity->identifier;
+	$hash = $activity->display->activityHash;
+	$json = getActivity($hash);
+	$bosses = $activity->activityTiers[0]->extended->rounds;
+	$bossInfo = [];
+	for($i = 0, $c = count($bosses); $i < $c; $i++) {
+		$boss = $bosses[$i];
+		$binfo = getBoss($boss->bossCombatantHash);
+		array_push($bossInfo, $binfo);
 	}
+	// $objectives = [];
+	// for($i = 0, $c = count($activity->extended->objectives); $i< $c; $i++){
+	// 	$objective = $activity->extended->objectives[$i];
+	// 	$objInfo = objectivesDefinition($objective->objectiveHash);
+	// 	$objInfo->progress = $objective->progress;
+	// 	array_push($objectives, $objInfo);
+	// }
+	// $activity->objectives = $objectives;
+	$activity->bosses = $bossInfo;
 
-	return $resWithExpires->withJson($result->elderchallenge);
+	$activity->details = $json->Response->data->activity;
+
+	return $resWithExpires->withJson($activity);
 });
 
 $app->get('/nightbot/nightfall', function ($request, $response, $args) {
@@ -519,30 +427,22 @@ $app->get('/nightbot/nightfall', function ($request, $response, $args) {
 	$result = new \stdClass;
 
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "nightfall"){
-			if($active==1){
-				$hash = $activity->display->activityHash;
-				$json = getActivity($hash);
+  $activity = new \stdClass;
+	$activity = $activities->nightfall;
+	$hash = $activity->display->activityHash;
+	$json = getActivity($hash);
 
-				$activity->details = $json->Response->data->activity;
+	$activity->details = $json->Response->data->activity;
 
-				$result->nightfall = $activity;
-				$modifiers = "";
-				for($i = 0, $c = count($activity->extended->skullCategories[0]->skulls); $i < $c; $i++) {
-					$modifiers .= $activity->extended->skullCategories[0]->skulls[$i]->displayName.", ";
-				}
-				$modifiers = rtrim($modifiers, ", ");
-
-				$res = "O Anoitecer dessa semana é: ".$activity->details->activityName.', com os seguintes modificadores: '.$modifiers.'.';
-
-			}
-		}
-
+	$result->nightfall = $activity;
+	$modifiers = "";
+	for($i = 0, $c = count($activity->extended->skullCategories[0]->skulls); $i < $c; $i++) {
+		$modifiers .= $activity->extended->skullCategories[0]->skulls[$i]->displayName.", ";
 	}
+	$modifiers = rtrim($modifiers, ", ");
+
+	$res = "O Anoitecer dessa semana é: ".$activity->details->activityName.', com os seguintes modificadores: '.$modifiers.'.';
+
 	$body = $response->getBody();
 	$body->write($res);
 	return $resWithExpires;
@@ -556,52 +456,41 @@ $app->get('/nightbot/elderchallenge', function ($request, $response, $args) {
 	$character_id = "2305843009271058982";
 	$activities = curl($platform, $username, $character_id);
 
-	$result = new \stdClass;
+  $activity = $activities->elderchallenge;
 
-	for($i = 0, $c = count($activities); $i < $c; $i++) {
-		$activity = $activities[$i];
-		$identifier = $activity->display->identifier;
-		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($identifier == "elderchallenge"){
-			if($active == 1){
-				$hash = $activity->display->activityHash;
-				$json = getActivity($hash);
-				$bosses = $activity->activityTiers[0]->extended->rounds;
-				$bossInfo = [];
-				for($i = 0, $c = count($bosses); $i < $c; $i++) {
-					$boss = $bosses[$i];
-					$binfo = getBoss($boss->bossCombatantHash);
-					array_push($bossInfo, $binfo);
-				}
-
-				$activity->bosses = $bossInfo;
-
-				$modifiers = "";
-				for($i = 0, $c = count($activity->extended->skullCategories[0]->skulls); $i < $c; $i++) {
-					$modifiers .= $activity->extended->skullCategories[0]->skulls[$i]->displayName.", ";
-				}
-				$modifiers = rtrim($modifiers, ", ");
-
-				$bonus = "";
-				for($i = 0, $c = count($activity->extended->skullCategories[1]->skulls); $i < $c; $i++) {
-					$bonus .= $activity->extended->skullCategories[1]->skulls[$i]->displayName.", ";
-				}
-				$bonus = rtrim($bonus, ", ");
-
-				$bosses = "";
-				for($i = 0, $c = count($activity->bosses); $i < $c; $i++) {
-					$bosses .= $activity->bosses[$i]->combatantName.", ";
-				}
-				$bosses = rtrim($bosses, ", ");
-
-				$activity->details = $json->Response->data->activity;
-				$result->elderchallenge = $activity;
-				$res = "Desafio dos Anciões da semana tem os seguintes modificadores: ".$modifiers.", e bônus: ".$bonus.", você irá enfrentar os seguintes bosses: ".$bosses.".";
-			}
-		}
-
+	$identifier = $activity->identifier;
+	$hash = $activity->display->activityHash;
+	$json = getActivity($hash);
+	$bosses = $activity->activityTiers[0]->extended->rounds;
+	$bossInfo = [];
+	for($i = 0, $c = count($bosses); $i < $c; $i++) {
+		$boss = $bosses[$i];
+		$binfo = getBoss($boss->bossCombatantHash);
+		array_push($bossInfo, $binfo);
 	}
 
+	$activity->bosses = $bossInfo;
+
+	$modifiers = "";
+	for($i = 0, $c = count($activity->extended->skullCategories[0]->skulls); $i < $c; $i++) {
+		$modifiers .= $activity->extended->skullCategories[0]->skulls[$i]->displayName.", ";
+	}
+	$modifiers = rtrim($modifiers, ", ");
+
+	$bonus = "";
+	for($i = 0, $c = count($activity->extended->skullCategories[1]->skulls); $i < $c; $i++) {
+		$bonus .= $activity->extended->skullCategories[1]->skulls[$i]->displayName.", ";
+	}
+	$bonus = rtrim($bonus, ", ");
+
+	$bosses = "";
+	for($i = 0, $c = count($activity->bosses); $i < $c; $i++) {
+		$bosses .= $activity->bosses[$i]->combatantName.", ";
+	}
+	$bosses = rtrim($bosses, ", ");
+
+	$activity->details = $json->Response->data->activity;
+	$res = "Desafio dos Anciões da semana tem os seguintes modificadores: ".$modifiers.", e bônus: ".$bonus.", você irá enfrentar os seguintes bosses: ".$bosses.".";
 	$body = $response->getBody();
 	$body->write($res);
 	return $resWithExpires;

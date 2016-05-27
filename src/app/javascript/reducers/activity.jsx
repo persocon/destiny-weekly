@@ -1,39 +1,40 @@
 import update from 'react/lib/update';
 
 const initialState = {
-	identifier: 'nightfall',
-	title: 'loading',
-	name: '',
-	desc: '',
-	completed: '',
-	backgroundImg: '',
-	icon: '',
-	modifiers: [],
-	bosses: [],
-	items: [],
-	rewards: [],
-	bounties: [],
-	objectives: [],
-	progress: []
-}
+  identifier: 'nightfall',
+  title: 'loading',
+  name: '',
+  desc: '',
+  completed: '',
+  backgroundImg: '',
+  icon: '',
+  modifiers: [],
+  bosses: [],
+  items: [],
+  rewards: [],
+  bounties: [],
+  objectives: [],
+  progress: [],
+};
+
 const activity = (state = initialState, action) => {
-	switch (action.type) {
-		case 'SET_ACTIVITY':
-			let newState = update(state, {$set: action.activity});
-			return newState;
-			break;
-		case 'START_LOADING':
-			let loadingState = update(state, {$set: initialState});
-			return loadingState;
-			break;
-		case 'RESET_ACTIVITY':
-			let resetState = update(state, {$set: initialState});
-			return resetState;
-			break;
-		default:
-			return state;
-			break;
-	}
-}
+  switch (action.type) {
+    case 'SET_ACTIVITY': {
+      const newState = update(state, { $set: action.activity });
+      return newState;
+    }
+    case 'START_LOADING': {
+      const loadingState = update(state, { $set: initialState });
+      return loadingState;
+    }
+    case 'RESET_ACTIVITY': {
+      const resetState = update(state, { $set: initialState });
+      return resetState;
+    }
+    default: {
+      return state;
+    }
+  }
+};
 
 export default activity;

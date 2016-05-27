@@ -1,38 +1,32 @@
 import { connect } from 'react-redux';
 import { getCharacterList, setCharacterId, resetUser } from '../actions/user';
-import { findActivity, resetActivity } from '../actions/activity';
+import { resetActivity } from '../actions/activity';
 import { resetSelect } from '../actions/select.jsx';
 import { setAppScreen, resetApp } from '../actions/app';
-import CharactersComponent from '../components/CharactersComponent';
+import Component from '../components/CharactersComponent';
 
-const mapStateToProps = (state) => {
-	return {
-		character_list: state.user.character_list
-	}
-}
+const mapStateToProps = (state) => ({ character_list: state.user.character_list });
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onInit: () => {
-    	dispatch(getCharacterList());
-		},
-    backToLogin: (event) => {
-      event.preventDefault();
-			dispatch(resetActivity());
-      dispatch(resetSelect());
-      dispatch(resetUser());
-      dispatch(resetApp());
-			dispatch(setAppScreen('login'));
-    },
-    handleClickItem: (event) => {
-      event.preventDefault();
-      let href = event.currentTarget.getAttribute('href');
-			dispatch(setCharacterId(href));
-      dispatch(setAppScreen('activity'));
-    }
-	}
-}
+const mapDispatchToProps = (dispatch) => ({
+  onInit: () => {
+    dispatch(getCharacterList());
+  },
+  backToLogin: (event) => {
+    event.preventDefault();
+    dispatch(resetActivity());
+    dispatch(resetSelect());
+    dispatch(resetUser());
+    dispatch(resetApp());
+    dispatch(setAppScreen('login'));
+  },
+  handleClickItem: (event) => {
+    event.preventDefault();
+    const href = event.currentTarget.getAttribute('href');
+    dispatch(setCharacterId(href));
+    dispatch(setAppScreen('activity'));
+  },
+});
 
-const CharactersContainer = connect(mapStateToProps, mapDispatchToProps)(CharactersComponent);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-export default CharactersContainer;
+export default Container;

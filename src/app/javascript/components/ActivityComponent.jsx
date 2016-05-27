@@ -6,122 +6,149 @@ import ObjectivesComponent from './ObjectivesComponent';
 import LoadingComponent from './LoadingComponent';
 
 class ActivityComponent extends React.Component {
-	componentDidMount() {
-		this.props.getInitialActivity();
-	}
-	backgroundImage() {
-		let divStyle;
-		switch(this.props.identifier){
-			case "xur":
-				divStyle = {
-					backgroundImage: 'url(http://bungie.net/img/theme/bungienet/bgs/bg_xuravailable.jpg)',
-					backgroundPosition: '25% 0'
-				};
-				break;
-			case "ironbanner":
-				divStyle = {
-					backgroundImage: 'url(https://www.bungie.net/img/theme/destiny/bgs/event/ironbanner/bg_iron_banner_section_powermatters.jpg)',
-					backgroundPosition: 'right center'
-				};
-				break;
-			default:
-				divStyle = {
-					backgroundImage: 'url('+this.props.backgroundImg+')'
-				}
-				break;
-		}
+  componentDidMount() {
+    this.props.getInitialActivity();
+  }
+  backgroundImage() {
+    let divStyle;
+    switch (this.props.activity.identifier) {
+      case 'xur': {
+        divStyle = {
+          backgroundImage: 'url(http://bungie.net/img/theme/bungienet/bgs/bg_xuravailable.jpg)',
+          backgroundPosition: '25% 0',
+        };
+        break;
+      }
+      case 'ironbanner': {
+        divStyle = {
+          backgroundImage: 'url(https://www.bungie.net/img/theme/destiny/bgs/event/ironbanner/bg_iron_banner_section_powermatters.jpg)',
+          backgroundPosition: 'right center',
+        };
+        break;
+      }
+      default: {
+        divStyle = {
+          backgroundImage: `url(${this.props.activity.backgroundImg})`,
+        };
+        break;
+      }
+    }
 
-		return divStyle
+    return divStyle;
+  }
 
-	}
+  showModifiers() {
+    if (this.props.activity.modifiers.length >= 1) {
+      const modifiers = this.props.activity.modifiers.map((modifier, index) => {
+        const title = modifier.title;
+        const skulls = modifier.skulls;
+        return (<ModifierComponent key={index} title={title} details={skulls} />);
+      });
+      return modifiers;
+    }
+    return false;
+  }
 
-	showModifiers() {
-		let modifiers = this.props.modifiers.map((modifier, index) => {
-			return (<ModifierComponent key={index} title={modifier.title} details={modifier.skulls} />);
-		});
+  showXur() {
+    if (this.props.activity.items.length >= 1) {
+      const xurItems = this.props.activity.items.map((item, index) => {
+        const title = item.title;
+        const items = item.items;
+        return (<ModifierComponent key={index} title={title} details={items} />);
+      });
+      return xurItems;
+    }
+    return false;
+  }
 
-		return modifiers;
-	}
+  showBounties() {
+    if (this.props.activity.bounties.length >= 1) {
+      return <ModifierComponent title="Contratos" details={this.props.activity.bounties} />;
+    }
+    return false;
+  }
 
-	showXur() {
-		if(this.props.items.length >= 1){
-			let items = this.props.items.map( (item, index) => {
-				return <ModifierComponent key={index} title={item.title} details={item.items} />;
-			});
-			return items;
-		}
-	}
+  showRewards() {
+    if (this.props.activity.rewards.length >= 1) {
+      return <ModifierComponent title="Recompensas" details={this.props.activity.rewards} />;
+    }
+    return false;
+  }
 
-	showBounties(){
-		if(this.props.bounties.length >= 1){
-			return <ModifierComponent title="Contratos" details={this.props.bounties} />;
-		}
-	}
+  showObjectives() {
+    if (this.props.activity.objectives.length >= 1) {
+      return <ObjectivesComponent progression={this.props.activity.objectives} />;
+    }
+    return false;
+  }
 
-	showRewards(){
-		if(this.props.rewards.length >= 1){
-			return <ModifierComponent title="Recompensas" details={this.props.rewards} />;
-		}
-	}
+  showProgression() {
+    if (this.props.activity.progress.length >= 1) {
+      return <ObjectivesComponent progression={this.props.activity.progress} />;
+    }
+    return false;
+  }
 
-	showObjectives(){
-		if(this.props.objectives.length >= 1) {
-			return <ObjectivesComponent progression={this.props.objectives} />;
-		}
-	}
+  showBosses() {
+    const bosses = this.props.activity.bosses.map((boss, index) => {
+      let style = {
+        backgroundImage: `url(http://bungie.net${boss.image})`,
+      };
+      return (
+        <BigPictureComponent
+          key={index}
+          style={style}
+          title={boss.combatantName}
+          subtitle={boss.description}
+          description=""
+        />
+        );
+    });
 
-	showProgression(){
-		if(this.props.progress.length >= 1){
-			return <ObjectivesComponent progression={this.props.progress} />
-		}
-	}
+    return bosses;
+  }
+  activity() {
+    return (
+      <div className="boxContent">
+        <BigPictureComponent
+          style={this.backgroundImage()}
+          completed={this.props.activity.completed}
+          title={this.props.activity.title}
+          subtitle={this.props.activity.name}
+          description={this.props.activity.desc}
+          icon={this.props.activity.icon}
+        />
 
-	showBosses() {
-		let bosses = this.props.bosses.map((boss, index)=>{
-			let style = {
-				backgroundImage: 'url(http://bungie.net'+boss.image+')'
-			};
-			return (<BigPictureComponent key={index} style={style} title={boss.combatantName} subtitle={boss.description} description="" />);
-		});
+      {this.showModifiers()}
 
-		return bosses;
+      {this.showRewards()}
 
-	}
-	activity() {
-		return (
+      {this.showXur()}
 
-				<div className="boxContent">
-					<BigPictureComponent style={this.backgroundImage()} completed={this.props.completed} title={this.props.title} subtitle={this.props.name} description={this.props.desc} icon={this.props.icon} />
+      {this.showObjectives()}
 
-					{this.showModifiers()}
+      {this.showProgression()}
 
-					{this.showRewards()}
+      {this.showBounties()}
 
-					{this.showXur()}
+      {this.showBosses()}
 
-					{this.showObjectives()}
-
-					{this.showProgression()}
-
-					{this.showBounties()}
-
-					{this.showBosses()}
-
-				</div>
-		);
-	}
+      </div>
+    );
+  }
 
 
-	render(){
-		if(this.props.title == 'loading'){
-			return (<LoadingComponent />);
-		}
-		return ( <div className="activityComponent box">{this.activity()}</div> );
-	}
-};
+  render() {
+    if (this.props.activity.title === 'loading') {
+      return (<LoadingComponent />);
+    }
+    return (<div className="activityComponent box">{this.activity()}</div>);
+  }
+}
 
 ActivityComponent.propTypes = {
-	getInitialActivity: PropTypes.func.isRequired
-}
+  getInitialActivity: PropTypes.func.isRequired,
+  activity: PropTypes.object.isRequired,
+};
 
 export default ActivityComponent;

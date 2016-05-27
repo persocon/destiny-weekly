@@ -5,7 +5,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import CharactersContainer from '../../src/app/javascript/containers/CharactersContainer.jsx';
 
-import { EmptyCharacterList, FullCharacterList CharacterNotFound} from './mock.jsx';
+import { EmptyCharacterList, FullCharacterList, CharacterNotFound } from './mock.jsx';
 
 const mockStore = configureStore();
 

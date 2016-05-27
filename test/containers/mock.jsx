@@ -10,12 +10,12 @@ export const FullCharacterList = {
 };
 
 export const EmptyCharacterList = {
-  character_list: [],
-  user_info: {
-    platform: "2",
-    username: "tkrp1986",
-    character_id: ""
-  }
+	character_list: [],
+	user_info: {
+		platform: '',
+		username: '',
+		character_id: ''
+	}
 };
 
 export const CharacterNotFound = {

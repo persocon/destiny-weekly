@@ -1,39 +1,32 @@
 import { connect } from 'react-redux';
-import { getCharacterList, setUser} from '../actions/user';
+import { setUser } from '../actions/user';
 import { setAppScreen } from '../actions/app';
-import LoginComponent from '../components/LoginComponent';
+import Component from '../components/LoginComponent';
 
-const mapStateToProps = (state) => {
-	return {
-		character_list: state.character_list
-	}
-}
+const mapStateToProps = (state) => ({ character_list: state.character_list });
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onSubmit: (event) => {
-      event.preventDefault();
-      let username = event.target.getElementsByClassName('username')[0].value;
-      let platform = event.target.getElementsByClassName('platform')[0].value;
-			if(username){
-				dispatch(setUser(platform, username));
-				dispatch(setAppScreen('character_list'));
-			}else{
-				let input = event.target.getElementsByClassName('username')[0];
-				input.classList.add('noUserName');
-				input.focus();
-			}
-		},
-		onUsernameChange: (event) => {
-			let input = event.target;
-			if(input.classList.contains("noUserName") && input.value.length >= 1){
-				input.classList.remove("noUserName");
-			}
-		}
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (event) => {
+    event.preventDefault();
+    const username = event.target.getElementsByClassName('username')[0].value;
+    const platform = event.target.getElementsByClassName('platform')[0].value;
+    if (username) {
+      dispatch(setUser(platform, username));
+      dispatch(setAppScreen('character_list'));
+    } else {
+      const input = event.target.getElementsByClassName('username')[0];
+      input.classList.add('noUserName');
+      input.focus();
+    }
+  },
+  onUsernameChange: (event) => {
+    const input = event.target;
+    if (input.classList.contains('noUserName') && input.value.length >= 1) {
+      input.classList.remove('noUserName');
+    }
+  },
+});
 
-	}
-}
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
-
-export default LoginContainer;
+export default Container;

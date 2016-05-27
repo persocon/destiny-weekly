@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-class OptionComponent extends React.Component {
-	render() {
-		return (
-			<option value={this.props.value} disabled={this.props.disabled}>{this.props.title}</option>
-		)
-	}
+function OptionComponent(props) {
+  return (
+    <option value={props.value} disabled={props.disabled}>{props.title}</option>
+	);
 }
+
+OptionComponent.propTypes = {
+  value: PropTypes.string,
+  title: PropTypes.string,
+  disabled: PropTypes.any,
+};
 
 export default OptionComponent;

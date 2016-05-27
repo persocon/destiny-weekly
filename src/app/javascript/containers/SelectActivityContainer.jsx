@@ -1,28 +1,23 @@
 import { connect } from 'react-redux';
 import { findActivity } from '../actions/activity';
 import { changeApiUrl, getOptions } from '../actions/select';
-import SelectActivityComponent from '../components/SelectActivityComponent';
+import Component from '../components/SelectActivityComponent';
 
-const mapStateToProps = (state) => {
-	return {
-		activity: state.select.activity,
-		options: state.select.options
-	}
-}
+const mapStateToProps = (state) => ({
+  activity: state.select.activity,
+  options: state.select.options,
+});
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		onSelectChange: (activity) =>{
-			dispatch(changeApiUrl(activity));
-			dispatch(findActivity());
-		},
-		getInitialOptions: () => {
-			dispatch(getOptions());
-		}
+const mapDispatchToProps = (dispatch) => ({
+  onSelectChange: (activity) => {
+    dispatch(changeApiUrl(activity));
+    dispatch(findActivity());
+  },
+  getInitialOptions: () => {
+    dispatch(getOptions());
+  },
+});
 
-	}
-}
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-const SelectActivityContainer = connect(mapStateToProps, mapDispatchToProps)(SelectActivityComponent);
-
-export default SelectActivityContainer;
+export default Container;

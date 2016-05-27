@@ -13,36 +13,36 @@ class AppComponent extends React.Component {
   }
   activity() {
     return (
-      <div className='activityComponents'>
+      <div className="activityComponents">
         <HeaderContainer />
         <SelectActivityContainer />
         <div className="cardsComponents">
           <ActivityContainer />
         </div>
       </div>
-    )
+    );
   }
   screen() {
-    if(this.props.app.screen == 'login'){
+    if (this.props.app.screen === 'login') {
       return (<LoginContainer />);
-    }else if(this.props.app.screen == 'character_list'){
-      return(<CharactersContainer />);
-    }else if(this.props.app.screen == 'activity'){
-      return(this.activity());
-    }else{
-      return (<LoginContainer />);
+    } else if (this.props.app.screen === 'character_list') {
+      return (<CharactersContainer />);
+    } else if (this.props.app.screen === 'activity') {
+      return (this.activity());
     }
+    return (<LoginContainer />);
   }
-  render () {
-    return(
-      <div className='appComponents'>
+  render() {
+    return (
+      <div className="appComponents">
         {this.screen()}
       </div>
     );
   }
 }
 AppComponent.propTypes = {
-	getInitialScreen: PropTypes.func.isRequired
-}
+  getInitialScreen: PropTypes.func.isRequired,
+  app: PropTypes.object.isRequired,
+};
 
 export default AppComponent;

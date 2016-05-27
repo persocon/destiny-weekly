@@ -1,20 +1,15 @@
 import { connect } from 'react-redux';
 import { findActivity } from '../actions/activity';
-import ActivityComponent from '../components/ActivityComponent';
+import Component from '../components/ActivityComponent';
 
-const mapStateToProps = (state) => {
-	return state.activity;
-}
+const mapStateToProps = (state) => ({ activity: state.activity });
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getInitialActivity: () => {
-			dispatch(findActivity());
-		}
+const mapDispatchToProps = (dispatch) => ({
+  getInitialActivity: () => {
+    dispatch(findActivity());
+  },
+});
 
-	}
-}
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-const ActivityContainer = connect(mapStateToProps, mapDispatchToProps)(ActivityComponent);
-
-export default ActivityContainer;
+export default Container;

@@ -1,57 +1,42 @@
 import fetch from 'isomorphic-fetch';
 
-const resetUser = () => {
-	return {
-		type: 'RESET_USER'
-	}
-}
+const resetUser = () => ({ type: 'RESET_USER' });
 
-const setUser = (platform, username) => {
-	return {
-		type: 'SET_USER',
-		user_info: {
-			platform,
-			username
-		}
-	}
-}
+const setUser = (platform, username) => ({
+  type: 'SET_USER',
+  user_info: {
+    platform,
+    username,
+  },
+});
 
-const setCharacterList = (result) => {
-	let character_list = result;
-	return {
-		type: 'SET_CHARACTER_LIST',
-		character_list
-	}
-}
+const setCharacterList = (result) => ({
+  type: 'SET_CHARACTER_LIST',
+  character_list: result,
+});
 
-const getCharacterList = () => {
-	return (dispatch, getState) => {
-		const { user } = getState();
-		if(!user){
-			return Promise.resolve();
-		}
+const getCharacterList = () => (dispatch, getState) => {
+  const { user } = getState();
+  if (!user) {
+    return Promise.resolve();
+  }
+  const platform = user.user_info.platform;
+  const username = user.user_info.username;
+  const url = `/api/getCharacterList/${platform}/${username}`;
+  return fetch(url)
+  .then(response => response.json())
+  .then(json => {
+    dispatch(setCharacterList(json));
+  });
+};
 
-		return fetch('/api/getCharacterList/'+user.user_info.platform+'/'+user.user_info.username)
-		.then(response => response.json())
-		.then(json => {
-				dispatch(setCharacterList(json));
-		})
-	}
-}
+const setCharacterId = (characterId) => ({
+  type: 'SET_USER_CHARACTER',
+  user_info: {
+    character_id: characterId,
+  },
+});
 
-const setCharacterId = (character_id) => {
-	return {
-		type: 'SET_USER_CHARACTER',
-		user_info: {
-			character_id
-		}
-	}
-}
+const getCharacterId = () => ({ type: 'GET_USER_CHARACTER' });
 
-const getCharacterId = () => {
-	return {
-		type: 'GET_USER_CHARACTER'
-	}
-}
-
-export {setCharacterId, getCharacterId, getCharacterList, resetUser, setUser};
+export { setCharacterId, getCharacterId, getCharacterList, resetUser, setUser };

@@ -1,21 +1,10 @@
+const resetApp = () => ({ type: 'RESET_APP' });
 
-const resetApp = () => {
-	return {
-		type: 'RESET_APP'
-	}
-}
+const setAppScreen = (screen) => ({
+  type: 'SET_APP_SCREEN',
+  screen,
+});
 
-const setAppScreen = (screen) => {
-	return {
-		type: 'SET_APP_SCREEN',
-		screen
-	}
-}
+const getAppScreen = () => ({ type: 'GET_APP_SCREEN' });
 
-const getAppScreen = () => {
-	return {
-		type: 'GET_APP_SCREEN'
-	}
-}
-
-export {setAppScreen, getAppScreen, resetApp};
+export { setAppScreen, getAppScreen, resetApp };

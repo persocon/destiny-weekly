@@ -1,20 +1,15 @@
 import { connect } from 'react-redux';
-import { setAppScreen, getAppScreen } from '../actions/app';
-import AppComponent from '../components/AppComponent';
+import { getAppScreen } from '../actions/app';
+import Component from '../components/AppComponent';
 
-const mapStateToProps = (state) => {
-	return {app: state.app};
-}
+const mapStateToProps = (state) => ({ app: state.app });
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getInitialScreen: () => {
-			dispatch(getAppScreen());
-		}
+const mapDispatchToProps = (dispatch) => ({
+  getInitialScreen: () => {
+    dispatch(getAppScreen());
+  },
+});
 
-	}
-}
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(AppComponent);
-
-export default AppContainer;
+export default Container;

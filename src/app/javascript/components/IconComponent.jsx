@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import LoadingIcon from './icons/LoadingIconComponent';
 import ExitIcon from './icons/ExitIconComponent';
 import GithubIcon from './icons/GithubComponent';
 
 class IconComponent extends React.Component {
-	render() {
-    switch(this.props.icon) {
-      case 'loading':
+  render() {
+    switch (this.props.icon) {
+      case 'loading': {
         return (<LoadingIcon />);
-        break;
-      case 'exit':
-    		return (<ExitIcon />);
-        break;
-      case 'github':
+      }
+      case 'exit': {
+        return (<ExitIcon />);
+      }
+      case 'github': {
         return (<GithubIcon />);
-        break;
-      default:
-        return('<div>iconNotFound</div>');
-        break;
+      }
+      default: {
+        return ('<div>iconNotFound</div>');
+      }
     }
-	}
+  }
+}
+
+IconComponent.propTypes = {
+  icon: PropTypes.string,
 };
 
 export default IconComponent;

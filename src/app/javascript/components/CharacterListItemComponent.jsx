@@ -1,65 +1,80 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 class CharacterListItemComponent extends React.Component {
   raceDetails() {
-    if(this.props.character.genderDetails.genderName === "Masculino"){
+    if (this.props.character.genderDetails.genderName === 'Masculino') {
       return this.props.character.raceDetails.raceNameMale;
-    }else{
-      return this.props.character.raceDetails.raceNameFemale;
     }
+    return this.props.character.raceDetails.raceNameFemale;
   }
   classDetails() {
-    if(this.props.character.genderDetails.genderName === "Masculino"){
+    if (this.props.character.genderDetails.genderName === 'Masculino') {
       return this.props.character.classDetails.classNameMale;
-    }else{
-      return this.props.character.classDetails.classNameFemale;
     }
+    return this.props.character.classDetails.classNameFemale;
   }
   backgroundImage() {
-    let divStyle = {
-      backgroundImage: 'url(http://bungie.net'+this.props.character.backgroundPath+')'
-    }
+    const divStyle = {
+      backgroundImage: `url(http://bungie.net${this.props.character.backgroundPath})`,
+    };
     return divStyle;
   }
-  emblemImage(){
-    let divStyle = {
-      backgroundImage: 'url(http://bungie.net'+this.props.character.emblemPath+')'
-    }
+  emblemImage() {
+    const divStyle = {
+      backgroundImage: `url(http://bungie.net${this.props.character.emblemPath})`,
+    };
     return divStyle;
   }
-  progress(){
-    let percent = this.props.character.percentToNextLevel;
+  progress() {
+    const percent = this.props.character.percentToNextLevel;
     let style = {
-      width: percent+'%'
-    }
-    return(
+      width: `${percent}%`,
+    };
+    return (
       <div className="characterListItemProgress">
         <div className="characterlistItemProgressBar" style={style}></div>
       </div>
     );
   }
-	render() {
-		return (
-			<ReactCSSTransitionGroup
-				transitionName={"fade"}
-		        transitionAppear={true}
-		        transitionAppearTimeout={500}
-		        transitionEnterTimeout={500}
-		        transitionLeaveTimeout={300}>
-				<li className="characterListItem" style={this.backgroundImage()}>
-          <a href={this.props.character.character_id} onClick={event => this.props.handleClick(event)}>
+  render() {
+    const characterLevel = this.props.character.characterLevel;
+    const powerLevel = this.props.character.power_level;
+    return (
+      <ReactCSSTransitionGroup
+        transitionName={"fade"}
+        transitionAppear
+        transitionAppearTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+      >
+        <li className="characterListItem" style={this.backgroundImage()}>
+          <a
+            href={this.props.character.character_id}
+            onClick={event => this.props.handleClick(event)}
+          >
             <div style={this.emblemImage()} className="characterListItemEmblem"></div>
-    					<div className="characterListItemText">
-    						<p>{this.classDetails()} <span className="characterListItemLevel">{this.props.character.characterLevel}</span></p>
-    						<p><span className="characterListItemRaceDetails">{this.raceDetails()}</span> <span className="characterListItemLightLevel">{this.props.character.power_level}</span></p>
-    					</div>
-              {this.progress()}
-            </a>
-				</li>
-			</ReactCSSTransitionGroup>
+            <div className="characterListItemText">
+              <p>
+                {this.classDetails()}
+                <span className="characterListItemLevel">{characterLevel}</span>
+              </p>
+              <p>
+                <span className="characterListItemRaceDetails">{this.raceDetails()}</span>
+                <span className="characterListItemLightLevel">{powerLevel}</span>
+              </p>
+            </div>
+            {this.progress()}
+          </a>
+        </li>
+      </ReactCSSTransitionGroup>
 		);
-	}
+  }
+}
+
+CharacterListItemComponent.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  character: PropTypes.object.isRequired,
 };
 
 export default CharacterListItemComponent;

@@ -4,7 +4,7 @@ import nock from 'nock';
 
 import * as actions from '../../src/app/javascript/actions/activity.jsx';
 
-const middlewares = [ thunk ];
+const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('(Async Actions) Activity', () => {

@@ -6,10 +6,10 @@ import app from './app';
 
 
 const activityApp = combineReducers({
-	select,
-	activity,
-	user,
-	app
+  select,
+  activity,
+  user,
+  app,
 });
 
 export default activityApp;
