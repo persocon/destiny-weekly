@@ -37,6 +37,20 @@ function curl($platform, $username, $character_id){
 	return $activities;
 };
 
+function curlProgression($platform, $username, $character_id){
+	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
+	$membership_id = curl_membership_id($platform, $username);
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/'.$platform.'/Account/'.$membership_id.'/Character/'.$character_id.'/Advisors/V2/?lc=pt-br&definitions=true');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
+
+	$json = json_decode(curl_exec($ch));
+	$activities = $json->Response->data->progressions;
+	return $activities;
+};
+
 function curl_membership_id($platform, $username){
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 	$url = 'https://www.bungie.net/platform/Destiny/'.$platform.'/Stats/GetMembershipIdByDisplayName/'.$username.'/?lc=pt-br&definitions=true';
@@ -246,14 +260,15 @@ $app->get('/ironbanner/{platform}/{username}/{character_id}', function ($request
 		}
 		$activity->bounties = $items;
 	}
-	if(array_key_exists('progression', $activity)){
+  $progression = getProgression($activity->progressionHash, $platform, $username, $character_id);
+	if($progression){
 		$activity->progress = [];
 		$obj = new \stdClass;
 		$obj->displayDescription = "Reputação";
 		$obj->subDisplayDescription= "Rank";
-		$obj->level = $activity->progression->level;
-		$obj->progress = $activity->progression->progressToNextLevel;
-		$obj->completionValue = $activity->progression->nextLevelAt;
+		$obj->level = $progression->level;
+		$obj->progress = $progression->progressToNextLevel;
+		$obj->completionValue = $progression->nextLevelAt;
 		array_push($activity->progress, $obj);
 	}
 	return $resWithExpires->withJson($activity);
@@ -398,14 +413,25 @@ $app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($req
 		$binfo = getBoss($boss->bossCombatantHash);
 		array_push($bossInfo, $binfo);
 	}
-	// $objectives = [];
-	// for($i = 0, $c = count($activity->extended->objectives); $i< $c; $i++){
-	// 	$objective = $activity->extended->objectives[$i];
-	// 	$objInfo = objectivesDefinition($objective->objectiveHash);
-	// 	$objInfo->progress = $objective->progress;
-	// 	array_push($objectives, $objInfo);
+  // $progression = getObjective($activity->progressionHash, $platform, $username, $character_id);
+	// if($progression){
+	// 	$activity->progress = [];
+	// 	$obj = new \stdClass;
+	// 	$obj->displayDescription = "Reputação";
+	// 	$obj->subDisplayDescription= "Rank";
+	// 	$obj->level = $progression->level;
+	// 	$obj->progress = $progression->progressToNextLevel;
+	// 	$obj->completionValue = $progression->nextLevelAt;
+	// 	array_push($activity->objectives, $obj);
 	// }
-	// $activity->objectives = $objectives;
+	$objectives = [];
+	for($i = 0, $c = count($activity->extended->objectives); $i< $c; $i++){
+		$objective = $activity->extended->objectives[$i];
+		$objInfo = objectivesDefinition($objective->objectiveHash);
+		$objInfo->progress = $objective->progress;
+		array_push($objectives, $objInfo);
+	}
+	$activity->objectives = $objectives;
 	$activity->bosses = $bossInfo;
 
 	$activity->details = $json->Response->data->activity;
@@ -633,6 +659,16 @@ function progressionDefinition($id){
 		}
 	}
 	return $result;
+}
+function getProgression($progressionHash, $platform, $username, $character_id){
+  $progression = curlProgression($platform, $username, $character_id);
+  $result = new \stdClass;
+  foreach($progression as $key => $pg){
+    if($pg->progressionHash == $progressionHash){
+      $result = $pg;
+    }
+  }
+  return $result;
 }
 
 // Run app
