@@ -5,19 +5,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import CharactersContainer from '../../src/app/javascript/containers/CharactersContainer.jsx';
 
-import { EmptyCharacterList, FullCharacterList, CharacterNotFound } from './mock.jsx';
+import { FullCharacterList, CharacterNotFound } from './mock.jsx';
 
 const mockStore = configureStore();
 
 describe('(Container) Characters', () => {
   let store;
   let wrapper;
-
-  it('should expect LoadingComponent to exist while loading', ()=>{
-    store = mockStore({user: EmptyCharacterList});
-    wrapper = mount(<Provider store={store}><CharactersContainer /></Provider>);
-    expect(wrapper.find('.loadingComponent')).to.exist;
-  });
 
   it('should expect .characterComponent to exist', ()=>{
     store = mockStore({user: FullCharacterList});

@@ -9,10 +9,8 @@ class CharactersComponent extends React.Component {
     this.props.onInit();
   }
   list() {
-    if (!this.props.hasOwnProperty('character_list') && this.props.character_list.length <= 0) {
-      return (
-        <LoadingComponent />
-      );
+    if (this.props.character_list.length <= 0) {
+      return (<LoadingComponent />);
     }
     if (this.props.character_list.status === 'error') {
       return (<BackToLoginComponent backToLogin={event => this.props.backToLogin(event)} />);
