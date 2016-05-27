@@ -5,6 +5,8 @@ WEBPACK_ARGS = --config webpack.config.js --progress --colors --display-error-de
 WEBPACK_ARGS_DIST = --config webpack.config.prod.js --progress --colors --display-error-details
 KARMA_CMD = node_modules/.bin/karma
 KARMA_ARGS =  start karma.config.js
+LINT_CMD = node_modules/eslint/bin/eslint.js
+LINT_ARGS = ./src/app/javascript/ --ext .jsx,.js
 
 NO_COLOR=\033[0m
 CYAN=\033[36;1m
@@ -48,6 +50,10 @@ test-watch: ## Starts Test Watch
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Running Test Watch${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
 	$(KARMA_CMD) $(KARMA_ARGS) --watch
 
+lint: ## Singlerun eslint
+	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Singlerun ESlint${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
+	${LINT_CMD} ${LINT_ARGS}
+	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}DONE!${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
 
 php-server: ## Starts PHP-Server
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Starting PHP-Server${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
