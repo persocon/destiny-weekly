@@ -43,7 +43,7 @@ class ObjectivesComponent extends React.Component {
 }
 
 ObjectivesComponent.propTypes = {
-  progression: PropTypes.object,
+  progression: PropTypes.array,
 };
 
 export default ObjectivesComponent;
