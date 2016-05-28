@@ -203,6 +203,7 @@ $app->get('/xur/{platform}/{username}/{character_id}', function ($request, $resp
 		}
 		array_push($xurItems, $obj);
 	}
+  
 	$activity->items = $xurItems;
 	$activity->details = new \stdClass;
 	$activity->details->activityName = "Items a venda";

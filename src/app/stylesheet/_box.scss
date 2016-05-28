@@ -98,9 +98,10 @@
 		.progressBarWrap {
 			overflow: hidden;
 			width: 100%;
-			height: 10px;
+			height: 15px;
+      background: rgba(255,255,255,.05);
 			.progressBar {
-				height: 10px;
+				height: 15px;
 				background: #f2c161;
 			}
 		}
