@@ -214,7 +214,7 @@ blockquote {
     transition: all .5s ease; }
   .box .boxItems .boxItem .imgBoxWrap, .box .boxItems .boxItem .boxItemText {
     float: left; }
-  .box .boxItems .boxItem img {
+  .box .boxItems .boxItem .imgBoxWrap {
     width: 12%; }
   .box .boxItems .boxItem .boxItemText {
     display: inline-block;

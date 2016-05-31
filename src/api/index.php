@@ -187,6 +187,17 @@ $app->get('/nightfall/{platform}/{username}/{character_id}', function ($request,
 		}
 		$activity->rewards = $rewards;
 	}
+  if(array_key_exists('bountyHashes', $activity)){
+    $bounties = [];
+    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
+      $newBt = new \stdClass;
+      $newBt = getItemDetail($activity->bountyHashes[$i]);
+      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
+      array_push($bounties, $newBt);
+    }
+    $activity->bounties = $bounties;
+  }
+
 	return $resWithExpires->withJson($activity);
 });
 
@@ -312,6 +323,19 @@ $app->get('/heroicstrike/{platform}/{username}/{character_id}', function ($reque
 		}
 		$activity->rewards = $rewards;
 	}
+
+  if(array_key_exists('bountyHashes', $activity)){
+    $bounties = [];
+    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
+      $newBt = new \stdClass;
+      $newBt = getItemDetail($activity->bountyHashes[$i]);
+      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
+      array_push($bounties, $newBt);
+    }
+    $activity->bounties = $bounties;
+  }
+
+
 	return $resWithExpires->withJson($activity);
 });
 
@@ -340,6 +364,17 @@ $app->get('/dailychapter/{platform}/{username}/{character_id}', function ($reque
 		}
 		$activity->rewards = $rewards;
 	}
+
+  if(array_key_exists('bountyHashes', $activity)){
+    $bounties = [];
+    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
+      $newBt = new \stdClass;
+      $newBt = getItemDetail($activity->bountyHashes[$i]);
+      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
+      array_push($bounties, $newBt);
+    }
+    $activity->bounties = $bounties;
+  }
 
 	$activity->details = $json->Response->data->activity;
 	return $resWithExpires->withJson($activity);
@@ -371,6 +406,17 @@ $app->get('/dailycrucible/{platform}/{username}/{character_id}', function ($requ
 		$activity->rewards = $rewards;
 	}
 
+  if(array_key_exists('bountyHashes', $activity)){
+    $bounties = [];
+    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
+      $newBt = new \stdClass;
+      $newBt = getItemDetail($activity->bountyHashes[$i]);
+      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
+      array_push($bounties, $newBt);
+    }
+    $activity->bounties = $bounties;
+  }
+
 	$activity->details = $json->Response->data->activity;
 	return $resWithExpires->withJson($activity);
 });
@@ -401,6 +447,17 @@ $app->get('/weeklycrucible/{platform}/{username}/{character_id}', function ($req
 		}
 		$activity->rewards = $rewards;
 	}
+
+  if(array_key_exists('bountyHashes', $activity)){
+    $bounties = [];
+    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
+      $newBt = new \stdClass;
+      $newBt = getItemDetail($activity->bountyHashes[$i]);
+      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
+      array_push($bounties, $newBt);
+    }
+    $activity->bounties = $bounties;
+  }
 
 	$activity->details = $json->Response->data->activity;
 	return $resWithExpires->withJson($activity);
