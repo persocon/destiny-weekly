@@ -119,19 +119,19 @@ class ActivityComponent extends React.Component {
           icon={this.props.activity.icon}
         />
 
-      {this.showModifiers()}
-
-      {this.showRewards()}
-
-      {this.showXur()}
+      {this.showProgression()}
 
       {this.showObjectives()}
 
-      {this.showProgression()}
+      {this.showModifiers()}
 
       {this.showBounties()}
 
+      {this.showRewards()}
+
       {this.showBosses()}
+
+      {this.showXur()}
 
       </div>
     );

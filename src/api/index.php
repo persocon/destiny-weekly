@@ -431,7 +431,7 @@ $app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($req
   $bounties = [];
   for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
     $newBt = new \stdClass;
-    $newBta = getItemDetail($activity->bountyHashes[$i]);
+    $newBt = getItemDetail($activity->bountyHashes[$i]);
     $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
     array_push($bounties, $newBt);
   }
