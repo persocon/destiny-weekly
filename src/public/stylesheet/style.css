@@ -189,7 +189,8 @@ blockquote {
     font-style: italic; }
 
 .box .boxItems .boxItem {
-  margin: 10px 0; }
+  margin: 10px 0;
+  position: relative; }
   .box .boxItems .boxItem {
     *zoom: 1; }
   .box .boxItems .boxItem:before, .box .boxItems .boxItem:after {
@@ -197,7 +198,21 @@ blockquote {
     display: table; }
   .box .boxItems .boxItem:after {
     clear: both; }
-  .box .boxItems .boxItem img, .box .boxItems .boxItem .boxItemText {
+  .box .boxItems .boxItem .imgBoxWrap.completed:after {
+    top: -10px;
+    left: 0;
+    border: solid transparent;
+    border-bottom-color: #f2c161 !important;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-width: 10px;
+    margin-left: -10px;
+    transform: rotate(-45deg);
+    transition: all .5s ease; }
+  .box .boxItems .boxItem .imgBoxWrap, .box .boxItems .boxItem .boxItemText {
     float: left; }
   .box .boxItems .boxItem img {
     width: 12%; }
@@ -232,10 +247,9 @@ blockquote {
       background: #f2c161; }
 
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+  .box .boxItems .boxItem .imgBoxWrap,
   .box .boxItems .boxItem img {
-    width: 3%; }
-  .box .boxItems .boxItem .boxItemText {
-    width: 97%; }
+    width: 50px; }
   .box .boxItems.progressObjectives .boxItemText {
     width: 100%; } }
 

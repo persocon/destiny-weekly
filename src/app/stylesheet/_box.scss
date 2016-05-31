@@ -62,8 +62,24 @@
 	.boxItem {
 		@include clearfix-micro();
 		margin: 10px 0;
+    position: relative;
+    .imgBoxWrap.completed:after {
+      top: -10px;
+      left: 0;
+      border: solid transparent;
+      border-bottom-color: #f2c161!important;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      border-width: 10px;
+      margin-left: -10px;
+      transform: rotate(-45deg);
+      transition: all .5s ease;
+    }
 
-		img, .boxItemText {
+		.imgBoxWrap, .boxItemText {
 			float: left;
 		}
 		img {
@@ -112,11 +128,12 @@
   and (min-device-width: 1200px)
   and (max-device-width: 1600px)
   and (-webkit-min-device-pixel-ratio: 1) {
-  	.box .boxItems .boxItem img {
-  		width: 3%;
+  	.box .boxItems .boxItem .imgBoxWrap,
+    .box .boxItems .boxItem img {
+  		width: 50px;
   	}
   	.box .boxItems .boxItem .boxItemText {
-  		width: 97%;
+  		// width: 88%;
   	}
 		.box .boxItems.progressObjectives .boxItemText {
 			width: 100%;

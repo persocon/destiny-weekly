@@ -51,6 +51,20 @@ function curlProgression($platform, $username, $character_id){
 	return $activities;
 };
 
+function curlBounties($platform, $username, $character_id){
+	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
+	$membership_id = curl_membership_id($platform, $username);
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/'.$platform.'/Account/'.$membership_id.'/Character/'.$character_id.'/Advisors/V2/?lc=pt-br&definitions=true');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
+
+	$json = json_decode(curl_exec($ch));
+	$activities = $json->Response->data->bounties;
+	return $activities;
+};
+
 function curl_membership_id($platform, $username){
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 	$url = 'https://www.bungie.net/platform/Destiny/'.$platform.'/Stats/GetMembershipIdByDisplayName/'.$username.'/?lc=pt-br&definitions=true';
@@ -203,7 +217,7 @@ $app->get('/xur/{platform}/{username}/{character_id}', function ($request, $resp
 		}
 		array_push($xurItems, $obj);
 	}
-  
+
 	$activity->items = $xurItems;
 	$activity->details = new \stdClass;
 	$activity->details->activityName = "Items a venda";
@@ -414,17 +428,15 @@ $app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($req
 		$binfo = getBoss($boss->bossCombatantHash);
 		array_push($bossInfo, $binfo);
 	}
-  // $progression = getObjective($activity->progressionHash, $platform, $username, $character_id);
-	// if($progression){
-	// 	$activity->progress = [];
-	// 	$obj = new \stdClass;
-	// 	$obj->displayDescription = "Reputação";
-	// 	$obj->subDisplayDescription= "Rank";
-	// 	$obj->level = $progression->level;
-	// 	$obj->progress = $progression->progressToNextLevel;
-	// 	$obj->completionValue = $progression->nextLevelAt;
-	// 	array_push($activity->objectives, $obj);
-	// }
+  $bounties = [];
+  for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
+    $newBt = new \stdClass;
+    $newBta = getItemDetail($activity->bountyHashes[$i]);
+    $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
+    array_push($bounties, $newBt);
+  }
+  $activity->bounties = $bounties;
+
 	$objectives = [];
 	for($i = 0, $c = count($activity->extended->objectives); $i< $c; $i++){
 		$objective = $activity->extended->objectives[$i];
@@ -515,6 +527,33 @@ $app->get('/nightbot/elderchallenge', function ($request, $response, $args) {
 	$activity->details = $json->Response->data->activity;
 	$res = "Desafio dos Anciões da semana tem os seguintes modificadores: ".$modifiers.", e bônus: ".$bonus.", você irá enfrentar os seguintes bosses: ".$bosses.".";
 	$body = $response->getBody();
+	$body->write($res);
+	return $resWithExpires;
+});
+
+$app->get('/nightbot/trials', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+
+	$platform = "2";
+	$username = "tkrp1986";
+	$character_id = "2305843009271058982";
+	$activities = curl($platform, $username, $character_id);
+  $activities = curl($platform, $username, $character_id);
+
+    $activity = new \stdClass;
+    $activity = $activities->trials;
+    $hash = $activity->display->activityHash;
+    $json = getActivity($hash);
+
+    $trials = $json->Response->data->activity;
+
+    if ($activity->status->active) {
+      $res = "Os Desafios de Osíris, o mapa dessa semana é: ".$activity->display->flavor.", no ".$trials->activityDescription.".";
+    } else {
+      $res = "Os Desafios de Osíris ainda não estão abertos.";
+    }
+
+  $body = $response->getBody();
 	$body->write($res);
 	return $resWithExpires;
 });
@@ -667,6 +706,17 @@ function getProgression($progressionHash, $platform, $username, $character_id){
   foreach($progression as $key => $pg){
     if($pg->progressionHash == $progressionHash){
       $result = $pg;
+    }
+  }
+  return $result;
+}
+
+function getBounty($questHash, $platform, $username, $character_id){
+  $bounties = curlBounties($platform, $username, $character_id);
+  $result = new \stdClass;
+  foreach($bounties as $key => $bt){
+    if($bt->questHash == $questHash){
+      $result = $bt;
     }
   }
   return $result;

@@ -5,9 +5,15 @@ class ListItem extends React.Component {
   image() {
     if (this.props.icon) {
       const imgUrl = `http://bungie.net${this.props.icon}`;
-      return <img src={imgUrl} alt="" />;
+      return (<div className={this.className()}><img src={imgUrl} alt="" /></div>);
     }
     return null;
+  }
+  className() {
+    if (this.props.completed) {
+      return 'imgBoxWrap completed';
+    }
+    return 'imgBoxWrap';
   }
   render() {
     return (
@@ -34,6 +40,7 @@ ListItem.propTypes = {
   icon: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
+  completed: PropTypes.bool,
 };
 
 export default ListItem;
