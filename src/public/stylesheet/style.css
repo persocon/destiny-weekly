@@ -246,7 +246,7 @@ blockquote {
       height: 15px;
       background: #f2c161; }
 
-@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+@media screen and (min-width: 1200px) and (max-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
   .box .boxItems .boxItem .imgBoxWrap,
   .box .boxItems .boxItem img {
     width: 50px; }
