@@ -28,7 +28,10 @@ class SelectActivityComponent extends React.Component {
     return (
       <div className="selectActivityComponent">
         <div className="selectWrap">
-          <select onChange={event => this.props.onSelectChange(event.target.value)}>
+          <select
+            onChange={event => this.props.onSelectChange(event.target.value)}
+            defaultValue={this.props.activity}
+          >
             {this.showOptions()}
           </select>
         </div>
@@ -41,6 +44,7 @@ SelectActivityComponent.propTypes = {
   onSelectChange: PropTypes.func.isRequired,
   getInitialOptions: PropTypes.func.isRequired,
   options: PropTypes.array,
+  activity: PropTypes.string,
 };
 
 export default SelectActivityComponent;

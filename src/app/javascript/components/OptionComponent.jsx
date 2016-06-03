@@ -2,7 +2,9 @@ import React, { PropTypes } from 'react';
 
 function OptionComponent(props) {
   return (
-    <option value={props.value} disabled={props.disabled}>{props.title}</option>
+    <option value={props.value} disabled={props.disabled}>
+      {props.title}
+    </option>
 	);
 }
 
