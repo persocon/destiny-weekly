@@ -615,6 +615,36 @@ $app->get('/nightbot/trials', function ($request, $response, $args) {
 	return $resWithExpires;
 });
 
+$app->get('/nightbot/xur', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+
+	$platform = "2";
+	$username = "tkrp1986";
+	$character_id = "2305843009271058982";
+	$activities = curl($platform, $username, $character_id);
+
+  $activity = $activities->xur;
+
+  $getXur = getXur();
+  $xurItems = "";
+  $items = [];
+  $saleItemCategories = array_reverse($getXur->saleItemCategories);
+    for($index = 0, $count = count($saleItemCategories[0]->saleItems); $index < $count; $index++){
+        $item = getItemDetail($saleItemCategories[0]->saleItems[$index]->item->itemHash);
+        $xurItems .=  $item->itemName.", ";
+    }
+    $bosses = rtrim($xurItems, ", ");
+    if ($activity->status->active) {
+      $res = "Xur chegou, e está vendendo: ".$xurItems;
+    } else {
+      $res = "Xur ainda não chegou.";
+    }
+
+  $body = $response->getBody();
+	$body->write($res);
+	return $resWithExpires;
+});
+
 $app->get('/manifest', function ($request, $response, $args) {
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
