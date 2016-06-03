@@ -4,7 +4,7 @@ $animation: fade;
   &-active {
 	  opacity: 1;
 	  transition: opacity 500ms ease-in;
-  	
+
   }
 }
 
@@ -13,6 +13,33 @@ $animation: fade;
   &-active {
 	  opacity: 0.01;
 	  transition: opacity 300ms ease-in;
-  	
+
+  }
+}
+
+svg.icon--ghost {
+  animation: ghost 2s ease infinite alternate;
+}
+svg.icon--ghost .icon--ghost-eye {
+  animation: ghostBlink .8s ease infinite alternate;
+}
+
+@keyframes ghost {
+  0% {
+    transform: rotate(90deg);
+  }
+  25% {
+    transform: rotate(180deg)
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+@keyframes ghostBlink {
+  0% {
+    fill: #51C3F1;
+  }
+  100% {
+    fill: #FFF;
   }
 }

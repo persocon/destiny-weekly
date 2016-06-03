@@ -6,13 +6,7 @@
     top: 15px;
     right: 5px;
     svg {
-      width: 32px;
-      height: auto;
-      fill: #FFF;
       transition: fill .5s ease-in-out;
-      &:hover {
-        fill: rgb(242, 193, 97);
-      }
     }
   }
 }

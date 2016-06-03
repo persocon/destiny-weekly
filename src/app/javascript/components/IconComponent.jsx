@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import LoadingIcon from './icons/LoadingIconComponent';
 import ExitIcon from './icons/ExitIconComponent';
 import GithubIcon from './icons/GithubComponent';
+import GhostIcon from './icons/GhostIconComponent';
 
 class IconComponent extends React.Component {
   render() {
@@ -14,6 +15,9 @@ class IconComponent extends React.Component {
       }
       case 'github': {
         return (<GithubIcon />);
+      }
+      case 'ghost': {
+        return (<GhostIcon />);
       }
       default: {
         return ('<div>iconNotFound</div>');

@@ -4,7 +4,7 @@ import IconComponent from './IconComponent';
 function LoadingComponent() {
   return (
     <div className="loadingComponent top-bar">
-      <IconComponent icon="loading" />
+      <IconComponent icon="ghost" />
     </div>
   );
 }

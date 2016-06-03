@@ -14,6 +14,11 @@
     position: relative;
     padding: 0 0 8px 55px;
     height: 59px;
+    transition: transform .5s ease, box-shadow .5s ease;
+    &:hover {
+      transform: perspective(10px) translateZ(.1px);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
     a {
       color: #FFF;
       text-decoration: none;

@@ -332,7 +332,8 @@ blockquote {
     background-repeat: no-repeat;
     position: relative;
     padding: 0 0 8px 55px;
-    height: 59px; }
+    height: 59px;
+    transition: transform .5s ease, box-shadow .5s ease; }
     .characterComponent .characterListItem, .characterComponent .characterMiniListItem, .characterMiniComponent .characterListItem, .characterMiniComponent .characterMiniListItem {
       *zoom: 1; }
     .characterComponent .characterListItem:before, .characterComponent .characterListItem:after, .characterComponent .characterMiniListItem:before, .characterComponent .characterMiniListItem:after, .characterMiniComponent .characterListItem:before, .characterMiniComponent .characterListItem:after, .characterMiniComponent .characterMiniListItem:before, .characterMiniComponent .characterMiniListItem:after {
@@ -340,6 +341,9 @@ blockquote {
       display: table; }
     .characterComponent .characterListItem:after, .characterComponent .characterMiniListItem:after, .characterMiniComponent .characterListItem:after, .characterMiniComponent .characterMiniListItem:after {
       clear: both; }
+    .characterComponent .characterListItem:hover, .characterComponent .characterMiniListItem:hover, .characterMiniComponent .characterListItem:hover, .characterMiniComponent .characterMiniListItem:hover {
+      transform: perspective(10px) translateZ(0.1px);
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
     .characterComponent .characterListItem a, .characterComponent .characterMiniListItem a, .characterMiniComponent .characterListItem a, .characterMiniComponent .characterMiniListItem a {
       color: #FFF;
       text-decoration: none; }
@@ -434,12 +438,23 @@ blockquote {
     top: 15px;
     right: 5px; }
     .menuComponent .menuComponentLogOut svg {
-      width: 32px;
-      height: auto;
-      fill: #FFF;
       transition: fill .5s ease-in-out; }
-      .menuComponent .menuComponentLogOut svg:hover {
-        fill: #f2c161; }
+
+.icon--exit {
+  width: 32px;
+  height: auto;
+  fill: #FFF; }
+  .icon--exit:hover {
+    fill: #f2c161; }
+
+.icon--ghost {
+  width: 100px;
+  height: 100px; }
+  .icon--ghost path, .icon--ghost circle {
+    fill: #FFF; }
+  .icon--ghost-noFill {
+    fill-opacity: 0;
+    stroke: #FFF; }
 
 .loadingComponent svg {
   display: block;
@@ -456,6 +471,26 @@ blockquote {
   .fade-leave-active {
     opacity: 0.01;
     transition: opacity 300ms ease-in; }
+
+svg.icon--ghost {
+  animation: ghost 2s ease infinite alternate; }
+
+svg.icon--ghost .icon--ghost-eye {
+  animation: ghostBlink .8s ease infinite alternate; }
+
+@keyframes ghost {
+  0% {
+    transform: rotate(90deg); }
+  25% {
+    transform: rotate(180deg); }
+  100% {
+    transform: rotate(270deg); } }
+
+@keyframes ghostBlink {
+  0% {
+    fill: #51C3F1; }
+  100% {
+    fill: #FFF; } }
 
 * {
   box-sizing: border-box; }
