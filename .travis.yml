@@ -1,6 +1,5 @@
 language: node_js
 node_js:
   - "0.12"
-cache: node_modules
 after_success:
   - bash <(curl -s https://codecov.io/bash)

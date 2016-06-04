@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 
 var config = {
+  devtool: 'inline-source-map',
   resolve: {
     alias: {
         'sinon': 'sinon/pkg/sinon'
@@ -31,6 +32,13 @@ var config = {
         test: /\.jsx?$/
       }
     ],
+    postLoaders: [
+      {
+        test: /\.jsx$/,
+        exclude: /(test|node_modules)\//,
+        loader: 'istanbul-instrumenter'
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
