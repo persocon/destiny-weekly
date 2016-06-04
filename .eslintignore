@@ -3,3 +3,4 @@ src/public/*
 test/*
 dist/*
 karma.config.js
+webpack*

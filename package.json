@@ -43,6 +43,7 @@
     "eslint-plugin-react": "^5.1.1",
     "karma": "^0.13.22",
     "karma-chai": "^0.1.0",
+    "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",

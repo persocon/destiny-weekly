@@ -7,13 +7,14 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     singleRun: !argv.watch,
     frameworks: ['mocha', 'chai'],
-    reporters: ['spec'],
+    reporters: ['spec', 'progress', 'coverage'],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
       './test/test.bundle.js'
     ],
     plugins: [
+      'karma-coverage',
       'karma-mocha',
       'karma-chai',
       'karma-webpack',
@@ -22,11 +23,18 @@ module.exports = function(config) {
       'karma-sourcemap-loader'
     ],
     preprocessors: {
-      'test/test.bundle.js': ['webpack']
+      'test/test.bundle.js': ['webpack', 'coverage']
     },
     webpack: webpackConfig,
     webpackMiddleware: {
       noInfo: true,
+    },
+    coverageReporter: {
+      reporters: [
+        {'type': 'text'},
+          {'type': 'html', dir: 'coverage'},
+        {'type': 'lcov'}
+      ]
     }
   });
 }
