@@ -17,6 +17,13 @@ describe('(Actions) Select', () => {
     }
     expect(actions.changeApiUrl(activity)).to.eql(expectedAction);
   });
+
+  it('should create an action to resetSelect', () => {
+    const expectedAction = {
+      type: 'RESET_SELECT'
+    }
+    expect(actions.resetSelect()).to.eql(expectedAction);
+  });
 });
 
 describe('(Async Actions) Select', () => {

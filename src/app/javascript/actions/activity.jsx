@@ -108,9 +108,6 @@ const setActivity = (result) => {
 const findActivity = (testing = '') => (dispatch, getState) => {
   const { select } = getState();
   const { user } = getState();
-  if (!user || !select) {
-    return Promise.resolve();
-  }
   dispatch(startLoading());
   const activity = select.activity;
   const platform = user.user_info.platform;

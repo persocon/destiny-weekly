@@ -17,9 +17,6 @@ const setCharacterList = (result) => ({
 
 const getCharacterList = (testing = '') => (dispatch, getState) => {
   const { user } = getState();
-  if (!user) {
-    return Promise.resolve();
-  }
   const platform = user.user_info.platform;
   const username = user.user_info.username;
   const url = `${testing}/api/getCharacterList/${platform}/${username}`;

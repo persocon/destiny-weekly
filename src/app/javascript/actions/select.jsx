@@ -15,9 +15,6 @@ const setOptions = (result) => ({
 
 const getOptions = (testing = '') => (dispatch, getState) => {
   const { user } = getState();
-  if (!user) {
-    return Promise.resolve();
-  }
   const platform = user.user_info.platform;
   const username = user.user_info.username;
   const characterId = user.user_info.character_id;

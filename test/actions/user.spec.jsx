@@ -27,6 +27,13 @@ describe('(Actions) User', () => {
     expect(actions.getCharacterId()).to.eql(expectedAction);
   });
 
+  it('should create an action to resetUser', () => {
+    const expectedAction = {
+      type: 'RESET_USER'
+    }
+    expect(actions.resetUser()).to.eql(expectedAction);
+  });
+
 });
 
 describe('(Async Action) User form', () => {

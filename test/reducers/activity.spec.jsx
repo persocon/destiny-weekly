@@ -2,23 +2,72 @@ import reducer from '../../src/app/javascript/reducers/activity.jsx'
 
 describe('(Reducer) Activity', () => {
   it('should return the initial state', () => {
+    const initialState = {
+      identifier: 'nightfall',
+      title: 'loading',
+      name: '',
+      desc: '',
+      completed: '',
+      backgroundImg: '',
+      icon: '',
+      modifiers: [],
+      bosses: [],
+      items: [],
+      rewards: [],
+      bounties: [],
+      objectives: [],
+      progress: []
+    }
     expect(reducer(undefined, {})).to.eql(
-      {
-      	identifier: 'nightfall',
-      	title: 'loading',
-      	name: '',
-      	desc: '',
-        completed: '',
-      	backgroundImg: '',
-      	icon: '',
-      	modifiers: [],
-      	bosses: [],
-      	items: [],
-      	rewards: [],
-      	bounties: [],
-        objectives: [],
-        progress: []
-      }
+      initialState
+    );
+  });
+
+  it('should start loading', () => {
+    const initialState = {
+      identifier: 'nightfall',
+      title: 'loading',
+      name: '',
+      desc: '',
+      completed: '',
+      backgroundImg: '',
+      icon: '',
+      modifiers: [],
+      bosses: [],
+      items: [],
+      rewards: [],
+      bounties: [],
+      objectives: [],
+      progress: []
+    }
+    expect(reducer(initialState, {
+      type: 'START_LOADING'
+    })).to.eql(
+      initialState
+    );
+  });
+
+  it('should reset activity', () => {
+    const initialState = {
+      identifier: 'nightfall',
+      title: 'loading',
+      name: '',
+      desc: '',
+      completed: '',
+      backgroundImg: '',
+      icon: '',
+      modifiers: [],
+      bosses: [],
+      items: [],
+      rewards: [],
+      bounties: [],
+      objectives: [],
+      progress: []
+    }
+    expect(reducer({}, {
+      type: 'RESET_ACTIVITY'
+    })).to.eql(
+      initialState
     );
   });
 

@@ -9,6 +9,15 @@ import * as actions from '../../src/app/javascript/actions/activity.jsx';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+describe('(Actions) Activity', () => {
+  it('should create an action to resetActivity', () => {
+    const expectedAction = {
+      type: 'RESET_ACTIVITY'
+    }
+    expect(actions.resetActivity()).to.eql(expectedAction);
+  });
+});
+
 describe('(Async Actions) Activity', () => {
   afterEach(() => {
     nock.cleanAll();
