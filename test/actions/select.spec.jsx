@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
+import { userLoggedIn } from './mock.jsx';
 
 import * as actions from '../../src/app/javascript/actions/select.jsx';
 
@@ -21,12 +22,10 @@ describe('(Actions) Select', () => {
 describe('(Async Actions) Select', () => {
   afterEach(() => {
     nock.cleanAll();
-    nock.disableNetConnect();
-    nock.enableNetConnect('127.0.0.1');
   });
 
   it('should fill in GET_OPTIONS when fetching all options is done', () => {
-    nock('http://localhost:8888')
+    nock(apiUrl)
     .get('/api/selectActivity/2/tkrp1986')
     .reply(200, {options: [
             {
@@ -39,13 +38,15 @@ describe('(Async Actions) Select', () => {
       type: 'GET_OPTIONS',
       options: [
         {
-        identifier: "nightfall"
+          identifier: "nightfall"
         }
       ]
     };
 
-    const store = mockStore({});
-    store.dispatch(actions.getOptions())
+    const store = mockStore({
+        user: userLoggedIn
+    });
+    store.dispatch(actions.getOptions(apiUrl))
       .then(()=>{
         expect(store.getActions()[0]).should.equal(expectedAction);
       });

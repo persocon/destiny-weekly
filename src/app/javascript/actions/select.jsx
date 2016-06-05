@@ -13,7 +13,7 @@ const setOptions = (result) => ({
 });
 
 
-const getOptions = () => (dispatch, getState) => {
+const getOptions = (testing = '') => (dispatch, getState) => {
   const { user } = getState();
   if (!user) {
     return Promise.resolve();
@@ -22,7 +22,7 @@ const getOptions = () => (dispatch, getState) => {
   const username = user.user_info.username;
   const characterId = user.user_info.character_id;
 
-  const url = `/api/selectActivity/${platform}/${username}/${characterId}`;
+  const url = `${testing}/api/selectActivity/${platform}/${username}/${characterId}`;
   return fetch(url)
     .then(resolve => resolve.json())
     .then(json => {

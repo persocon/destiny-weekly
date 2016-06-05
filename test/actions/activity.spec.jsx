@@ -1,6 +1,8 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
+import 'isomorphic-fetch';
 import nock from 'nock';
+import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
+import { activityFull, userLoggedIn } from './mock.jsx';
 
 import * as actions from '../../src/app/javascript/actions/activity.jsx';
 
@@ -10,64 +12,29 @@ const mockStore = configureMockStore(middlewares);
 describe('(Async Actions) Activity', () => {
   afterEach(() => {
     nock.cleanAll();
-    nock.disableNetConnect();
-    nock.enableNetConnect('127.0.0.1');
   });
 
   it('should fill in SET_ACTIVITY when fetching the right activity is done', () => {
-    nock('http://localhost:8888')
-    .get('/api/nightfall/2/tkrp1986')
-    .reply(200, {activity: {
-              status: {
-                expirationDate: "2016-05-24T09:00:00Z",
-                startDate: "2016-05-17T09:00:00Z",
-                expirationKnown: true,
-                active: true
-              },
-              display: {
-                categoryHash: 1852922491,
-                identifier: "nightfall",
-                icon: "/img/theme/destiny/icons/node_strike_nightfall.png",
-                image: "/img/theme/destiny/bgs/pgcrs/shield_brothers.jpg",
-                advisorTypeCategory: "Assalto do Anoitecer",
-                activityHash: 355200465,
-                playlistHash: 1749151224,
-                destinationHash: 2897855902,
-                factionHash: 468098704,
-                placeHash: 596872852
-              }
-            }
-        });
+    nock(apiUrl)
+    .get('/api/nightfall/2/tkrp1986/2305843009345804418')
+    .reply(200, { activity: activityFull });
 
     const expectedAction = {
       type: 'SET_ACTIVITY',
-      activity: {
-        status: {
-          expirationDate: "2016-05-24T09:00:00Z",
-          startDate: "2016-05-17T09:00:00Z",
-          expirationKnown: true,
-          active: true
-        },
-        display: {
-          categoryHash: 1852922491,
-          identifier: "nightfall",
-          icon: "/img/theme/destiny/icons/node_strike_nightfall.png",
-          image: "/img/theme/destiny/bgs/pgcrs/shield_brothers.jpg",
-          advisorTypeCategory: "Assalto do Anoitecer",
-          activityHash: 355200465,
-          playlistHash: 1749151224,
-          destinationHash: 2897855902,
-          factionHash: 468098704,
-          placeHash: 596872852
-        }
-      }
+      activity: activityFull
     };
 
-    const store = mockStore({});
-    store.dispatch(actions.findActivity())
-      .then(()=>{
-        expect(store.getActions()[0]).should.equal(expectedAction);
-      });
+    const store = mockStore({
+      user: userLoggedIn,
+      select: {
+        activity: 'nightfall',
+      }
+    });
+
+    const result = store.dispatch(actions.findActivity(apiUrl))
+    result.then(()=>{
+      expect(store.getActions()[0]).to.equal(expectedAction);
+    });
   });
 
 });

@@ -7,7 +7,7 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     singleRun: !argv.watch,
     frameworks: ['mocha', 'chai'],
-    reporters: ['spec', 'progress', 'coverage'],
+    reporters: ['spec', 'coverage'],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
       './node_modules/phantomjs-polyfill/bind-polyfill.js',

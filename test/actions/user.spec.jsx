@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
+import { userLoggedIn } from './mock.jsx';
 
 import * as actions from '../../src/app/javascript/actions/user.jsx';
 
@@ -30,11 +31,11 @@ describe('(Actions) User', () => {
 
 describe('(Async Action) User form', () => {
   it('should fill in SET_CHARACTER_LIST when fetching is done', () => {
-    nock('http://localhost:8888')
+    nock(apiUrl)
     .get('/api/getCharacterList/1/tkrp1986')
     .reply(200, {characters: [
         {
-            "character_id": "2305843009271058982"
+          "character_id": "2305843009271058982"
         },
         {
           "character_id": "2305843009345804418"
@@ -49,7 +50,7 @@ describe('(Async Action) User form', () => {
       type: 'SET_CHARACTER_LIST',
       character_list: [
           {
-              "character_id": "2305843009271058982"
+            "character_id": "2305843009271058982"
           },
           {
             "character_id": "2305843009345804418"
@@ -60,8 +61,13 @@ describe('(Async Action) User form', () => {
         ]
     }
 
-    const store = mockStore({});
-    store.dispatch(actions.getCharacterList())
+    const store = mockStore({
+      user: {
+        character_list: [],
+        user_info: userLoggedIn
+      }
+    });
+    store.dispatch(actions.getCharacterList(apiUrl))
       .then(()=>{
         expect(store.getAction()[0]).should.equal(expectedState);
       })

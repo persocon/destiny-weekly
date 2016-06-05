@@ -15,14 +15,14 @@ const setCharacterList = (result) => ({
   character_list: result,
 });
 
-const getCharacterList = () => (dispatch, getState) => {
+const getCharacterList = (testing = '') => (dispatch, getState) => {
   const { user } = getState();
   if (!user) {
     return Promise.resolve();
   }
   const platform = user.user_info.platform;
   const username = user.user_info.username;
-  const url = `/api/getCharacterList/${platform}/${username}`;
+  const url = `${testing}/api/getCharacterList/${platform}/${username}`;
   return fetch(url)
   .then(response => response.json())
   .then(json => {

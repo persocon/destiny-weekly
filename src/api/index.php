@@ -8,6 +8,17 @@ $config = [
 ];
 
 $app = new \Slim\App($config);
+
+// $corsOptions = array(
+//     "origin" => "*",
+//     "exposeHeaders" => array("Content-Type", "X-Requested-With", "X-authentication", "X-client"),
+//     "allowMethods" => array('GET')
+// );
+// $cors = new \CorsSlim\CorsSlim($corsOptions);
+
+$app->add(new \CorsSlim\CorsSlim());
+
+
 $app->add(new \Slim\HttpCache\Cache('public', 43200));
 
 $container = $app->getContainer();
@@ -232,6 +243,7 @@ $app->get('/xur/{platform}/{username}/{character_id}', function ($request, $resp
 	$activity->items = $xurItems;
 	$activity->details = new \stdClass;
 	$activity->details->activityName = "Items a venda";
+  $resWithExpires->header('Access-Control-Allow-Origin', '*');
 	return $resWithExpires->withJson($activity);
 });
 
