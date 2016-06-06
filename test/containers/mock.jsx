@@ -9,6 +9,47 @@ export const FullCharacterList = {
   }
 };
 
+export const SingleCharacter = {
+  "character_id": "2305843009345804418",
+  "power_level": 335,
+  "raceHash": 3887404748,
+  "genderHash": 3111576190,
+  "classHash": 671679327,
+  "percentToNextLevel": 0,
+  "emblemPath": "/common/destiny_content/icons/d0d3cd4c26aa1a931d46c4bf720856ba.jpg",
+  "backgroundPath": "/common/destiny_content/icons/47290893c7c1703be898c07103e3fee5.jpg",
+  "characterLevel": 40,
+  "classDetails": {
+    "classHash": 671679327,
+    "classType": 1,
+    "className": "Caçador",
+    "classNameMale": "Caçador",
+    "classNameFemale": "Caçadora",
+    "classIdentifier": "CLASS_HUNTER",
+    "mentorVendorIdentifier": "VENDOR_HUNTER_MENTOR",
+    "hash": 671679327,
+    "index": 0
+  },
+  "genderDetails": {
+    "genderHash": 3111576190,
+    "genderType": 0,
+    "genderName": "Masculino",
+    "genderDescription": "",
+    "hash": 3111576190,
+    "index": 0
+  },
+  "raceDetails": {
+    "raceHash": 3887404748,
+    "raceType": 0,
+    "raceName": "Humano",
+    "raceNameMale": "Humano",
+    "raceNameFemale": "Humana",
+    "raceDescription": "Humano",
+    "hash": 3887404748,
+    "index": 0
+  }
+};
+
 export const EmptyCharacterList = {
 	character_list: [],
 	user_info: {

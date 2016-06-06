@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
-import CharacterListItemComponent from './CharacterListItemComponent';
+import CharacterListItemContainer from '../containers/CharacterListItemContainer';
 import LoadingComponent from './LoadingComponent';
-import BackToLoginComponent from './BackToLoginComponent';
+import BackToLoginContainer from '../containers/BackToLoginContainer';
 
 class CharactersComponent extends React.Component {
   componentWillMount() {
@@ -13,12 +13,11 @@ class CharactersComponent extends React.Component {
       return (<LoadingComponent />);
     }
     if (this.props.character_list.status === 'error') {
-      return (<BackToLoginComponent backToLogin={event => this.props.backToLogin(event)} />);
+      return (<BackToLoginContainer />);
     }
     let characterList = this.props.character_list.map((character, index) => {
-      const click = event => this.props.handleClickItem(event);
       return (
-        <CharacterListItemComponent character={character} handleClick={click} key={index} />
+        <CharacterListItemContainer character={character} key={index} />
       );
     });
     return (<ul className="characterComponent top-bar">{characterList}</ul>);
@@ -40,8 +39,6 @@ class CharactersComponent extends React.Component {
 
 CharactersComponent.propTypes = {
   onInit: PropTypes.func.isRequired,
-  backToLogin: PropTypes.func.isRequired,
-  handleClickItem: PropTypes.func.isRequired,
   character_list: PropTypes.any,
 };
 

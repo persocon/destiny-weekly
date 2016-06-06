@@ -51,7 +51,7 @@ class CharacterListItemComponent extends React.Component {
         <li className="characterListItem" style={this.backgroundImage()}>
           <a
             href={this.props.character.character_id}
-            onClick={event => this.props.handleClick(event)}
+            onClick={this.props.handleClick}
           >
             <div style={this.emblemImage()} className="characterListItemEmblem"></div>
             <div className="characterListItemText">
