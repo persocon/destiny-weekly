@@ -17,29 +17,65 @@ $animation: fade;
   }
 }
 
-svg.icon--ghost {
-  animation: ghost 2s ease infinite alternate;
-}
-svg.icon--ghost .icon--ghost-eye {
-  animation: ghostBlink .8s ease infinite alternate;
-}
-
 @keyframes ghost {
   0% {
-    transform: rotate(90deg);
+    transform: rotate(0deg);
   }
   25% {
+    transform: rotate(90deg);
+  }
+  50% {
     transform: rotate(180deg)
   }
   100% {
     transform: rotate(270deg);
   }
 }
-@keyframes ghostBlink {
+
+@keyframes ghostTopLeft {
   0% {
-    fill: #51C3F1;
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-15px, -15px);
   }
   100% {
-    fill: #FFF;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes ghostTopRight {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, -15px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes ghostBottomRight {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(15px, 15px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes ghostBottomLeft {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-15px,15px);
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }

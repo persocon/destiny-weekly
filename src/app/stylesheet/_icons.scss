@@ -10,8 +10,29 @@
   &--ghost {
     width: 100px;
     height: 100px;
-    path,circle {
+    animation: ghost 4s ease infinite;
+    &__topleft {
+      animation: ghostTopLeft 2s ease infinite;
+    }
+    &__topright {
+      animation: ghostTopRight 2s ease infinite;
+    }
+    &__bottomleft {
+      animation: ghostBottomLeft 2s ease infinite;
+    }
+    &__bottomright {
+      animation: ghostBottomRight 2s ease infinite;
+    }
+    path {
       fill: #FFF;
+    }
+    circle {
+      stroke-width: 4px;
+      stroke: #FFF;
+    }
+    ellipse {
+      stroke-width: 6px;
+      stroke: #FFF;
     }
     &-noFill {
       fill-opacity: 0;

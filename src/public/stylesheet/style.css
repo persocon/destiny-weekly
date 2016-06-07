@@ -449,9 +449,24 @@ blockquote {
 
 .icon--ghost {
   width: 100px;
-  height: 100px; }
-  .icon--ghost path, .icon--ghost circle {
+  height: 100px;
+  animation: ghost 4s ease infinite; }
+  .icon--ghost__topleft {
+    animation: ghostTopLeft 2s ease infinite; }
+  .icon--ghost__topright {
+    animation: ghostTopRight 2s ease infinite; }
+  .icon--ghost__bottomleft {
+    animation: ghostBottomLeft 2s ease infinite; }
+  .icon--ghost__bottomright {
+    animation: ghostBottomRight 2s ease infinite; }
+  .icon--ghost path {
     fill: #FFF; }
+  .icon--ghost circle {
+    stroke-width: 4px;
+    stroke: #FFF; }
+  .icon--ghost ellipse {
+    stroke-width: 6px;
+    stroke: #FFF; }
   .icon--ghost-noFill {
     fill-opacity: 0;
     stroke: #FFF; }
@@ -472,25 +487,47 @@ blockquote {
     opacity: 0.01;
     transition: opacity 300ms ease-in; }
 
-svg.icon--ghost {
-  animation: ghost 2s ease infinite alternate; }
-
-svg.icon--ghost .icon--ghost-eye {
-  animation: ghostBlink .8s ease infinite alternate; }
-
 @keyframes ghost {
   0% {
-    transform: rotate(90deg); }
+    transform: rotate(0deg); }
   25% {
+    transform: rotate(90deg); }
+  50% {
     transform: rotate(180deg); }
   100% {
     transform: rotate(270deg); } }
 
-@keyframes ghostBlink {
+@keyframes ghostTopLeft {
   0% {
-    fill: #51C3F1; }
+    transform: translate(0, 0); }
+  50% {
+    transform: translate(-15px, -15px); }
   100% {
-    fill: #FFF; } }
+    transform: translate(0, 0); } }
+
+@keyframes ghostTopRight {
+  0% {
+    transform: translate(0, 0); }
+  50% {
+    transform: translate(15px, -15px); }
+  100% {
+    transform: translate(0, 0); } }
+
+@keyframes ghostBottomRight {
+  0% {
+    transform: translate(0, 0); }
+  50% {
+    transform: translate(15px, 15px); }
+  100% {
+    transform: translate(0, 0); } }
+
+@keyframes ghostBottomLeft {
+  0% {
+    transform: translate(0, 0); }
+  50% {
+    transform: translate(-15px, 15px); }
+  100% {
+    transform: translate(0, 0); } }
 
 * {
   box-sizing: border-box; }
