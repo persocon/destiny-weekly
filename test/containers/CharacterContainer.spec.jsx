@@ -11,6 +11,7 @@ const mockStore = configureStore();
 
 describe('(Container) Characters', () => {
   let store;
+  let props;
   let wrapper;
 
   it('should expect .characterComponent to exist', () => {

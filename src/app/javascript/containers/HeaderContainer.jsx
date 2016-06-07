@@ -16,6 +16,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+export { Component as PureHeaderContainer };
+
 const Container = connect(null, mapDispatchToProps)(Component);
 
 export default Container;

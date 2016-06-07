@@ -7,7 +7,7 @@ import Component from '../components/BackToLoginComponent';
 
 
 const mapDispatchToProps = (dispatch) => ({
-  backToLogin: (event) => {
+  handleBackToLogin: (event) => {
     event.preventDefault();
     dispatch(resetActivity());
     dispatch(resetSelect());
@@ -16,6 +16,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setAppScreen('login'));
   },
 });
+
+export { Component as PureBackToLoginContainer };
 
 const Container = connect(null, mapDispatchToProps)(Component);
 
