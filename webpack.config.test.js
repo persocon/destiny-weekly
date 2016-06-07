@@ -25,18 +25,21 @@ var config = {
     noParse: [
         /node_modules\/sinon\//,
     ],
+    preLoaders: [
+     {
+       test: /\.jsx?$/,
+       exclude: [
+         /node_modules/,
+         /test/
+       ],
+       loader: 'isparta-instrumenter-loader'
+     },
+   ],
     loaders: [
       {
         exclude: /node_modules/,
         loader: 'babel-loader',
         test: /\.jsx?$/
-      }
-    ],
-    postLoaders: [
-      {
-        test: /\.jsx$/,
-        exclude: /(test|node_modules)\//,
-        loader: 'istanbul-instrumenter'
       }
     ]
   },
