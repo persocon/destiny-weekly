@@ -191,33 +191,9 @@ $app->get('/nightfall/{platform}/{username}/{character_id}', function ($request,
 	$activity = new \stdClass;
 	$activity = $activities->nightfall;
 
-	$hash = $activity->display->activityHash;
-	$json = getActivity($hash);
+  $rs = cleanApi($activity, $username, $platform, $character_id);
 
-	$activity->details = $json->Response->data->activity;
-
-	if(array_key_exists('rewards', $activity->activityTiers[0])){
-		$heroicRewards = $activity->activityTiers[0]->rewards;
-		$rewards = [];
-		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-			$rew = $heroicRewards[$i]->rewardItems[0];
-			$itemInfo = getItemDetail($rew->itemHash);
-			array_push($rewards, $itemInfo);
-		}
-		$activity->rewards = $rewards;
-	}
-  if(array_key_exists('bountyHashes', $activity)){
-    $bounties = [];
-    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
-      $newBt = new \stdClass;
-      $newBt = getItemDetail($activity->bountyHashes[$i]);
-      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
-      array_push($bounties, $newBt);
-    }
-    $activity->bounties = $bounties;
-  }
-
-	return $resWithExpires->withJson($activity);
+	return $resWithExpires->withJson($rs);
 });
 
 $app->get('/xur/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -233,26 +209,9 @@ $app->get('/xur/{platform}/{username}/{character_id}', function ($request, $resp
   $activity = new \stdClass;
 	$activity = $activities->xur;
 
-	// $hash = $activity->display->activityHash;
-	$getXur = getXur();
-	$xurItems = [];
-	$items = [];
-	$saleItemCategories = array_reverse($getXur->saleItemCategories);
-	for($x = 0, $z = count($saleItemCategories); $x < $z; $x++){
-		$obj = new \stdClass;
-		$obj->title = $saleItemCategories[$x]->categoryTitle;
-		$obj->items = [];
-		for($index = 0, $count = count($saleItemCategories[$x]->saleItems); $index < $count; $index++){
-				array_push($obj->items, getItemDetail($saleItemCategories[$x]->saleItems[$index]->item->itemHash));
-		}
-		array_push($xurItems, $obj);
-	}
+  $rs = cleanApi($activity, $username, $platform, $character_id);
 
-	$activity->items = $xurItems;
-	$activity->details = new \stdClass;
-	$activity->details->activityName = "Items a venda";
-  $resWithExpires->header('Access-Control-Allow-Origin', '*');
-	return $resWithExpires->withJson($activity);
+	return $resWithExpires->withJson($rs);
 });
 
 $app->get('/trials/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -265,22 +224,10 @@ $app->get('/trials/{platform}/{username}/{character_id}', function ($request, $r
 
     $activity = new \stdClass;
   	$activity = $activities->trials;
-		$hash = $activity->display->activityHash;
-		$json = getActivity($hash);
 
-		$activity->details = $json->Response->data->activity;
-		$activity->display->image = $activity->details->pgcrImage;
+    $rs = cleanApi($activity, $username, $platform, $character_id);
 
-		// $ibItems = $activity->vendors[0]->bountyHashes;
-		// $items = [];
-		// foreach($ibItems as $key => $value){
-		// 	$item = $value;
-		// 	$itemInfo = getItemDetail($item);
-		// 	array_push($items, $itemInfo);
-		// }
-		// $activity->bounties = $items;
-
-	return $resWithExpires->withJson($activity);
+	return $resWithExpires->withJson($rs);
 });
 
 $app->get('/ironbanner/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -332,31 +279,10 @@ $app->get('/heroicstrike/{platform}/{username}/{character_id}', function ($reque
 
 	$activity = $activities->heroicstrike;
 
-	$identifier = $activity->identifier;
-	if(array_key_exists('rewards', $activity->activityTiers[0])){
-		$heroicRewards = $activity->activityTiers[0]->rewards;
-		$rewards = [];
-		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-			$rew = $heroicRewards[$i]->rewardItems[0];
-			$itemInfo = getItemDetail($rew->itemHash);
-			array_push($rewards, $itemInfo);
-		}
-		$activity->rewards = $rewards;
-	}
-
-  if(array_key_exists('bountyHashes', $activity)){
-    $bounties = [];
-    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
-      $newBt = new \stdClass;
-      $newBt = getItemDetail($activity->bountyHashes[$i]);
-      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
-      array_push($bounties, $newBt);
-    }
-    $activity->bounties = $bounties;
-  }
+  $rs = cleanApi($activity, $username, $platform, $character_id);
 
 
-	return $resWithExpires->withJson($activity);
+	return $resWithExpires->withJson($rs);
 });
 
 $app->get('/dailychapter/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -371,33 +297,9 @@ $app->get('/dailychapter/{platform}/{username}/{character_id}', function ($reque
 
 	$activity = $activities->dailychapter;
 
-	$identifier = $activity->identifier;
-	$hash = $activity->display->activityHash;
-	$json = getActivity($hash);
-	if(array_key_exists('rewards', $activity->activityTiers[0])){
-		$heroicRewards = $activity->activityTiers[0]->rewards;
-		$rewards = [];
-		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-			$rew = $heroicRewards[$i]->rewardItems[0];
-			$itemInfo = getItemDetail($rew->itemHash);
-			array_push($rewards, $itemInfo);
-		}
-		$activity->rewards = $rewards;
-	}
+  $rs = cleanApi($activity, $username, $platform, $character_id);
 
-  if(array_key_exists('bountyHashes', $activity)){
-    $bounties = [];
-    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
-      $newBt = new \stdClass;
-      $newBt = getItemDetail($activity->bountyHashes[$i]);
-      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
-      array_push($bounties, $newBt);
-    }
-    $activity->bounties = $bounties;
-  }
-
-	$activity->details = $json->Response->data->activity;
-	return $resWithExpires->withJson($activity);
+	return $resWithExpires->withJson($rs);
 });
 
 $app->get('/dailycrucible/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -412,33 +314,8 @@ $app->get('/dailycrucible/{platform}/{username}/{character_id}', function ($requ
 
 	$activity = $activities->dailycrucible;
 
-	$identifier = $activity->identifier;
-	$hash = $activity->display->activityHash;
-	$json = getActivity($hash);
-	if(array_key_exists('rewards', $activity->activityTiers[0])){
-		$heroicRewards = $activity->activityTiers[0]->rewards;
-		$rewards = [];
-		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-			$rew = $heroicRewards[$i]->rewardItems[0];
-			$itemInfo = getItemDetail($rew->itemHash);
-			array_push($rewards, $itemInfo);
-		}
-		$activity->rewards = $rewards;
-	}
-
-  if(array_key_exists('bountyHashes', $activity)){
-    $bounties = [];
-    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
-      $newBt = new \stdClass;
-      $newBt = getItemDetail($activity->bountyHashes[$i]);
-      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
-      array_push($bounties, $newBt);
-    }
-    $activity->bounties = $bounties;
-  }
-
-	$activity->details = $json->Response->data->activity;
-	return $resWithExpires->withJson($activity);
+  $rs = cleanApi($activity, $username, $platform, $character_id);
+	return $resWithExpires->withJson($rs);
 });
 
 $app->get('/weeklycrucible/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -452,35 +329,8 @@ $app->get('/weeklycrucible/{platform}/{username}/{character_id}', function ($req
 	$result = new \stdClass;
 
 	$activity = $activities->weeklycrucible;
-
-	$identifier = $activity->identifier;
-	$hash = $activity->display->activityHash;
-	$json = getActivity($hash);
-
-	if(array_key_exists('rewards', $activity->activityTiers[0])){
-		$heroicRewards = $activity->activityTiers[0]->rewards;
-		$rewards = [];
-		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
-			$rew = $heroicRewards[$i]->rewardItems[0];
-			$itemInfo = getItemDetail($rew->itemHash);
-			array_push($rewards, $itemInfo);
-		}
-		$activity->rewards = $rewards;
-	}
-
-  if(array_key_exists('bountyHashes', $activity)){
-    $bounties = [];
-    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
-      $newBt = new \stdClass;
-      $newBt = getItemDetail($activity->bountyHashes[$i]);
-      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
-      array_push($bounties, $newBt);
-    }
-    $activity->bounties = $bounties;
-  }
-
-	$activity->details = $json->Response->data->activity;
-	return $resWithExpires->withJson($activity);
+  $rs = cleanApi($activity, $username, $platform, $character_id);
+	return $resWithExpires->withJson($rs);
 });
 
 $app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($request, $response, $args) {
@@ -495,38 +345,9 @@ $app->get('/elderchallenge/{platform}/{username}/{character_id}', function ($req
 
 	$activity = $activities->elderchallenge;
 
-	$identifier = $activity->identifier;
-	$hash = $activity->display->activityHash;
-	$json = getActivity($hash);
-	$bosses = $activity->activityTiers[0]->extended->rounds;
-	$bossInfo = [];
-	for($i = 0, $c = count($bosses); $i < $c; $i++) {
-		$boss = $bosses[$i];
-		$binfo = getBoss($boss->bossCombatantHash);
-		array_push($bossInfo, $binfo);
-	}
-  $bounties = [];
-  for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
-    $newBt = new \stdClass;
-    $newBt = getItemDetail($activity->bountyHashes[$i]);
-    $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
-    array_push($bounties, $newBt);
-  }
-  $activity->bounties = $bounties;
+  $rs = cleanApi($activity, $username, $platform, $character_id);
 
-	$objectives = [];
-	for($i = 0, $c = count($activity->extended->objectives); $i< $c; $i++){
-		$objective = $activity->extended->objectives[$i];
-		$objInfo = objectivesDefinition($objective->objectiveHash);
-		$objInfo->progress = $objective->progress;
-		array_push($objectives, $objInfo);
-	}
-	$activity->objectives = $objectives;
-	$activity->bosses = $bossInfo;
-
-	$activity->details = $json->Response->data->activity;
-
-	return $resWithExpires->withJson($activity);
+	return $resWithExpires->withJson($rs);
 });
 
 $app->get('/nightbot/nightfall', function ($request, $response, $args) {
@@ -826,6 +647,163 @@ function getBounty($questHash, $platform, $username, $character_id){
       $result = $bt;
     }
   }
+  return $result;
+}
+
+function cleanApi($activity, $username, $platform, $character_id) {
+  $result = new \stdClass;
+  if (array_key_exists('identifier', $activity)) {
+    $result->identifier = $activity->identifier;
+  } else {
+    $result->identifier = '';
+  }
+
+  if (array_key_exists('advisorTypeCategory', $activity->display)) {
+    $result->title = $activity->display->advisorTypeCategory;
+  } else {
+    $result->title = '';
+  }
+
+  if (array_key_exists('activityHash', $activity->display)) {
+    $hash = $activity->display->activityHash;
+  	$json = getActivity($hash);
+    $details = $json->Response->data->activity;
+
+    $result->name = $details->activityName;
+    $result->desc = $details->activityDescription;
+  } else {
+    if($activity->identifier === 'xur'){
+      $result->name = 'Items a venda';
+    } else {
+      $result->name = '';
+    }
+    $result->desc = '';
+  }
+
+  if (array_key_exists('completion', $activity)){
+    $result->completed = $activity->completion->complete;
+  } else {
+    $result->completed = '';
+  }
+
+  if (array_key_exists('image', $activity->display)) {
+    $result->backgroundImg = 'http://bungie.net'.$activity->display->image;
+  } else {
+    $result->backgroundImg = '';
+  }
+
+  if (array_key_exists('icon', $activity->display)) {
+      $result->icon = 'http://bungie.net'.$activity->display->icon;
+  } else {
+    $result->icon = '';
+  }
+
+  if (array_key_exists('extended', $activity) && array_key_exists('skullCategories', $activity->extended)) {
+    $result->modifiers = $activity->extended->skullCategories;
+  } else {
+    $result->modifiers = [];
+  }
+
+  if(array_key_exists('activityTiers', $activity) && array_key_exists('extended', $activity->activityTiers[0]) && array_key_exists('rounds', $activity->activityTiers[0]->extended)) {
+    $bosses = $activity->activityTiers[0]->extended->rounds;
+  	$bossInfo = [];
+  	for($i = 0, $c = count($bosses); $i < $c; $i++) {
+  		$boss = $bosses[$i];
+  		$binfo = getBoss($boss->bossCombatantHash);
+  		array_push($bossInfo, $binfo);
+  	}
+    $result->bosses = $bossInfo;
+  } else {
+    $result->bosses = [];
+  }
+
+  if (array_key_exists('activityTiers', $activity) && array_key_exists('rewards', $activity->activityTiers[0]) ) {
+		$heroicRewards = $activity->activityTiers[0]->rewards;
+		$rewards = [];
+		for($i = 0, $c = count($heroicRewards); $i < $c; $i++) {
+			$rew = $heroicRewards[$i]->rewardItems[0];
+			$itemInfo = getItemDetail($rew->itemHash);
+			array_push($rewards, $itemInfo);
+		}
+		$result->rewards = $rewards;
+	} else {
+    $result->rewards = [];
+  }
+  if ($activity->identifier === 'xur') {
+    $getXur = getXur();
+  	$xurItems = [];
+  	$items = [];
+  	$saleItemCategories = array_reverse($getXur->saleItemCategories);
+  	for($x = 0, $z = count($saleItemCategories); $x < $z; $x++){
+  		$obj = new \stdClass;
+  		$obj->title = $saleItemCategories[$x]->categoryTitle;
+  		$obj->items = [];
+  		for($index = 0, $count = count($saleItemCategories[$x]->saleItems); $index < $count; $index++){
+  				array_push($obj->items, getItemDetail($saleItemCategories[$x]->saleItems[$index]->item->itemHash));
+  		}
+  		array_push($xurItems, $obj);
+  	}
+
+  	$result->items = $xurItems;
+  } else {
+    $result->items = [];
+  }
+  if(array_key_exists('bountyHashes', $activity)){
+    $bounties = [];
+    for($i = 0, $c = count($activity->bountyHashes); $i < $c; $i++){
+      $newBt = new \stdClass;
+      $newBt = getItemDetail($activity->bountyHashes[$i]);
+      $newBt->details = getBounty($activity->bountyHashes[$i], $platform, $username, $character_id);
+      array_push($bounties, $newBt);
+    }
+    $result->bounties = $bounties;
+  } elseif ($activity->identifier === 'ironbanner'){
+    if(array_key_exists('vendors', $activity)){
+  		$ibItems = $activity->vendors[0]->saleItemCategories[1]->saleItems;
+  		$items = [];
+  		for($i = 0, $c = count($ibItems); $i < $c; $i++) {
+  			$item = $ibItems[$i];
+  			$itemInfo = getItemDetail($item->item->itemHash);
+  			array_push($items, $itemInfo);
+  		}
+  		$result->bounties = $items;
+  	} else {
+      $result->bounties = [];
+    }
+  } else {
+    $result->bounties = [];
+  }
+  if (array_key_exists('extended', $activity) && array_key_exists('objectives', $activity->extended)) {
+    $objectives = [];
+  	for($i = 0, $c = count($activity->extended->objectives); $i< $c; $i++){
+  		$objective = $activity->extended->objectives[$i];
+  		$objInfo = objectivesDefinition($objective->objectiveHash);
+  		$objInfo->progress = $objective->progress;
+  		array_push($objectives, $objInfo);
+  	}
+  	$result->objectives = $objectives;
+  } else {
+    $result->objectives = [];
+  }
+  if (array_key_exists('progressionHash', $activity)) {
+    $progression = getProgression($activity->progressionHash, $platform, $username, $character_id);
+  	if($progression){
+  		$activity->progress = [];
+  		$obj = new \stdClass;
+  		$obj->displayDescription = "Reputação";
+  		$obj->subDisplayDescription= "Rank";
+  		$obj->level = $progression->level;
+  		$obj->progress = $progression->progressToNextLevel;
+  		$obj->completionValue = $progression->nextLevelAt;
+  		array_push($activity->progress, $obj);
+      $result->progress = $activity->progress;
+  	} else {
+      $result->progress = [];
+    }
+  } else {
+    $result->progress = [];
+  }
+
   return $result;
 }
 
