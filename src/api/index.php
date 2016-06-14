@@ -466,20 +466,20 @@ $app->get('/nightbot/xur', function ($request, $response, $args) {
 
   $activity = $activities->xur;
 
-  $getXur = getXur();
-  $xurItems = "";
-  $items = [];
-  $saleItemCategories = array_reverse($getXur->saleItemCategories);
+  if ($activity->status->active) {
+    $getXur = getXur();
+    $xurItems = "";
+    $items = [];
+    $saleItemCategories = array_reverse($getXur->saleItemCategories);
     for($index = 0, $count = count($saleItemCategories[0]->saleItems); $index < $count; $index++){
         $item = getItemDetail($saleItemCategories[0]->saleItems[$index]->item->itemHash);
         $xurItems .=  $item->itemName.", ";
     }
     $bosses = rtrim($xurItems, ", ");
-    if ($activity->status->active) {
-      $res = "Xur chegou, e está vendendo: ".$xurItems;
-    } else {
-      $res = "Xur ainda não chegou.";
-    }
+    $res = "Xur chegou, e está vendendo: ".$xurItems;
+  } else {
+    $res = "Xur ainda não chegou.";
+  }
 
   $body = $response->getBody();
 	$body->write($res);
