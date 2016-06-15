@@ -19,8 +19,13 @@ describe('(Actions) Activity', () => {
 });
 
 describe('(Async Actions) Activity', () => {
+  beforeEach(() => {
+    nock.disableNetConnect();
+  });
+
   afterEach(() => {
     nock.cleanAll();
+    nock.enableNetConnect();
   });
 
   it('should fill in SET_ACTIVITY when fetching the right activity is done', () => {

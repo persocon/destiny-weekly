@@ -11,17 +11,22 @@ const mockStore = configureStore();
 describe('(Container) App (login screen)', () => {
   let store;
   let wrapper;
-  beforeEach(()=>{
+
+  beforeEach(() => {
     store = mockStore({app: ScreenLogin});
     wrapper = mount(<Provider store={store}><AppContainer /></Provider>);
   })
+
   it('should expect .appComponent to exist', ()=>{
     expect(wrapper.find('.appComponents')).to.exist;
   });
+
   it('should expect .loginComponent to exist', ()=>{
     expect(wrapper.find('.loginComponent')).to.exist;
   });
+
   it('should expect .loginComponent to have a submit button', ()=>{
     expect(wrapper.find('.loginComponentSubmit')).to.exist;
   });
+
 });

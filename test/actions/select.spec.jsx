@@ -27,8 +27,13 @@ describe('(Actions) Select', () => {
 });
 
 describe('(Async Actions) Select', () => {
+  beforeEach(() => {
+    nock.disableNetConnect();
+  });
+
   afterEach(() => {
     nock.cleanAll();
+    nock.enableNetConnect();
   });
 
   it('should fill in GET_OPTIONS when fetching all options is done', () => {

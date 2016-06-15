@@ -8,6 +8,7 @@ import * as actions from '../../src/app/javascript/actions/user.jsx';
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
 
+
 describe('(Actions) User', () => {
   it('should create an action to setCharacterId', () => {
     const character_id = 123456789;
@@ -37,9 +38,19 @@ describe('(Actions) User', () => {
 });
 
 describe('(Async Action) User form', () => {
+  beforeEach(() => {
+    nock.disableNetConnect();
+  });
+
+  afterEach(() => {
+    nock.cleanAll();
+    nock.enableNetConnect();
+  });
+
   it('should fill in SET_CHARACTER_LIST when fetching is done', () => {
+
     nock(apiUrl)
-    .get('/api/getCharacterList/1/tkrp1986')
+    .get('/api/getCharacterList')
     .reply(200, {characters: [
         {
           "character_id": "2305843009271058982"

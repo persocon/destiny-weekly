@@ -10,8 +10,7 @@ const setActivity = (result) => ({
 });
 
 const findActivity = (testing = '') => (dispatch, getState) => {
-  const { select } = getState();
-  const { user } = getState();
+  const { select, user } = getState();
   dispatch(startLoading());
   const activity = select.activity;
   const platform = user.user_info.platform;
