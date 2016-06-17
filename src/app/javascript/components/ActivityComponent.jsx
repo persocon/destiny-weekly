@@ -10,30 +10,9 @@ class ActivityComponent extends React.Component {
     this.props.getInitialActivity();
   }
   backgroundImage() {
-    let divStyle;
-    switch (this.props.activity.identifier) {
-      case 'xur': {
-        divStyle = {
-          backgroundImage: 'url(http://bungie.net/img/theme/bungienet/bgs/bg_xuravailable.jpg)',
-          backgroundPosition: '25% 0',
-        };
-        break;
-      }
-      case 'ironbanner': {
-        divStyle = {
-          backgroundImage: 'url(https://www.bungie.net/img/theme/destiny/bgs/event/ironbanner/bg_iron_banner_section_powermatters.jpg)',
-          backgroundPosition: 'right center',
-        };
-        break;
-      }
-      default: {
-        divStyle = {
-          backgroundImage: `url(${this.props.activity.backgroundImg})`,
-        };
-        break;
-      }
-    }
-
+    const divStyle = {
+      backgroundImage: `url(${this.props.activity.backgroundImg})`,
+    };
     return divStyle;
   }
 
@@ -92,13 +71,13 @@ class ActivityComponent extends React.Component {
   showBosses() {
     const bosses = this.props.activity.bosses.map((boss, index) => {
       let style = {
-        backgroundImage: `url(http://bungie.net${boss.image})`,
+        backgroundImage: `url(${boss.image})`,
       };
       return (
         <BigPictureComponent
           key={index}
           style={style}
-          title={boss.combatantName}
+          title={boss.title}
           subtitle={boss.description}
           description=""
         />

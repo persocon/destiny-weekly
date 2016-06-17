@@ -4,13 +4,13 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 class CharacterMiniListItemComponent extends React.Component {
   backgroundImage() {
     const divStyle = {
-      backgroundImage: `url(http://bungie.net${this.props.character.backgroundPath})`,
+      backgroundImage: `url(${this.props.character.backgroundPath})`,
     };
     return divStyle;
   }
   emblemImage() {
     const divStyle = {
-      backgroundImage: `url(http://bungie.net${this.props.character.emblemPath})`,
+      backgroundImage: `url(${this.props.character.emblemPath})`,
     };
     return divStyle;
   }

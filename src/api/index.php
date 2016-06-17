@@ -138,6 +138,20 @@ $app->get('/getCharacterList/{platform}/{username}', function($request, $respons
 		if($membership_id != 0){
 
 				$character_list = curl_character_list($platform, $membership_id);
+        for($i = 0, $c = count($character_list); $i < $c; $i++) {
+          $character_list[$i]->emblemPath = 'http://bungie.net'.$character_list[$i]->emblemPath;
+          $character_list[$i]->backgroundPath = 'http://bungie.net'.$character_list[$i]->backgroundPath;
+          if($character_list[$i]->genderDetails->genderName == "Masculino") {
+            $className = $character_list[$i]->classDetails->classNameMale;
+            $raceName = $character_list[$i]->raceDetails->raceNameMale;
+          } else {
+            $className = $character_list[$i]->classDetails->classNameFemale;
+            $raceName = $character_list[$i]->raceDetails->raceNameFemale;
+          }
+          $character_list[$i]->classDetails->className = $className;
+          $character_list[$i]->raceDetails->raceName = $raceName;
+        }
+
 				return $resWithExpires->withJson($character_list);
 		}else{
 			$res = new \stdClass;
@@ -548,7 +562,11 @@ function getItemDetail($hash){
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
 
 	$json = json_decode(curl_exec($ch));
-	return $json->Response->data->inventoryItem;
+  $res = new \stdClass;
+  $res->title = $json->Response->data->inventoryItem->itemName;
+  $res->description = $json->Response->data->inventoryItem->itemDescription;
+  $res->icon = 'http://bungie.net'.$json->Response->data->inventoryItem->icon;;
+	return $res;
 }
 
 function getBoss($id){
@@ -699,7 +717,21 @@ function cleanApi($activity, $username, $platform, $character_id) {
   }
 
   if (array_key_exists('extended', $activity) && array_key_exists('skullCategories', $activity->extended)) {
-    $result->modifiers = $activity->extended->skullCategories;
+    $result->modifiers = [];
+    for ($i = 0, $c = count($activity->extended->skullCategories); $i < $c; $i++) {
+      $obj = new \stdClass;
+      $obj->title = $activity->extended->skullCategories[$i]->title;
+      $obj->skulls = [];
+        for($j = 0, $ci = count($activity->extended->skullCategories[$i]->skulls); $j < $ci; $j++) {
+          $skull = new \stdClass;
+          $skull->title = $activity->extended->skullCategories[$i]->skulls[$j]->displayName;
+          $skull->description = $activity->extended->skullCategories[$i]->skulls[$j]->description;
+          $skull->icon = 'http://bungie.net'.$activity->extended->skullCategories[$i]->skulls[$j]->icon;
+          array_push($obj->skulls, $skull);
+        }
+      array_push($result->modifiers, $obj);
+    }
+
   } else {
     $result->modifiers = [];
   }
@@ -710,7 +742,12 @@ function cleanApi($activity, $username, $platform, $character_id) {
   	for($i = 0, $c = count($bosses); $i < $c; $i++) {
   		$boss = $bosses[$i];
   		$binfo = getBoss($boss->bossCombatantHash);
-  		array_push($bossInfo, $binfo);
+      $b = new \stdClass;
+      $b->title = $binfo->combatantName;
+      $b->description = $binfo->description;
+      $b->icon = $binfo->icon;
+      $b->image = 'http://bungie.net'.$binfo->image;
+  		array_push($bossInfo, $b);
   	}
     $result->bosses = $bossInfo;
   } else {

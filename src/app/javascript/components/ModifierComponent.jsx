@@ -3,18 +3,6 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 import ListItemComponent from './ListItemComponent';
 
 class ModifierComponent extends React.Component {
-  name(detail) {
-    if (detail.hasOwnProperty('displayName')) {
-      return detail.displayName;
-    }
-    return detail.itemName;
-  }
-  description(detail) {
-    if (detail.hasOwnProperty('description')) {
-      return detail.description;
-    }
-    return detail.itemDescription;
-  }
   completed(detail) {
     if (detail.hasOwnProperty('detail') && detail.detail.hasOwnProperty('completed')) {
       return detail.detail.completed;
@@ -23,14 +11,12 @@ class ModifierComponent extends React.Component {
   }
   showListItems() {
     const items = this.props.details.map((detail, index) => {
-      let displayName = this.name(detail);
-      let description = this.description(detail);
       let completed = this.completed(detail);
       return (
         <ListItemComponent
           key={index}
-          title={displayName}
-          description={description}
+          title={detail.title}
+          description={detail.description}
           icon={detail.icon}
           completed={completed}
         />

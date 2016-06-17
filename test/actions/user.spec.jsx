@@ -7,7 +7,7 @@ import * as actions from '../../src/app/javascript/actions/user.jsx';
 
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
-
+nock.disableNetConnect();
 
 describe('(Actions) User', () => {
   it('should create an action to setCharacterId', () => {
@@ -80,10 +80,7 @@ describe('(Async Action) User form', () => {
     }
 
     const store = mockStore({
-      user: {
-        character_list: [],
-        user_info: userLoggedIn
-      }
+      user: userLoggedIn
     });
     store.dispatch(actions.getCharacterList(apiUrl))
       .then(()=>{

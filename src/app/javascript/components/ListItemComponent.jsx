@@ -4,7 +4,7 @@ import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 class ListItem extends React.Component {
   image() {
     if (this.props.icon) {
-      const imgUrl = `http://bungie.net${this.props.icon}`;
+      const imgUrl = `${this.props.icon}`;
       return (<div className={this.className()}><img src={imgUrl} alt="" /></div>);
     }
     return null;

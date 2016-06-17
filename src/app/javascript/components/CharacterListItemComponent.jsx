@@ -2,27 +2,15 @@ import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 class CharacterListItemComponent extends React.Component {
-  raceDetails() {
-    if (this.props.character.genderDetails.genderName === 'Masculino') {
-      return this.props.character.raceDetails.raceNameMale;
-    }
-    return this.props.character.raceDetails.raceNameFemale;
-  }
-  classDetails() {
-    if (this.props.character.genderDetails.genderName === 'Masculino') {
-      return this.props.character.classDetails.classNameMale;
-    }
-    return this.props.character.classDetails.classNameFemale;
-  }
   backgroundImage() {
     const divStyle = {
-      backgroundImage: `url(http://bungie.net${this.props.character.backgroundPath})`,
+      backgroundImage: `url(${this.props.character.backgroundPath})`,
     };
     return divStyle;
   }
   emblemImage() {
     const divStyle = {
-      backgroundImage: `url(http://bungie.net${this.props.character.emblemPath})`,
+      backgroundImage: `url(${this.props.character.emblemPath})`,
     };
     return divStyle;
   }
@@ -40,6 +28,8 @@ class CharacterListItemComponent extends React.Component {
   render() {
     const characterLevel = this.props.character.characterLevel;
     const powerLevel = this.props.character.power_level;
+    const raceName = this.props.character.raceDetails.raceName;
+    const className = this.props.character.classDetails.className;
     return (
       <ReactCSSTransitionGroup
         transitionName={"fade"}
@@ -56,11 +46,11 @@ class CharacterListItemComponent extends React.Component {
             <div style={this.emblemImage()} className="characterListItemEmblem"></div>
             <div className="characterListItemText">
               <p>
-                {this.classDetails()}
+                {className}
                 <span className="characterListItemLevel">{characterLevel}</span>
               </p>
               <p>
-                <span className="characterListItemRaceDetails">{this.raceDetails()}</span>
+                <span className="characterListItemRaceDetails">{raceName}</span>
                 <span className="characterListItemLightLevel">{powerLevel}</span>
               </p>
             </div>
