@@ -176,7 +176,10 @@ $app->get('/selectActivity/{platform}/{username}/{character_id}', function ($req
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
 		if($active == 1 &&  $identifier != 'thetakenking' && $identifier != 'kingsfall' && $identifier != 'vaultofglass' && $identifier != 'crota' && $identifier != 'armsday' && $identifier != 'prisonofelders-playlist'){
 			$activity->display->identifier = $identifier;
-			array_push($selectActivity, $activity->display);
+      $ac = new \stdClass;
+      $ac->value = $activity->display->identifier;
+      $ac->title = $activity->display->advisorTypeCategory;
+			array_push($selectActivity, $ac);
 		}
 	}
 	$result->selectActivity = $selectActivity;

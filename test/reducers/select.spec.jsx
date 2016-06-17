@@ -34,7 +34,7 @@ describe('(Reducer) Select', () => {
   it('should reset options', () => {
     const initialState = {
     	activity: 'nightfall',
-    	options: [{advisorTypeCategory: 'Carregando...'}]
+    	options: [{title: 'Carregando...'}]
     }
     expect(reducer({}, {
       type: 'RESET_SELECT'

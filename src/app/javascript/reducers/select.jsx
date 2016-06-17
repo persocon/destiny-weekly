@@ -2,7 +2,7 @@ import update from 'react/lib/update';
 
 const initialState = {
   activity: 'nightfall',
-  options: [{ advisorTypeCategory: 'Carregando...' }],
+  options: [{ title: 'Carregando...' }],
 };
 
 const select = (state = initialState, action) => {

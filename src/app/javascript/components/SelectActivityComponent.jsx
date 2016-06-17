@@ -8,8 +8,8 @@ class SelectActivityComponent extends React.Component {
 
   showOptions() {
     const options = this.props.options.map((option, index) => {
-      const title = option.advisorTypeCategory;
-      const value = option.identifier;
+      const title = option.title;
+      const value = option.value;
       const disabled = option.disabled;
       return (
         <OptionComponent

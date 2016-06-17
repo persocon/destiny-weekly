@@ -41,7 +41,7 @@ describe('(Async Actions) Select', () => {
     .get('/api/selectActivity/2/tkrp1986')
     .reply(200, {options: [
             {
-              identifier: "nightfall"
+              value: "nightfall"
             }
           ]
       });
@@ -50,7 +50,7 @@ describe('(Async Actions) Select', () => {
       type: 'GET_OPTIONS',
       options: [
         {
-          identifier: "nightfall"
+          value: "nightfall"
         }
       ]
     };

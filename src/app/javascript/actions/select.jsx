@@ -24,8 +24,8 @@ const getOptions = (testing = '') => (dispatch, getState) => {
     .then(resolve => resolve.json())
     .then(json => {
       json.unshift({
-        advisorTypeCategory: 'Selecione Uma Atividade',
-        identifier: '',
+        title: 'Selecione Uma Atividade',
+        value: '',
         disabled: 'disabled',
       });
       dispatch(setOptions(json));
