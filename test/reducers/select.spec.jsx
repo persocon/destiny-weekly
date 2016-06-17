@@ -4,7 +4,7 @@ describe('(Reducer) Select', () => {
   it('should return the initial state', () => {
     const initialState = {
     	activity: 'nightfall',
-    	options: [{advisorTypeCategory: 'Carregando...'}]
+    	options: [{title: 'Carregando...'}]
     }
     expect(reducer(undefined, {})).to.eql(initialState)
   });
