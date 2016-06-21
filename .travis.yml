@@ -1,13 +1,8 @@
 language: node_js
 node_js:
   - 'node'
-env:
-  global:
-    - secure: "fUsICIrI3BrDGQANo6WcyyggjCU5acneBbn5OBN7SFTCJi6gdSZ0TTcEp1/r9EElp4+Yp5siuKFNCpoejltuu5gVaMgYVNwqEhFjZW5gmC+9uRR/uGMVc0QrWDASZ3J4fd5O1k2ZUykPCWsMpRi72JLw3Wwp6XvXWQLxTlEZ0iuE+EGvprApKhJj3c43lWFeVzI5Jzxdo8S2hqeJOWnej96tpEGvcf8On6EOmviSPVQC+MOlqomkkxeBgggC/XW95l16EpXhTC0GFm4OUd5+B4Bnqm08eJKqKbpilC4IsxnU/eZAHA5XGviOFVG23EejA0iOp1g6B6I4AVuGprOZvBzLapLm9VZXYMSD560X6fC+I+ml11XBBqaK6/cerxJkcCiK8usKpcaKgonxuByt/ECIppSDeWF+duvAAkrWmf03DyYvsK55R576rcLniG8v5vbFGmIqme33TqpwfXIvBGw20GBC1fbe8YeRFPQlpQR5478qvIBcbItEpAeJDwsYa1w3xn1z2Gd8Q8vzkQItgNW7gXxwH7UFrPrx+MwiuAoR68ju3cuJJL+VFc9LwF+TLmv8Gcmft8qbfi/Z79vWKXqTnzeuPDW8Tj0t+th+Cqkg815EQ/Xvm7jVP89ao6tYEffgvPm5AWm8NgRxmldXojiVW/0JdlO2uZKPoDdWSjw="
-    - secure: "m+QL8biuFtSN72ry6r+ULY7/bVBfAhQ9H9TfjoME/Mz+iodfWzsUtzG0hzIzgVo6+F4zCotLsA1PRfz7HABsROW4+AcdThQj8pkuT1kS1kHLJlSD/fCY/5d27GA0TEies/6Y9uLdAa0prk+ycjMsOg5rsTPP5o1qksna1adPG2LHFWyKvQE3N/4wKKJVFtQzv2Xny4it+7DmRs1xpRrbBCctIdZgAnfaGhvp45O9Sgie8Jem3PJscYVaaRRuLv8t0XYU2yjcEwy7okz2mHFzOTdKOoEqYuqT4ZfcQQlRCiLvrFvDY68+5Kx0P/HZvy7Zcrd9v49z9YZKXI73NJXr/RpVvXVYPf50V9WEd0+AA0t+URAl7ih/Z3oYCzqfqf4jrxH2lpeVrdjFvT8SVqUj5fNPf9AZJWbECrfspgVwKokD8XSc8gcEewjC9VD7X72MhuJT22HRa84tn1TISxjsekS2sEtYl1Z8tSLTNCfL2LKWNJPTZQ5slQEwi6KfwtnBJ/6McWkQ3wdgyFSwKueUIQHbaRUKxhJAqHi2IP4O7JBel8XF/8PGDpKLYLig/rHyLxyV7e86Nu2WssgxTYUdojOnXwKrqH9/snYJoe4L41selDrJJ5lS7nt7OVrFlpei3byg9bqBBD+uxCAcR0qwas+Qr1gGEMR6FC9QVK07Sz4="
-    - secure: "pKbh8O4mfi+hkz5uW9lBBnjF+PQdHlGxOpg1MfnVOTwsc+8/ofGZz4okK7rQ9manIFLfK1nvbH2zt2hq4xl3L0y0vN55RBk03pqUdcQt36i7KEPHMyMAZ9c8WAKt27F+wcLqJl22q4f5wxY1xbezDKEDqPIPfZPBNjadAZqG4aeDL5t9dGUvVtHYMd+KkK52QdtiWpz42uWtRjTfBmz41gmPUxzicMZQZNGJemoykjYttmpOOwfT2pZB2+01QKFqkWL0wcsE47Gy46kNLuxACXXaC8nx08HnBKGIXDy7M/A8guWcZaglLFlywZP4ShQ/khIzwRh6LLTJnd0vXtztiH92AUCt++M4/4jWLALoCERPI2sVmFswNm27j/d70aWcBmLcN6zebeFhGZBWqHr2NzKPmX+saoCxO6G4yiPorVI/Cagcg938wAsZkhDW7z6QNdareX9KT/lLQ/xuLoAmgfRGtYNHY1E6Ralzifpjfn8XXP25t0H52WPZyNEVfoFKGnLfFi0Ab/26sxG3HiakCqmdCCGKCxMS4C2WQuvgdkKiUPmWQpa+dOAGKJRLEnG7lN1uBQxuBkgTKRjkI/jK9vkqJiPtuifTUZ7VBV6VL0ZNJKZBUj0i9Z8wW/u8mxETHVqersbZT0WTeidSjL3YImSGKezIHONO6iWhc9HkOOU="
 addons:
-  ssh_known_hosts: $KNOW_HOST
+  ssh_known_hosts: $know_host
 before_install:
 - openssl aes-256-cbc -K $encrypted_e9c1975ff077_key -iv $encrypted_e9c1975ff077_iv
   -in deploy_rsa.enc -out deploy_rsa -d
@@ -23,6 +18,6 @@ after_success:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist $SSH_HOST_USER:$PATH
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist $ssh_host_user:$path
   on:
     branch: master
