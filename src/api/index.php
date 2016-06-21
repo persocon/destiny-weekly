@@ -566,9 +566,22 @@ function getItemDetail($hash){
 
 	$json = json_decode(curl_exec($ch));
   $res = new \stdClass;
-  $res->title = $json->Response->data->inventoryItem->itemName;
-  $res->description = $json->Response->data->inventoryItem->itemDescription;
-  $res->icon = 'http://bungie.net'.$json->Response->data->inventoryItem->icon;;
+  $inventory = $json->Response->data->inventoryItem;
+  if(array_key_exists('itemName', $inventory)) {
+    $res->title = $inventory->itemName;
+  } else {
+    $res->title = '';
+  }
+  if(array_key_exists('itemDescription', $inventory)) {
+    $res->description = $inventory->itemDescription;
+  } else {
+    $res->description = '';
+  }
+  if(array_key_exists('icon', $inventory)) {
+    $res->icon = 'http://bungie.net'.$inventory->icon;
+  } else {
+    $res->icon = '';
+  }
 	return $res;
 }
 
