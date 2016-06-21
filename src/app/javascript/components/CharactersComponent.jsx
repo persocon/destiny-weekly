@@ -15,11 +15,10 @@ class CharactersComponent extends React.Component {
     if (this.props.character_list.status === 'error') {
       return (<BackToLoginContainer />);
     }
-    let characterList = this.props.character_list.map((character, index) => {
-      return (
-        <CharacterListItemContainer character={character} key={index} />
-      );
-    });
+    let characterList = this.props.character_list.map((character, index) => (
+      <CharacterListItemContainer character={character} key={index} />
+      )
+    );
     return (<ul className="characterComponent top-bar">{characterList}</ul>);
   }
   render() {

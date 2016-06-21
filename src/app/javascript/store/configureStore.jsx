@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { persistStore } from 'redux-persist';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import appReducer from '../reducers/index';
 
 const enhancer = () => {
@@ -16,7 +16,8 @@ const enhancer = () => {
 export default function configureStore() {
   const store = createStore(
     appReducer,
-    enhancer()
+    enhancer(),
+    autoRehydrate()
   );
   persistStore(store, { blacklist: ['activity', 'select'] });
 

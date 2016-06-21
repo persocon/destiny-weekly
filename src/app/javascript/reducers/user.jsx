@@ -1,5 +1,4 @@
 import update from 'react/lib/update';
-import { REHYDRATE } from 'redux-persist/constants';
 
 const initialState = {
   character_list: [],
@@ -12,14 +11,6 @@ const initialState = {
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case REHYDRATE: {
-      const incoming = action.payload.user;
-      if (incoming) {
-        const incomingBecomeState = update(state, { $set: incoming });
-        return incomingBecomeState;
-      }
-      return state;
-    }
     case 'SET_CHARACTER_LIST': {
       const newState = update(state, {
         character_list: { $set: action.character_list },
