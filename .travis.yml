@@ -1,5 +1,10 @@
 language: node_js
 node_js:
   - "0.12"
+before_install:
+  - "npm --version"
+  - "phantomjs --version"
+install:
+  - "npm install"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
