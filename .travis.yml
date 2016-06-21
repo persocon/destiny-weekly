@@ -2,7 +2,9 @@ language: node_js
 node_js:
   - 'node'
 addons:
-  ssh_known_hosts: $know_host
+  ssh_known_hosts:
+    - $know_host
+    - $know_host_ip
 before_install:
 - openssl aes-256-cbc -K $encrypted_e9c1975ff077_key -iv $encrypted_e9c1975ff077_iv
   -in deploy_rsa.enc -out deploy_rsa -d
