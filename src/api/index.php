@@ -16,15 +16,15 @@ $app = new \Slim\App();
 // );
 // $cors = new \CorsSlim\CorsSlim($corsOptions);
 
-$whitelist = array(
-    '127.0.0.1',
-    '::1'
-);
-
-if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
-    // not valid
-    $app->add(new \CorsSlim\CorsSlim());
-}
+// $whitelist = array(
+//     '127.0.0.1',
+//     '::1'
+// );
+//
+// if(!in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+//     // not valid
+//     $app->add(new \CorsSlim\CorsSlim());
+// }
 
 
 $app->add(new \Slim\HttpCache\Cache('public', 43200));
