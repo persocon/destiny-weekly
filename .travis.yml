@@ -19,6 +19,6 @@ after_success:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet -e "ssh -o StrictHostKeyChecking=no" $TRAVIS_BUILD_DIR/dist $ssh_host_user:$path
+  script: rsync -r --delete-after --quiet -e "ssh -o StrictHostKeyChecking=no" $TRAVIS_BUILD_DIR/dist/ $ssh_host_user:$path
   on:
     branch: master
