@@ -490,7 +490,7 @@ $app->get('/nightbot/xur', function ($request, $response, $args) {
     $saleItemCategories = array_reverse($getXur->saleItemCategories);
     for($index = 0, $count = count($saleItemCategories[0]->saleItems); $index < $count; $index++){
         $item = getItemDetail($saleItemCategories[0]->saleItems[$index]->item->itemHash);
-        $xurItems .=  $item->itemName.", ";
+        $xurItems .=  $item->title.", ";
     }
     $bosses = rtrim($xurItems, ", ");
     $res = "Xur chegou, e está vendendo: ".$xurItems;
