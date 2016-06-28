@@ -255,33 +255,13 @@ $app->get('/ironbanner/{platform}/{username}/{character_id}', function ($request
 	$character_id = $request->getAttribute('character_id');
 	$activities = curl($platform, $username, $character_id);
 
-	$result = new \stdClass;
-
+	$activity = new \stdClass;
 	$activity = $activities->ironbanner;
 
-	$identifier = $activity->identifier;
-	if(array_key_exists('vendors', $activity)){
-		$ibItems = $activity->vendors[0]->saleItemCategories[1]->saleItems;
-		$items = [];
-		for($i = 0, $c = count($ibItems); $i < $c; $i++) {
-			$item = $ibItems[$i];
-			$itemInfo = getItemDetail($item->item->itemHash);
-			array_push($items, $itemInfo);
-		}
-		$activity->bounties = $items;
-	}
-  $progression = getProgression($activity->progressionHash, $platform, $username, $character_id);
-	if($progression){
-		$activity->progress = [];
-		$obj = new \stdClass;
-		$obj->displayDescription = "Reputação";
-		$obj->subDisplayDescription= "Rank";
-		$obj->level = $progression->level;
-		$obj->progress = $progression->progressToNextLevel;
-		$obj->completionValue = $progression->nextLevelAt;
-		array_push($activity->progress, $obj);
-	}
-	return $resWithExpires->withJson($activity);
+  $rs = cleanApi($activity, $username, $platform, $character_id);
+
+
+	return $resWithExpires->withJson($rs);
 });
 
 $app->get('/heroicstrike/{platform}/{username}/{character_id}', function ($request, $response, $args) {
