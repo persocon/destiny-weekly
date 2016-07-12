@@ -487,7 +487,7 @@ $app->get('/manifest', function ($request, $response, $args) {
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, 'http://www.bungie.net/platform/Destiny/Manifest/?lc=pt-br&definitions=true');
+	curl_setopt($ch, CURLOPT_URL, 'https://www.bungie.net/platform/Destiny/Manifest/?lc=pt-br&definitions=true');
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
 
@@ -514,12 +514,11 @@ function getActivity($hash) {
 	$apiKey = 'ea047e782f6d43a38bb427de080c5b5a';
 	$nf = curl_init();
 
-	$url = 'http://www.bungie.net/platform/Destiny/Manifest/Activity/'.$hash.'/?lc=pt-br&definitions=true';
+	$url = 'https://www.bungie.net/platform/Destiny/Manifest/Activity/'.$hash.'/?lc=pt-br&definitions=true';
 
 	curl_setopt($nf, CURLOPT_URL, $url);
 	curl_setopt($nf, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($nf, CURLOPT_HTTPHEADER, array('X-API-Key: ' . $apiKey));
-
 	$json = json_decode(curl_exec($nf));
 	return $json;
 }
