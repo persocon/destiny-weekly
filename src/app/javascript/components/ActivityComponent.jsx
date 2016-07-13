@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 import BigPictureComponent from './BigPictureComponent';
 import ModifierComponent from './ModifierComponent';
 import ObjectivesComponent from './ObjectivesComponent';
+import RaidComponent from './RaidComponent';
 import LoadingComponent from './LoadingComponent';
 
 class ActivityComponent extends React.Component {
@@ -86,6 +87,15 @@ class ActivityComponent extends React.Component {
 
     return bosses;
   }
+  showRaid() {
+    if (this.props.activity.raid.length >= 1) {
+      const raidComponent = this.props.activity.raid.map((raid, index) => {
+        return <RaidComponent {...raid} key={index} />;
+      });
+      return raidComponent;
+    }
+    return false;
+  }
   activity() {
     return (
       <div className="boxContent">
@@ -97,6 +107,8 @@ class ActivityComponent extends React.Component {
           description={this.props.activity.desc}
           icon={this.props.activity.icon}
         />
+
+      {this.showRaid()}
 
       {this.showProgression()}
 
