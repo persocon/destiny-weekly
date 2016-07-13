@@ -5,9 +5,19 @@ class SelectActivityComponent extends React.Component {
   componentDidMount() {
     this.props.getInitialOptions();
   }
-
   showOptions() {
-    const options = this.props.options.map((option, index) => {
+    const opts = this.props.options.map((option, index) => {
+      const title = option.title;
+      return (
+        <optgroup label={title} key={index}>
+          {this.mapOptions(option.activities)}
+        </optgroup>
+      );
+    });
+    return opts;
+  }
+  mapOptions(activities) {
+    const options = activities.map((option, index) => {
       const title = option.title;
       const value = option.value;
       const disabled = option.disabled;

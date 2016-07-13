@@ -4,7 +4,7 @@ describe('(Reducer) Select', () => {
   it('should return the initial state', () => {
     const initialState = {
     	activity: 'nightfall',
-    	options: [{title: 'Carregando...'}]
+    	options: [{title: 'Carregando...', activities: []}]
     }
     expect(reducer(undefined, {})).to.eql(initialState)
   });
@@ -22,7 +22,20 @@ describe('(Reducer) Select', () => {
   });
 
   it('should get options', () => {
-    const options = [{ identifier: 'nightfall' }, { identifier: 'ironbanner' }];
+    const options = [
+      {
+        title: 'vanguard',
+        activities: [
+          { identifier: 'nightfall' }
+        ]
+      },
+      {
+        title:'crucible',
+        activities: [
+          { identifier: 'ironbanner' }
+        ]
+      }
+    ];
     expect(
       reducer({options},{
         type: 'GET_OPTIONS',
@@ -34,7 +47,7 @@ describe('(Reducer) Select', () => {
   it('should reset options', () => {
     const initialState = {
     	activity: 'nightfall',
-    	options: [{title: 'Carregando...'}]
+    	options: [{title: 'Carregando...', activities:[]}]
     }
     expect(reducer({}, {
       type: 'RESET_SELECT'

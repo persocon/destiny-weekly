@@ -23,11 +23,6 @@ const getOptions = (testing = '') => (dispatch, getState) => {
   return fetch(url)
     .then(resolve => resolve.json())
     .then(json => {
-      json.unshift({
-        title: 'Selecione Uma Atividade',
-        value: '',
-        disabled: 'disabled',
-      });
       dispatch(setOptions(json));
     }
   );

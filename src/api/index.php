@@ -171,17 +171,53 @@ $app->get('/selectActivity/{platform}/{username}/{character_id}', function ($req
 	$result = new \stdClass;
 
 	$selectActivity = [];
+  $raid = [];
+  $crucible = [];
+  $vanguard = [];
+  $judgment_house = [];
 	foreach($activities as $key => $activity){
 		$identifier = $activity->identifier;
 		$active = ( isset($activity->status->active)&&!empty($activity->status->active) ? 1 : 0 );
-		if($active == 1 &&  $identifier != 'thetakenking' && $identifier != 'kingsfall' && $identifier != 'vaultofglass' && $identifier != 'crota' && $identifier != 'armsday' && $identifier != 'prisonofelders-playlist'){
+		if($active == 1 && $identifier != 'armsday' && $identifier != 'prisonofelders-playlist'){
 			$activity->display->identifier = $identifier;
       $ac = new \stdClass;
       $ac->value = $activity->display->identifier;
       $ac->title = $activity->display->advisorTypeCategory;
-			array_push($selectActivity, $ac);
+      if($identifier == 'kingsfall' || $identifier == 'vaultofglass' || $identifier == 'crota') {
+        array_push($raid, $ac);
+      }
+      if($identifier == 'trials' || $identifier == 'weeklycrucible' || $identifier == 'dailycrucible' || $identifier == 'ironbanner') {
+        array_push($crucible, $ac);
+      }
+      if($identifier == 'elderchallenge') {
+        array_push($judgment_house, $ac);
+      }
+
+      if($identifier == 'nightfall' || $identifier == 'heroicstrike' || $identifier == 'dailychapter') {
+        array_push($vanguard, $ac);
+      }
 		}
 	}
+  $vanvan = new \stdClass;
+  $vanvan->title = "Atividades da Vanguarda";
+  $vanvan->activities = $vanguard;
+  array_push($selectActivity, $vanvan);
+
+  $crisol = new \stdClass;
+  $crisol->title = "Atividades do Crisol";
+  $crisol->activities = $crucible;
+  array_push($selectActivity, $crisol);
+
+  $julgamento = new \stdClass;
+  $julgamento->title = "Atividades da Casa do Julgamento";
+  $julgamento->activities = $judgment_house;
+  array_push($selectActivity, $julgamento);
+
+  $raidizinha = new \stdClass;
+  $raidizinha->title = "RAIDS";
+  $raidizinha->activities = $raid;
+  array_push($selectActivity, $raidizinha);
+
 	$result->selectActivity = $selectActivity;
 	return $resWithExpires->withJson($selectActivity);
 });
@@ -207,6 +243,51 @@ $app->get('/nightfall/{platform}/{username}/{character_id}', function ($request,
 
 	$activity = new \stdClass;
 	$activity = $activities->nightfall;
+
+  $rs = cleanApi($activity, $username, $platform, $character_id);
+
+	return $resWithExpires->withJson($rs);
+});
+
+$app->get('/kingsfall/{platform}/{username}/{character_id}', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+	$platform = $request->getAttribute('platform');
+	$username = $request->getAttribute('username');
+	$character_id = $request->getAttribute('character_id');
+	$activities = curl($platform, $username, $character_id);
+
+	$activity = new \stdClass;
+	$activity = $activities->kingsfall;
+
+  $rs = cleanApi($activity, $username, $platform, $character_id);
+
+	return $resWithExpires->withJson($rs);
+});
+
+$app->get('/crota/{platform}/{username}/{character_id}', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+	$platform = $request->getAttribute('platform');
+	$username = $request->getAttribute('username');
+	$character_id = $request->getAttribute('character_id');
+	$activities = curl($platform, $username, $character_id);
+
+	$activity = new \stdClass;
+	$activity = $activities->crota;
+
+  $rs = cleanApi($activity, $username, $platform, $character_id);
+
+	return $resWithExpires->withJson($rs);
+});
+
+$app->get('/vaultofglass/{platform}/{username}/{character_id}', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+	$platform = $request->getAttribute('platform');
+	$username = $request->getAttribute('username');
+	$character_id = $request->getAttribute('character_id');
+	$activities = curl($platform, $username, $character_id);
+
+	$activity = new \stdClass;
+	$activity = $activities->vaultofglass;
 
   $rs = cleanApi($activity, $username, $platform, $character_id);
 
@@ -834,6 +915,41 @@ function cleanApi($activity, $username, $platform, $character_id) {
     }
   } else {
     $result->progress = [];
+  }
+
+  if($result->identifier == "kingsfall" || $result->identifier == 'vaultofglass' || $result->identifier == 'crota') {
+    $result->raid = [];
+    if(array_key_exists('activityTiers', $activity)) {
+      for($i = 0, $c = count($activity->activityTiers); $i < $c; $i++){
+        $obj = new \stdClass;
+        $obj->title = $activity->activityTiers[$i]->tierDisplayName;
+        $obj->completion = $activity->activityTiers[$i]->completion;
+        $obj->steps = $activity->activityTiers[$i]->steps;
+        $obj->modifiers = [];
+        if(array_key_exists('skullCategories', $activity->activityTiers[$i])) {
+          for($j = 0, $x = count($activity->activityTiers[$i]->skullCategories); $j < $x; $j++){
+            $xpto = new \stdClass;
+            $xpto->title = $activity->activityTiers[$i]->skullCategories[$j]->title;
+            $xpto->skulls = [];
+            if(array_key_exists('skulls', $activity->activityTiers[$i]->skullCategories[$j])) {
+              for($z = 0, $s = count($activity->activityTiers[$i]->skullCategories[$j]->skulls); $z < $s; $z++){
+                $sk = new \stdClass;
+                $sk->title = $activity->activityTiers[$i]->skullCategories[$j]->skulls[$z]->displayName;
+                $sk->description = $activity->activityTiers[$i]->skullCategories[$j]->skulls[$z]->description;
+                $sk->icon = 'http://bungie.net'.$activity->activityTiers[$i]->skullCategories[$j]->skulls[$z]->icon;
+                array_push($xpto->skulls, $sk);
+              }
+            }
+            array_push($obj->modifiers, $xpto);
+          }
+        }
+        array_push($result->raid, $obj);
+      }
+    } else {
+      $result->raid = [];
+    }
+  } else {
+    $result->raid = [];
   }
 
   return $result;
