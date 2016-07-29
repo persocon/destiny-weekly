@@ -193,7 +193,7 @@ $app->get('/selectActivity/{platform}/{username}/{character_id}', function ($req
         array_push($judgment_house, $ac);
       }
 
-      if($identifier == 'nightfall' || $identifier == 'heroicstrike' || $identifier == 'dailychapter') {
+      if($identifier == 'nightfall' || $identifier == 'heroicstrike' || $identifier == 'dailychapter' || $identifier == 'xur') {
         array_push($vanguard, $ac);
       }
 		}
