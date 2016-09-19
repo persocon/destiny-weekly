@@ -8,47 +8,25 @@ import * as actions from '../../src/app/javascript/actions/activity.jsx';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
+const dispatch = sinon.spy();
+const getState = () => ({
+  select: {
+    activity: 'dailychapter',
+  },
+  user: userLoggedIn,
+});
 
 describe('(Actions) Activity', () => {
   it('should create an action to resetActivity', () => {
     const expectedAction = {
       type: 'RESET_ACTIVITY'
     }
-    expect(actions.resetActivity()).to.eql(expectedAction);
-  });
-});
-
-describe('(Async Actions) Activity', () => {
-  beforeEach(() => {
-    nock.disableNetConnect();
+    expect(actions.resetActivity(apiUrl)).to.eql(expectedAction);
   });
 
-  afterEach(() => {
-    nock.cleanAll();
-    nock.enableNetConnect();
+  it('should dispatch a correctly formatted findActivity action', () => {
+    actions.findActivity()(dispatch, getState);
+    expect(dispatch).to.have.been.called;
+    dispatch.reset();
   });
-
-  it('should fill in SET_ACTIVITY when fetching the right activity is done', () => {
-    nock(apiUrl)
-    .get('/api/nightfall/2/tkrp1986/2305843009345804418')
-    .reply(200, { activity: activityFull });
-
-    const expectedAction = {
-      type: 'SET_ACTIVITY',
-      activity: activityFull
-    };
-
-    const store = mockStore({
-      user: userLoggedIn,
-      select: {
-        activity: 'nightfall',
-      }
-    });
-
-    const result = store.dispatch(actions.findActivity(apiUrl))
-    result.then(()=>{
-      expect(store.getActions()[0]).to.equal(expectedAction);
-    });
-  });
-
 });
