@@ -1,5 +1,4 @@
 import 'isomorphic-fetch';
-import nock from 'nock';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { activityFull, userLoggedIn } from './mock.jsx';
