@@ -23,6 +23,7 @@ const getCharacterList = (testing = '') => (dispatch, getState) => {
   return fetch(url)
   .then(response => response.json())
   .then(json => {
+    console.log(json);
     dispatch(setCharacterList(json));
   });
 };

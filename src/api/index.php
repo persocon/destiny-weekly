@@ -183,7 +183,7 @@ $app->get('/selectActivity/{platform}/{username}/{character_id}', function ($req
       $ac = new \stdClass;
       $ac->value = $activity->display->identifier;
       $ac->title = $activity->display->advisorTypeCategory;
-      if($identifier == 'kingsfall' || $identifier == 'vaultofglass' || $identifier == 'crota') {
+      if($identifier == 'wrathofthemachine' || $identifier == 'kingsfall' || $identifier == 'vaultofglass' || $identifier == 'crota') {
         array_push($raid, $ac);
       }
       if($identifier == 'trials' || $identifier == 'weeklycrucible' || $identifier == 'dailycrucible' || $identifier == 'ironbanner') {
@@ -258,6 +258,21 @@ $app->get('/kingsfall/{platform}/{username}/{character_id}', function ($request,
 
 	$activity = new \stdClass;
 	$activity = $activities->kingsfall;
+
+  $rs = cleanApi($activity, $username, $platform, $character_id);
+
+	return $resWithExpires->withJson($rs);
+});
+
+$app->get('/wrathofthemachine/{platform}/{username}/{character_id}', function ($request, $response, $args) {
+	$resWithExpires = $this->cache->withExpires($response, time() + 3600);
+	$platform = $request->getAttribute('platform');
+	$username = $request->getAttribute('username');
+	$character_id = $request->getAttribute('character_id');
+	$activities = curl($platform, $username, $character_id);
+
+	$activity = new \stdClass;
+	$activity = $activities->wrathofthemachine;
 
   $rs = cleanApi($activity, $username, $platform, $character_id);
 
@@ -917,7 +932,7 @@ function cleanApi($activity, $username, $platform, $character_id) {
     $result->progress = [];
   }
 
-  if($result->identifier == "kingsfall" || $result->identifier == 'vaultofglass' || $result->identifier == 'crota') {
+  if($result->identifier == "wrathofthemachine" || $result->identifier == "kingsfall" || $result->identifier == 'vaultofglass' || $result->identifier == 'crota') {
     $result->raid = [];
     if(array_key_exists('activityTiers', $activity)) {
       for($i = 0, $c = count($activity->activityTiers); $i < $c; $i++){

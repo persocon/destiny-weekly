@@ -440,6 +440,25 @@ blockquote {
     .menuComponent .menuComponentLogOut svg {
       transition: fill .5s ease-in-out; }
 
+.stepBox {
+  background: #181D25;
+  padding: 10px 15px;
+  margin: 10px 0; }
+  .stepBox .stepItems {
+    width: 100%;
+    height: 5px;
+    display: flex;
+    flex-direction: row;
+    margin: 5px auto; }
+    .stepBox .stepItems .stepItem {
+      height: 5px;
+      flex-grow: 1;
+      margin: 0px 3px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.5); }
+      .stepBox .stepItems .stepItem.is-completed {
+        background: #f2c161; }
+
 .icon--exit {
   width: 32px;
   height: auto;
