@@ -27,9 +27,9 @@ var config = {
     'react/lib/ReactContext': true
   },
   output: {
-    path: path.resolve(__dirname, 'javascript'),
-    publicPath: 'public/javascript',
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'public'),
+    publicPath: 'public',
+    filename: 'javascript/bundle.js'
   },
   module : {
     noParse: [
@@ -51,7 +51,7 @@ var config = {
     inline: true
   },
   plugins: [
-    new ExtractTextPlugin("style.css"),
+    new ExtractTextPlugin("stylesheet/style.css"),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     })

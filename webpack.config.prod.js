@@ -27,8 +27,8 @@ var config = {
     'react/lib/ReactContext': true
   },
   output: {
-    path: BUILD_DIR+'/javascript/',
-    filename: 'bundle.js'
+    path: BUILD_DIR+'/',
+    filename: 'javascript/bundle.js'
   },
   module : {
     noParse: [
@@ -47,7 +47,7 @@ var config = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("style.css"),
+    new ExtractTextPlugin("stylesheet/style.css"),
     new webpack.optimize.UglifyJsPlugin({
         compress: {
             warnings: false
