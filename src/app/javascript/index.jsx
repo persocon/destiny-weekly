@@ -13,7 +13,7 @@ import App from './containers/AppContainer';
 */
 
 /* eslint-disable no-unused-vars */
-import Style from '../stylesheet/style.scss';
+import '../stylesheet/style.scss';
 /* eslint-enable no-unused-vars */
 
 

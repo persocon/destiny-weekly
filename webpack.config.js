@@ -6,7 +6,7 @@ var BUILD_DIR = path.resolve(__dirname, 'src/public');
 var APP_DIR = path.resolve(__dirname, 'src/app');
 
 var config = {
-  entry: APP_DIR + '/javascript/index.jsx',
+  entry: ['babel-polyfill', APP_DIR + '/javascript/index.jsx'],
   resolve: {
     alias: {
         'sinon': 'sinon/pkg/sinon'
@@ -19,7 +19,7 @@ var config = {
     ],
     // allows you to require without the .js at end of filenames
     // import Component from 'component' vs. import Component from 'component.js'
-    extensions: ['', '.js', '.json', '.jsx']
+    extensions: ['', '.js', '.json', '.jsx', '.scss']
   },
   externals: {
     'cheerio': 'window',
@@ -27,7 +27,8 @@ var config = {
     'react/lib/ReactContext': true
   },
   output: {
-    path: BUILD_DIR+'/javascript/',
+    path: path.resolve(__dirname, 'javascript'),
+    publicPath: 'public/javascript',
     filename: 'bundle.js'
   },
   module : {
@@ -42,12 +43,15 @@ var config = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(['css','sass'])
+        loader: ExtractTextPlugin.extract('css!sass')
       }
     ]
   },
+  devServer: {
+    inline: true
+  },
   plugins: [
-    new ExtractTextPlugin("../stylesheet/style.css"),
+    new ExtractTextPlugin("style.css"),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     })

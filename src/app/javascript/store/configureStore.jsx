@@ -1,12 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import appReducer from '../reducers/index';
 
 const enhancer = () => {
   if (process.env.NODE_ENV === 'development') {
     return compose(
-      applyMiddleware(thunk),
+      // applyMiddleware(thunk),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     );
   }

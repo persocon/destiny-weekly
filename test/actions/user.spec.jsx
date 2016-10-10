@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { userLoggedIn } from './mock.jsx';
+import { userLoggedIn, getCharacterList } from './mock.jsx';
 
 import * as actions from '../../src/app/javascript/actions/user.jsx';
 

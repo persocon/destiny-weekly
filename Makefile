@@ -3,6 +3,7 @@
 WEBPACK_CMD = node_modules/.bin/webpack
 WEBPACK_ARGS = --config webpack.config.js --progress --colors --display-error-details
 WEBPACK_ARGS_DIST = --config webpack.config.prod.js --progress --colors --display-error-details
+WEBPACK_DEV_SERVER = node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src/ --progress --colors
 KARMA_CMD = node_modules/.bin/karma
 KARMA_ARGS =  start karma.config.js
 LINT_CMD = node_modules/eslint/bin/eslint.js
@@ -28,14 +29,13 @@ help:
 
 watch: ## Starts Webpack Watch
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Running Webpack Watch${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
-	$(WEBPACK_CMD) $(WEBPACK_ARGS) --watch
+	$(WEBPACK_DEV_SERVER)
 
 dist: ## Build for Production
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Copying images${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
 	mkdir -p dist/public
+	mkdir -p dist/public/images
 	cp -R src/public/images/ dist/public/images/
-	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Copying API${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
-	cp -R src/api/ dist/api/
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Copying index file${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"
 	cp src/index.html dist/index.html
 	@echo "${CYAN}${CLOUD}${NO_COLOR} ${GREEN}Webpack Building${NO_COLOR} ${CYAN}${ARROW}${NO_COLOR}"

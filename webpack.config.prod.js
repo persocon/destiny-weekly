@@ -47,7 +47,7 @@ var config = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("../stylesheet/style.css"),
+    new ExtractTextPlugin("style.css"),
     new webpack.optimize.UglifyJsPlugin({
         compress: {
             warnings: false

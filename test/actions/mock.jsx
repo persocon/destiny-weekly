@@ -1,3 +1,52 @@
+export const getCharacterList = [
+  {
+    character_id: "2305843009359370836",
+    power_level: 334,
+    raceHash: 898834093,
+    genderHash: 3111576190,
+    classHash: 3655393761,
+    percentToNextLevel: 0,
+    emblemPat: "http:\/\/bungie.net\/common\/destiny_content\/icons\/9b0ff3d80b061515b69c2f842375295d.jpg",
+    backgroundPath: "http:\/\/bungie.net\/common\/destiny_content\/icons\/445dec7c65a4946768c1183cd4e34d42.jpg",
+    characterLevel: 40,
+    classDetails: {
+      classHash: 3655393761,
+      classType: 0,
+      className: "Tit\u00e3",
+      classNameMale: "Tit\u00e3",
+      classNameFemale: "Tit\u00e3",
+      classIdentifier: "CLASS_TITAN",
+      mentorVendorIdentifier: "VENDOR_TITAN_MENTOR",
+      hash: 3655393761,
+      index: 0,
+      redacted: false
+    },
+    genderDetails: {
+      genderHash: 3111576190,
+      genderType: 0,
+      genderName: "Masculino",
+      genderDescription: "",
+      hash: 3111576190,
+      index: 0,
+      redacted: false
+    },
+    raceDetails: {
+      raceHash: 898834093,
+      raceType: 2,
+      raceName: "Exo macho",
+      raceNameMale: "Exo macho",
+      raceNameFemale: "Exo f\u00eamea",
+      raceDescription: "M\u00e1quinas conscientes, criadas para uma guerra h\u00e1 muito esquecida.",
+      hash: 898834093,
+      index:0,
+      redacted: false
+    }
+  }
+];
+/*
+* ,{"character_id":"2305843009345804418","power_level":335,"raceHash":3887404748,"genderHash":3111576190,"classHash":671679327,"percentToNextLevel":0,"emblemPath":"http:\/\/bungie.net\/common\/destiny_content\/icons\/91c40e6a83434d0e07be8b8713c7c03a.jpg","backgroundPath":"http:\/\/bungie.net\/common\/destiny_content\/icons\/995709b6fd7d625367c52e1dd48c4500.jpg","characterLevel":40,"classDetails":{"classHash":671679327,"classType":1,"className":"Ca\u00e7ador","classNameMale":"Ca\u00e7ador","classNameFemale":"Ca\u00e7adora","classIdentifier":"CLASS_HUNTER","mentorVendorIdentifier":"VENDOR_HUNTER_MENTOR","hash":671679327,"index":0,"redacted":false},"genderDetails":{"genderHash":3111576190,"genderType":0,"genderName":"Masculino","genderDescription":"","hash":3111576190,"index":0,"redacted":false},"raceDetails":{"raceHash":3887404748,"raceType":0,"raceName":"Humano","raceNameMale":"Humano","raceNameFemale":"Humana","raceDescription":"Humano","hash":3887404748,"index":0,"redacted":false}},{"character_id":"2305843009271058982","power_level":334,"raceHash":2803282938,"genderHash":3111576190,"classHash":2271682572,"percentToNextLevel":0,"emblemPath":"http:\/\/bungie.net\/common\/destiny_content\/icons\/91c40e6a83434d0e07be8b8713c7c03a.jpg","backgroundPath":"http:\/\/bungie.net\/common\/destiny_content\/icons\/995709b6fd7d625367c52e1dd48c4500.jpg","characterLevel":40,"classDetails":{"classHash":2271682572,"classType":2,"className":"Arcano","classNameMale":"Arcano","classNameFemale":"Arcana","classIdentifier":"CLASS_WARLOCK","mentorVendorIdentifier":"VENDOR_WARLOCK_MENTOR","hash":2271682572,"index":0,"redacted":false},"genderDetails":{"genderHash":3111576190,"genderType":0,"genderName":"Masculino","genderDescription":"","hash":3111576190,"index":0,"redacted":false},"raceDetails":{"raceHash":2803282938,"raceType":1,"raceName":"Desperto","raceNameMale":"Desperto","raceNameFemale":"Desperta","raceDescription":"Os Despertos sobreviveram ao Colapso no espa\u00e7o extra-solar, mas isso os mudou para sempre.","hash":2803282938,"index":0,"redacted":false}}
+*/
+
 export const userLoggedIn = {
   character_list: [],
   user_info: {
