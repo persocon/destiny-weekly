@@ -26,6 +26,9 @@ const user = (state = initialState, action) => {
       });
       return userState;
     }
+    case 'GET_USER': {
+      return state;
+    }
     case 'SET_USER_CHARACTER': {
       const userStateCharacter = update(state, {
         user_info: {

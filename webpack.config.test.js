@@ -21,6 +21,17 @@ var config = {
   node: {
     fs: "empty"
   },
+  // babel: {
+  //   presets: ['es2015', 'react'],
+  // },
+  // isparta: {
+  //   embedSource: true,
+  //   noAutoWrap: true,
+  //   // these babel options will be passed only to isparta and not to babel-loader
+  //   babel: {
+  //     presets: ['es2015', 'react']
+  //   }
+  // },
   module: {
     noParse: [
         /node_modules\/sinon\//,
@@ -32,14 +43,14 @@ var config = {
          /node_modules/,
          /test/
        ],
-       loader: 'isparta-instrumenter-loader'
+       loader: 'babel-loader'
      },
    ],
     loaders: [
       {
         exclude: /node_modules/,
+        test: /\.jsx?$/,
         loader: 'babel-loader',
-        test: /\.jsx?$/
       }
     ]
   },

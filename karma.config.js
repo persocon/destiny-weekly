@@ -7,14 +7,14 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     singleRun: !argv.watch,
     frameworks: ['mocha', 'chai-as-promised','chai'],
-    reporters: ['spec', 'coverage'],
+    reporters: ['spec'],
     files: [
       'node_modules/babel-polyfill/dist/polyfill.js',
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
       './test/test.bundle.js'
     ],
     plugins: [
-      'karma-coverage',
+      // 'karma-coverage',
       'karma-mocha',
       'karma-chai',
       'karma-webpack',
@@ -30,16 +30,16 @@ module.exports = function(config) {
     webpackMiddleware: {
       noInfo: true,
     },
-    coverageReporter: {
-      reporters: [
-        {'type': 'text'},
-        {'type': 'html', dir: 'coverage'},
-        {'type': 'lcov'}
-      ],
-      instrumenters: { isparta : require('isparta') },
-      instrumenter: {
-        '**/*.js': 'isparta'
-      }
-    }
+    // coverageReporter: {
+    //   reporters: [
+    //     {'type': 'text'},
+    //     {'type': 'html', dir: 'coverage'},
+    //     {'type': 'lcov'}
+    //   ],
+    //   instrumenters: { isparta : require('isparta') },
+    //   instrumenter: {
+    //     '**/*.js': 'isparta'
+    //   }
+    // }
   });
 }

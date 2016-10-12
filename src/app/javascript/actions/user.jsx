@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 const resetUser = () => ({ type: 'RESET_USER' });
 
 const setUser = (platform, username) => ({
@@ -10,24 +8,6 @@ const setUser = (platform, username) => ({
   },
 });
 
-const setCharacterList = (result) => ({
-  type: 'SET_CHARACTER_LIST',
-  character_list: result,
-});
-
-const getCharacterList = (testing = '') => (dispatch, getState) => {
-  const { user } = getState();
-  const platform = user.user_info.platform;
-  const username = user.user_info.username;
-  const url = `${testing}/api/getCharacterList/${platform}/${username}`;
-  return fetch(url)
-  .then(response => response.json())
-  .then(json => {
-    console.log(json);
-    dispatch(setCharacterList(json));
-  });
-};
-
 const setCharacterId = (characterId) => ({
   type: 'SET_USER_CHARACTER',
   user_info: {
@@ -35,6 +15,12 @@ const setCharacterId = (characterId) => ({
   },
 });
 
+const getUser = (userInfo) => ({
+  type: 'GET_USER',
+  user_info: userInfo,
+});
+
+
 const getCharacterId = () => ({ type: 'GET_USER_CHARACTER' });
 
-export { setCharacterId, getCharacterId, getCharacterList, resetUser, setUser };
+export { setCharacterId, getCharacterId, resetUser, setUser, getUser };

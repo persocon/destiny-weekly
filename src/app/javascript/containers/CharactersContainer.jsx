@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
-import { getCharacterList } from '../actions/user';
+import { getCharacterList } from '../sagas/user';
 import Component from '../components/CharactersComponent';
 
 const mapStateToProps = (state) => ({ character_list: state.user.character_list });
 
 const mapDispatchToProps = (dispatch) => ({
   onInit: () => {
-    dispatch(getCharacterList());
+    dispatch({ type: 'SET_CHARACTER_LIST_REQUEST' });
   },
 });
 
