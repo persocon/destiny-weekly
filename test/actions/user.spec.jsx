@@ -3,11 +3,11 @@ import { select, call, put } from 'redux-saga/effects';
 import { userLoggedIn, getCharacterList } from './mock.jsx';
 
 import * as actions from '../../src/app/javascript/actions/user.jsx';
-import { doGetCharacterList } from '../../src/app/javascript/sagas/user.jsx';
+import { doGetCharacterList, getUserInfo } from '../../src/app/javascript/sagas/user.jsx';
 import { fetchCharacterList } from '../../src/app/javascript/services/api';
 
 const dispatch = sinon.spy();
-const getState = () => ({
+const getState = (state) => ({
   user: userLoggedIn,
 });
 const iterator = doGetCharacterList();
@@ -39,19 +39,16 @@ describe('(Actions) User', () => {
   });
 
   it('should jump user saga select', () => {
-    let next = iterator.next(getState);
-    // expect(next.value).to.eql(select(getState));
+    expect(iterator.next(getUserInfo).value).to.eql(select(getUserInfo));
   });
 
   it('should dispatch user sagas call', () => {
     const fetchUrl = `getCharacterList/2/tkrp1986`;
-    let next = iterator.next();
-    console.log("boludo", next.value);
-    // expect(iterator.next().value).to.eql(call(fetchCharacterList, fetchUrl));
+    expect(iterator.next(getState().user).value).to.eql(call(fetchCharacterList, fetchUrl))
   });
-  // it('should dispatch user sagas put', () => {
-  //   expect(iterator.next(getCharacterList).value).to.eql(put({type: 'SET_CHARACTER_LIST', character_list: getCharacterList}))
-  // });
+  it('should dispatch user sagas put', () => {
+    expect(iterator.next(getCharacterList).value).to.eql(put({type: 'SET_CHARACTER_LIST', character_list: getCharacterList}))
+  });
 
 
 });
