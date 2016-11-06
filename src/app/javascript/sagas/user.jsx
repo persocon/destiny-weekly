@@ -1,8 +1,7 @@
 import { takeEvery } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 import * as Api from '../services/api';
-
-export const getUserInfo = state => state.user;
+import { getUserInfo } from './selectors';
 
 export function* doGetCharacterList() {
   const { user_info } = yield select(getUserInfo);

@@ -1,6 +1,7 @@
 import { select, call, put } from 'redux-saga/effects';
 import { userLoggedIn, activitySmall } from '../actions/mock.jsx';
-import { doGetOptions, getUserInfo } from '../../src/app/javascript/sagas/select.jsx';
+import { doGetOptions } from '../../src/app/javascript/sagas/select.jsx';
+import { getUserInfo } from '../../src/app/javascript/sagas/selectors.jsx';
 import { fnFetch } from '../../src/app/javascript/services/api';
 
 const dispatch = sinon.spy();
