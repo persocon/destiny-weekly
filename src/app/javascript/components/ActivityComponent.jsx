@@ -89,9 +89,10 @@ class ActivityComponent extends React.Component {
   }
   showRaid() {
     if (this.props.activity.raid.length >= 1) {
-      const raidComponent = this.props.activity.raid.map((raid, index) => {
-        return <RaidComponent {...raid} key={index} />;
-      });
+      const raidComponent = this.props.activity.raid.map((raid, index) => (
+        <RaidComponent {...raid} key={index} />
+        )
+      );
       return raidComponent;
     }
     return false;
