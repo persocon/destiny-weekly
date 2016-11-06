@@ -5,8 +5,9 @@ import Component from '../components/ActivityComponent';
 const mapStateToProps = (state) => ({ activity: state.activity });
 
 const mapDispatchToProps = (dispatch) => ({
-  getInitialActivity: () => {
-    dispatch(findActivity());
+  onInit: () => {
+    //need fix
+    //dispatch(findActivity());
   },
 });
 

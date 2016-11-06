@@ -8,7 +8,7 @@ import LoadingComponent from './LoadingComponent';
 
 class ActivityComponent extends React.Component {
   componentDidMount() {
-    this.props.getInitialActivity();
+    this.props.onInit();
   }
   backgroundImage() {
     const divStyle = {
@@ -138,7 +138,7 @@ class ActivityComponent extends React.Component {
 }
 
 ActivityComponent.propTypes = {
-  getInitialActivity: PropTypes.func.isRequired,
+  onInit: PropTypes.func.isRequired,
   activity: PropTypes.object.isRequired,
 };
 

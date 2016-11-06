@@ -3,7 +3,7 @@ import OptionComponent from './OptionComponent';
 
 class SelectActivityComponent extends React.Component {
   componentDidMount() {
-    this.props.getInitialOptions();
+    this.props.onInit();
   }
   showOptions() {
     const opts = this.props.options.map((option, index) => {
@@ -52,7 +52,7 @@ class SelectActivityComponent extends React.Component {
 
 SelectActivityComponent.propTypes = {
   onSelectChange: PropTypes.func.isRequired,
-  getInitialOptions: PropTypes.func.isRequired,
+  onInit: PropTypes.func.isRequired,
   options: PropTypes.array,
   activity: PropTypes.string,
 };
