@@ -7,7 +7,7 @@ const mapStateToProps = (state) => ({ activity: state.activity });
 const mapDispatchToProps = (dispatch) => ({
   onInit: () => {
     //need fix
-    //dispatch(findActivity());
+    dispatch({ type: 'SET_ACTIVITY_REQUEST' });
   },
 });
 

@@ -872,3 +872,9 @@ export const activitySmall = {
       placeHash: 596872852
     }
   }
+
+export const getActivityInfo = {
+  select: {
+    activity: 'nightfall',
+  }
+}

@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onSelectChange: (activity) => {
     dispatch(changeApiUrl(activity));
-    dispatch(findActivity());
+    dispatch({ type: 'SET_ACTIVITY_REQUEST' });
   },
   onInit: () => {
     dispatch({ type: 'GET_OPTIONS_REQUEST' });
