@@ -4,7 +4,7 @@ WEBPACK_CMD = node_modules/.bin/webpack
 WEBPACK_ARGS = --config webpack.config.js --progress --colors --display-error-details
 WEBPACK_ARGS_DIST = --config webpack.config.prod.js --progress --colors --display-error-details
 WEBPACK_DEV_SERVER = node_modules/webpack-dev-server/bin/webpack-dev-server.js --content-base src/ --progress --colors
-KARMA_CMD = node_modules/.bin/karma
+KARMA_CMD = NODE_ENV=test node_modules/.bin/karma
 KARMA_ARGS =  start karma.config.js
 LINT_CMD = node_modules/eslint/bin/eslint.js
 LINT_ARGS = ./src/app/javascript/ --ext .jsx,.js
