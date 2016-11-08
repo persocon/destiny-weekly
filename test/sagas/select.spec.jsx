@@ -15,6 +15,10 @@ describe('(Sagas) Select', () => {
     expect(iterator.next(selectUserInfo).value).to.eql(select(selectUserInfo));
   });
 
+  it('should dispatch select sagas put in loading mode', () => {
+    expect(iterator.next(getState().user).value).to.eql(put({type: 'RESET_SELECT'}));
+  });
+
   it('should dispatch select sagas call', () => {
     const fetchUrl = `selectActivity/2/tkrp1986/2305843009345804418`;
     expect(iterator.next(getState().user).value).to.eql(call(fnFetch, fetchUrl))

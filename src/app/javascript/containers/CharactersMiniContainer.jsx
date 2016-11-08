@@ -1,7 +1,5 @@
 import { connect } from 'react-redux';
 import { setCharacterId } from '../actions/user';
-import { findActivity } from '../actions/activity';
-import { getOptions } from '../actions/select';
 import Component from '../components/CharactersMiniComponent';
 
 const mapStateToProps = (state) => ({
@@ -14,8 +12,8 @@ const mapDispatchToProps = (dispatch) => ({
     event.preventDefault();
     const href = event.currentTarget.getAttribute('href');
     dispatch(setCharacterId(href));
-    dispatch(getOptions());
-    dispatch(findActivity());
+    dispatch({ type: 'GET_OPTIONS_REQUEST' });
+    dispatch({ type: 'SET_ACTIVITY_REQUEST' });
   },
 });
 
