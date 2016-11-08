@@ -1,7 +1,7 @@
 import { select, call, put } from 'redux-saga/effects';
 import { userLoggedIn, getCharacterList } from '../actions/mock.jsx';
 import { doGetCharacterList } from '../../src/app/javascript/sagas/user.jsx';
-import { getUserInfo } from '../../src/app/javascript/sagas/selectors.jsx';
+import { selectUserInfo } from '../../src/app/javascript/sagas/selectors.jsx';
 import { fnFetch } from '../../src/app/javascript/services/api';
 
 const dispatch = sinon.spy();
@@ -12,7 +12,7 @@ const iterator = doGetCharacterList();
 
 describe('(Sagas) User', () => {
   it('should dispatch user saga select', () => {
-    expect(iterator.next(getUserInfo).value).to.eql(select(getUserInfo));
+    expect(iterator.next(selectUserInfo).value).to.eql(select(selectUserInfo));
   });
 
   it('should dispatch user sagas call', () => {

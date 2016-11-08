@@ -1,10 +1,10 @@
 import { takeEvery } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 import * as Api from '../services/api';
-import { getUserInfo } from './selectors';
+import { selectUserInfo } from './selectors';
 
 export function* doGetOptions() {
-  const { user_info } = yield select(getUserInfo);
+  const { user_info } = yield select(selectUserInfo);
 
   const platform = user_info.platform;
   const username = user_info.username;
