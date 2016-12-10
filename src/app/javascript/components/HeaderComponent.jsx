@@ -4,11 +4,15 @@ import CharactersMiniContainer from '../containers/CharactersMiniContainer';
 import IconComponent from './IconComponent';
 
 class HeaderComponent extends React.Component {
+  handleLogOut(event) {
+    event.preventDefault();
+    this.props.resetApp();
+  }
   logoutButton() {
     return (
       <a
         href="#"
-        onClick={(event) => this.props.handleLogOut(event)}
+        onClick={(event) => this.handleLogOut(event)}
         className="menuComponentLogOut"
       >
         <IconComponent icon="exit" />
@@ -34,7 +38,7 @@ class HeaderComponent extends React.Component {
 }
 
 HeaderComponent.propTypes = {
-  handleLogOut: PropTypes.func.isRequired,
+  resetApp: PropTypes.func.isRequired,
 };
 
 export default HeaderComponent;

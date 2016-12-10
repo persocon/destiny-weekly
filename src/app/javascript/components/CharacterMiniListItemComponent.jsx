@@ -2,6 +2,13 @@ import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 class CharacterMiniListItemComponent extends React.Component {
+  handleClick(event) {
+    event.preventDefault();
+    const href = event.currentTarget.getAttribute('href');
+    this.props.setCharacterId(href);
+    this.props.getOptionsRequest();
+    this.props.setActivityRequest();
+  }
   backgroundImage() {
     const divStyle = {
       backgroundImage: `url(${this.props.character.backgroundPath})`,
@@ -33,7 +40,7 @@ class CharacterMiniListItemComponent extends React.Component {
         <li className={this.selected()} style={this.backgroundImage()}>
           <a
             href={this.props.character.character_id}
-            onClick={event => this.props.handleClick(event)}
+            onClick={event => this.handleClick(event)}
           >
             <div style={this.emblemImage()} className="characterListItemEmblem"></div>
           </a>
@@ -44,7 +51,9 @@ class CharacterMiniListItemComponent extends React.Component {
 }
 
 CharacterMiniListItemComponent.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  setCharacterId: PropTypes.func.isRequired,
+  getOptionsRequest: PropTypes.func.isRequired,
+  setActivityRequest: PropTypes.func.isRequired,
   character: PropTypes.object.isRequired,
   selected: PropTypes.bool,
 };

@@ -3,4 +3,6 @@ const changeApiUrl = (activity) => ({
   activity,
 });
 
-export { changeApiUrl };
+const getOptionsRequest = () => ({ type: 'GET_OPTIONS_REQUEST' });
+
+export { changeApiUrl, getOptionsRequest };

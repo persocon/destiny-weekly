@@ -2,6 +2,12 @@ import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 class CharacterListItemComponent extends React.Component {
+  handleClick(event) {
+    event.preventDefault();
+    const href = event.currentTarget.getAttribute('href');
+    this.props.setCharacterId(href);
+    this.props.setAppScreen('activity');
+  }
   backgroundImage() {
     const divStyle = {
       backgroundImage: `url(${this.props.character.backgroundPath})`,
@@ -41,7 +47,7 @@ class CharacterListItemComponent extends React.Component {
         <li className="characterListItem" style={this.backgroundImage()}>
           <a
             href={this.props.character.character_id}
-            onClick={this.props.handleClick}
+            onClick={(event) => this.handleClick(event)}
           >
             <div style={this.emblemImage()} className="characterListItemEmblem"></div>
             <div className="characterListItemText">
@@ -63,7 +69,8 @@ class CharacterListItemComponent extends React.Component {
 }
 
 CharacterListItemComponent.propTypes = {
-  handleClick: PropTypes.func.isRequired,
+  setCharacterId: PropTypes.func.isRequired,
+  setAppScreen: PropTypes.func.isRequired,
   character: PropTypes.object.isRequired,
 };
 

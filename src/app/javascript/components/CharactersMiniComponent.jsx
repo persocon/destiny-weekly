@@ -11,7 +11,9 @@ class CharactersMiniComponent extends React.Component {
         <CharacterMiniListItemComponent
           selected={selected}
           character={character}
-          handleClick={event => this.props.handleClickItem(event)}
+          setCharacterId={this.props.setCharacterId}
+          getOptionsRequest={this.props.getOptionsRequest}
+          setActivityRequest={this.props.setActivityRequest}
           key={index}
         />
       );
@@ -33,7 +35,9 @@ class CharactersMiniComponent extends React.Component {
   }
 }
 CharactersMiniComponent.propTypes = {
-  handleClickItem: PropTypes.func.isRequired,
+  setCharacterId: PropTypes.func.isRequired,
+  getOptionsRequest: PropTypes.func.isRequired,
+  setActivityRequest: PropTypes.func.isRequired,
   character_list: PropTypes.any,
   user_info: PropTypes.any,
 };
