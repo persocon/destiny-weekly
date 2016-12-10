@@ -2,16 +2,35 @@ import React, { PropTypes } from 'react';
 import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
 
 class LoginComponent extends React.Component {
+  onSubmit(event) {
+    event.preventDefault();
+    const username = event.target.getElementsByClassName('username')[0].value;
+    const platform = event.target.getElementsByClassName('platform')[0].value;
+    if (username) {
+      this.props.setUser(platform, username);
+      this.props.setAppScreen('character_list');
+    } else {
+      const input = event.target.getElementsByClassName('username')[0];
+      input.classList.add('noUserName');
+      input.focus();
+    }
+  }
+  onUsernameChange(event) {
+    const input = event.target;
+    if (input.classList.contains('noUserName') && input.value.length >= 1) {
+      input.classList.remove('noUserName');
+    }
+  }
   form() {
     return (
-      <form className="loginComponent top-bar" onSubmit={event => this.props.onSubmit(event)}>
+      <form className="loginComponent top-bar" onSubmit={event => this.onSubmit(event)}>
         <div className="loginComponentWrap">
           <input
             type="text"
             defaultValue=""
             placeholder="Username"
             className="loginComponentText username"
-            onKeyUp={(event) => this.props.onUsernameChange(event)}
+            onKeyUp={(event) => this.onUsernameChange(event)}
           />
         </div>
         <div className="selectActivityComponent">
@@ -44,8 +63,8 @@ class LoginComponent extends React.Component {
 }
 
 LoginComponent.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onUsernameChange: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
+  setAppScreen: PropTypes.func.isRequired,
 };
 
 export default LoginComponent;

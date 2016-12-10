@@ -1,10 +1,14 @@
 import React, { PropTypes } from 'react';
 
 class BackToLoginComponent extends React.Component {
+  reset(event) {
+    event.preventDefault();
+    this.props.resetApp();
+  }
   backToLoginButton() {
     return (
       <p>
-        <a href="#" onClick={this.props.resetApp}>
+        <a href="#" onClick={(event) => this.reset(event)}>
         Voltar para Login.
         </a>
       </p>

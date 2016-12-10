@@ -27,6 +27,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps, { setUser, setAppScreen })(Component);
 
 export default Container;
