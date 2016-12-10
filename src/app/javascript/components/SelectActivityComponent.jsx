@@ -3,7 +3,11 @@ import OptionComponent from './OptionComponent';
 
 class SelectActivityComponent extends React.Component {
   componentDidMount() {
-    this.props.onInit();
+    this.props.getOptionsRequest();
+  }
+  onSelectChange(activity) {
+    this.props.changeApiUrl(activity);
+    this.props.setActivityRequest();
   }
   showOptions() {
     const opts = this.props.options.map((option, index) => {
@@ -39,7 +43,7 @@ class SelectActivityComponent extends React.Component {
       <div className="selectActivityComponent">
         <div className="selectWrap">
           <select
-            onChange={event => this.props.onSelectChange(event.target.value)}
+            onChange={event => this.onSelectChange(event.target.value)}
             defaultValue={this.props.activity}
           >
             {this.showOptions()}
@@ -51,8 +55,9 @@ class SelectActivityComponent extends React.Component {
 }
 
 SelectActivityComponent.propTypes = {
-  onSelectChange: PropTypes.func.isRequired,
-  onInit: PropTypes.func.isRequired,
+  changeApiUrl: PropTypes.func.isRequired,
+  setActivityRequest: PropTypes.func.isRequired,
+  getOptionsRequest: PropTypes.func.isRequired,
   options: PropTypes.array,
   activity: PropTypes.string,
 };

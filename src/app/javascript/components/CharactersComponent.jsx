@@ -6,7 +6,7 @@ import BackToLoginContainer from '../containers/BackToLoginContainer';
 
 class CharactersComponent extends React.Component {
   componentWillMount() {
-    this.props.onInit();
+    this.props.setCharacterListRequest();
   }
   list() {
     if (this.props.character_list.length <= 0) {
@@ -37,7 +37,7 @@ class CharactersComponent extends React.Component {
 }
 
 CharactersComponent.propTypes = {
-  onInit: PropTypes.func.isRequired,
+  setCharacterListRequest: PropTypes.func.isRequired,
   character_list: PropTypes.any,
 };
 

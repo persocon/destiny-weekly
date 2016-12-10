@@ -9,16 +9,6 @@ const mapStateToProps = (state) => ({
   user_info: state.user.user_info,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   handleClickItem: (event) => {
-//     event.preventDefault();
-//     const href = event.currentTarget.getAttribute('href');
-//     dispatch(setCharacterId(href));
-//     dispatch({ type: 'GET_OPTIONS_REQUEST' });
-//     dispatch({ type: 'SET_ACTIVITY_REQUEST' });
-//   },
-// });
-
 const Container = connect(mapStateToProps, {
   setCharacterId,
   getOptionsRequest,

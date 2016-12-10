@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { findActivity } from '../actions/activity';
-import { changeApiUrl } from '../actions/select';
+import { setActivityRequest } from '../actions/activity';
+import { changeApiUrl, getOptionsRequest } from '../actions/select';
 import Component from '../components/SelectActivityComponent';
 
 const mapStateToProps = (state) => ({
@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps, { getOptionsRequest, changeApiUrl, setActivityRequest })(Component);
 
 export default Container;

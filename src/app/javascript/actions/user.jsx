@@ -1,3 +1,4 @@
+const setCharacterListRequest = () => ({ type: 'SET_CHARACTER_LIST_REQUEST' });
 const setUser = (platform, username) => ({
   type: 'SET_USER',
   user_info: {
@@ -21,4 +22,4 @@ const getUser = (userInfo) => ({
 
 const getCharacterId = () => ({ type: 'GET_USER_CHARACTER' });
 
-export { setCharacterId, getCharacterId, setUser, getUser };
+export { setCharacterId, getCharacterId, setUser, getUser, setCharacterListRequest };
