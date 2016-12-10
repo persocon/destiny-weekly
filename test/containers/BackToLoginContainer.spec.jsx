@@ -14,7 +14,7 @@ describe('(Container) BackToLogin', () => {
   let handleBackToLogin;
   beforeEach(()=>{
     handleBackToLogin = sinon.spy();
-    props = {handleBackToLogin: handleBackToLogin};
+    props = {resetApp: handleBackToLogin};
     wrapper = shallow(<PureBackToLoginContainer {...props} />);
   })
 
@@ -25,7 +25,7 @@ describe('(Container) BackToLogin', () => {
 
   it('should expect to handleBackToLogin to be clickable', () => {
       expect(wrapper.find('a').length).to.eql(1);
-      wrapper.find('a').simulate('click');
+      wrapper.find('a').simulate('click', { preventDefault() {} });
       expect(handleBackToLogin.calledOnce).to.be.true;
   });
 

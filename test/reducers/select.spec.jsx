@@ -43,14 +43,4 @@ describe('(Reducer) Select', () => {
       })
     ).to.eql({ options });
   });
-
-  it('should reset options', () => {
-    const initialState = {
-    	activity: 'nightfall',
-    	options: [{title: 'Carregando...', activities:[]}]
-    }
-    expect(reducer({}, {
-      type: 'RESET_SELECT'
-    })).to.eql(initialState)
-  });
 });

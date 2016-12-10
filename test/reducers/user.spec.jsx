@@ -13,25 +13,6 @@ describe('(Reducer) User', () => {
     expect(reducer(undefined, {})).to.eql(expectedState);
   });
 
-  it('should reset the user info', () => {
-    const expectedState = {
-      character_list: [],
-      user_info: {
-        platform: '',
-        username: '',
-        character_id: ''
-      }
-    }
-    expect(reducer(
-      {
-        user: expectedState
-      },
-      {
-        type: 'RESET_USER'
-      },
-    {})).to.eql(expectedState);
-  });
-
   it('should set user info', () => {
     const expectedState = {
       platform: '1',

@@ -12,11 +12,17 @@ const mockStore = configureStore();
 describe('(Container) CharacterListItemContainer', () => {
   let wrapper;
   let props;
-  let handleClick;
+  let setCharacterId;
+  let setAppScreen;
 
   beforeEach(() => {
-    handleClick = sinon.spy();
-    props = {character: SingleCharacter, handleClick: handleClick};
+    setCharacterId = sinon.spy();
+    setAppScreen = sinon.spy();
+    props = {
+      character: SingleCharacter,
+      setCharacterId: setCharacterId,
+      setAppScreen: setAppScreen,
+    };
     wrapper = shallow(<PureCharacterListItemContainer {...props} />);
   })
 
@@ -24,9 +30,4 @@ describe('(Container) CharacterListItemContainer', () => {
     expect(wrapper.props().character).to.eql(SingleCharacter.character);
   });
 
-  it('should expect characterListItem handleClick', () => {
-    expect(wrapper.find('a').length).to.eql(1);
-    wrapper.find('a').simulate('click');
-    expect(handleClick.calledOnce).to.be.true;
-  });
 });

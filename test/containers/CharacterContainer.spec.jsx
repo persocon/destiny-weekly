@@ -38,13 +38,13 @@ describe('(Container) Characters', () => {
     expect(wrapper.props().character_list).to.eql(FullCharacterList.character_list);
   });
 
-  it('should expect characterContainer get onInit', () => {
+  it('should expect characterContainer get setCharacterListRequest', () => {
     const onInit = () => {
       return FullCharacterList;
     }
-    store = mockStore({user: FullCharacterList, onInit: onInit});
+    store = mockStore({user: FullCharacterList, setCharacterListRequest: onInit});
     wrapper = shallow(<CharactersContainer store={store} />);
-    expect(wrapper.props().onInit).to.be.a('function');
+    expect(wrapper.props().setCharacterListRequest).to.be.a('function');
   });
 
 });

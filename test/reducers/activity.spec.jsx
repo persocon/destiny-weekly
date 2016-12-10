@@ -47,30 +47,6 @@ describe('(Reducer) Activity', () => {
     );
   });
 
-  it('should reset activity', () => {
-    const initialState = {
-      identifier: 'nightfall',
-      title: 'loading',
-      name: '',
-      desc: '',
-      completed: '',
-      backgroundImg: '',
-      icon: '',
-      modifiers: [],
-      bosses: [],
-      items: [],
-      rewards: [],
-      bounties: [],
-      objectives: [],
-      progress: []
-    }
-    expect(reducer({}, {
-      type: 'RESET_ACTIVITY'
-    })).to.eql(
-      initialState
-    );
-  });
-
   it('should set activity', () => {
     const expectedState = {
         identifier: 'nightfall',

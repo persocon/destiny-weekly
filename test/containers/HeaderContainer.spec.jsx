@@ -12,21 +12,17 @@ describe('(Container) HeaderContainer', () => {
   let props;
   let wrapper;
   let handleLogOut;
+  let resetApp;
   beforeEach(()=>{
     handleLogOut = sinon.spy();
-    props = {handleLogOut: handleLogOut};
+    resetApp = sinon.spy();
+    props = {resetApp: resetApp};
     wrapper = shallow(<PureHeaderContainer {...props} />);
   })
 
   it('should expect .menuComponent to exist', () => {
     expect(wrapper.find('.menuComponent')).to.exist;
     expect(wrapper.find('.menuComponent').length).to.eql(1);
-  });
-
-  it('should expect to handleLogOut to be clickable', () => {
-      expect(wrapper.find('a').length).to.eql(1);
-      wrapper.find('a').simulate('click');
-      expect(handleLogOut.calledOnce).to.be.true;
   });
 
 });
