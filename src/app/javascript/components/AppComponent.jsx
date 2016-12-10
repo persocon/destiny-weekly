@@ -9,7 +9,7 @@ import HeaderContainer from '../containers/HeaderContainer.jsx';
 
 class AppComponent extends React.Component {
   componentWillMount() {
-    this.props.getInitialScreen();
+    this.props.getAppScreen();
   }
   activity() {
     return (
@@ -41,7 +41,7 @@ class AppComponent extends React.Component {
   }
 }
 AppComponent.propTypes = {
-  getInitialScreen: PropTypes.func.isRequired,
+  getAppScreen: PropTypes.func.isRequired,
   app: PropTypes.object.isRequired,
 };
 

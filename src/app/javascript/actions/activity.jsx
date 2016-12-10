@@ -1,2 +1,2 @@
-const resetActivity = () => ({ type: 'RESET_ACTIVITY' });
-export { resetActivity };
+const setActivityRequest = () => ({ type: 'SET_ACTIVITY_REQUEST' });
+export { setActivityRequest };

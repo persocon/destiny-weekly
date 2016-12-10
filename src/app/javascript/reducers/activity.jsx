@@ -27,10 +27,6 @@ const activity = (state = initialState, action) => {
       const loadingState = update(state, { $set: initialState });
       return loadingState;
     }
-    case 'RESET_ACTIVITY': {
-      const resetState = update(state, { $set: initialState });
-      return resetState;
-    }
     default: {
       return state;
     }

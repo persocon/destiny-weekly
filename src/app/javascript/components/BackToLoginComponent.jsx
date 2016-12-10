@@ -4,7 +4,7 @@ class BackToLoginComponent extends React.Component {
   backToLoginButton() {
     return (
       <p>
-        <a href="#" onClick={this.props.handleBackToLogin}>
+        <a href="#" onClick={this.props.resetApp}>
         Voltar para Login.
         </a>
       </p>
@@ -22,7 +22,7 @@ class BackToLoginComponent extends React.Component {
 }
 
 BackToLoginComponent.propTypes = {
-  handleBackToLogin: PropTypes.func.isRequired,
+  resetApp: PropTypes.func.isRequired,
 };
 
 export default BackToLoginComponent;

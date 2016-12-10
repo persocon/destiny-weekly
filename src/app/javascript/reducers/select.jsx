@@ -19,10 +19,6 @@ const select = (state = initialState, action) => {
       });
       return optState;
     }
-    case 'RESET_SELECT': {
-      const resetState = update(state, { $set: initialState });
-      return resetState;
-    }
     default: {
       return state;
     }

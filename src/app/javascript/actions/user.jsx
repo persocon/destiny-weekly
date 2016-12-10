@@ -1,5 +1,3 @@
-const resetUser = () => ({ type: 'RESET_USER' });
-
 const setUser = (platform, username) => ({
   type: 'SET_USER',
   user_info: {
@@ -23,4 +21,4 @@ const getUser = (userInfo) => ({
 
 const getCharacterId = () => ({ type: 'GET_USER_CHARACTER' });
 
-export { setCharacterId, getCharacterId, resetUser, setUser, getUser };
+export { setCharacterId, getCharacterId, setUser, getUser };
