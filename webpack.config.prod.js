@@ -6,7 +6,7 @@ var BUILD_DIR = path.resolve(__dirname, 'dist/public');
 var APP_DIR = path.resolve(__dirname, 'src/app');
 
 var config = {
-  entry: APP_DIR + '/javascript/index.jsx',
+  entry: ['babel-polyfill', APP_DIR + '/javascript/index.jsx'],
   resolve: {
     alias: {
         'sinon': 'sinon/pkg/sinon'

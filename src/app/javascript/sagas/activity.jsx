@@ -1,7 +1,7 @@
 import { takeEvery } from 'redux-saga';
 import { call, put, select } from 'redux-saga/effects';
 import * as Api from '../services/api';
-import { getUserInfo, selectActivity } from './selectors';
+import { selectActivity } from './selectors';
 
 
 export function* doGetActivity() {
