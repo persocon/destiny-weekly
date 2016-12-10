@@ -8,16 +8,10 @@ const mapStateToProps = (state) => ({
   options: state.select.options,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onSelectChange: (activity) => {
-    dispatch(changeApiUrl(activity));
-    dispatch({ type: 'SET_ACTIVITY_REQUEST' });
-  },
-  onInit: () => {
-    dispatch({ type: 'GET_OPTIONS_REQUEST' });
-  },
-});
-
-const Container = connect(mapStateToProps, { getOptionsRequest, changeApiUrl, setActivityRequest })(Component);
+const Container = connect(mapStateToProps, {
+  getOptionsRequest,
+  changeApiUrl,
+  setActivityRequest,
+})(Component);
 
 export default Container;
