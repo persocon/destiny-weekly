@@ -1,3 +1,9 @@
+export const selectActivityMock = {
+  username: 'tkrp1986',
+  platform: '2',
+  characterId: '2305843009345804418',
+  activity: 'nightfall',
+}
 export const getCharacterList = [
   {
     character_id: "2305843009359370836",

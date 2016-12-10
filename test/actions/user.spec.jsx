@@ -1,4 +1,4 @@
-import configureMockStore from 'redux-mock-store';
+import { userLoggedIn } from './mock';
 import * as actions from '../../src/app/javascript/actions/user.jsx';
 
 describe('(Actions) User', () => {
@@ -19,4 +19,31 @@ describe('(Actions) User', () => {
     }
     expect(actions.getCharacterId()).to.eql(expectedAction);
   });
+
+  it('should create an action to setCharacterListRequest', () => {
+    const expectedAction = {
+      type: 'SET_CHARACTER_LIST_REQUEST'
+    }
+    expect(actions.setCharacterListRequest()).to.eql(expectedAction);
+  });
+
+  it('should create an action to getUser', () => {
+    const expectedAction = {
+      type: 'GET_USER',
+  		user_info: userLoggedIn.user_info,
+    }
+    expect(actions.getUser(userLoggedIn.user_info)).to.eql(expectedAction);
+  });
+
+  it('should create an action to setUser', () => {
+    const expectedAction = {
+      type: 'SET_USER',
+  		user_info: {
+        platform: userLoggedIn.user_info.platform,
+        username: userLoggedIn.user_info.username,
+      },
+    }
+    expect(actions.setUser(userLoggedIn.user_info.platform, userLoggedIn.user_info.username)).to.eql(expectedAction);
+  });
+
 });
