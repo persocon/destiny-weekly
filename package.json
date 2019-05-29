@@ -29,7 +29,7 @@
     "yargs": "^4.7.0"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.4",
+    "babel-eslint": "^9.0.0",
     "babel-plugin-__coverage__": "^11.0.0",
     "babel-polyfill": "^6.8.0",
     "babel-register": "^6.8.0",
