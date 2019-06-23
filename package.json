@@ -64,7 +64,7 @@
     "sinon": "^1.17.4",
     "style-loader": "^0.23.1",
     "webpack-dev-server": "",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^3.0.0"
   },
   "peerDependencies": {
     "chai": "3.x",
